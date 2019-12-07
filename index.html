@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>java-knowledge-system</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"> -->
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+</head>
+<body>
+  <div id="app">加载中...</div>
+  <script>
+    window.$docsify = {
+      name: 'java-knowledge',
+      repo: 'https://github.com/itzhanglg',
+      loadSidebar: true,// 设置多文档侧边栏
+      subMaxLevel: 4,   // 设置章节目录显示
+      coverpage: true,  // 设置封面
+      loadNavbar: true, // 定义导航栏
+      onlyCover: false,  // 把封面作为首页
+      search: { // 添加搜索功能
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        noData: 'No Results!',// 搜索不到结果时显示
+        paths: 'auto',// 自动
+        placeholder: 'Type to search',// 搜索框提示
+        depth: 3, // 搜索标题的最大程级, 1 - 6
+      },
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+
+  <!-- 评论系统 -->
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script>
+    const gitalk = new Gitalk({
+      clientID: 'bd8935064f151b06c701',
+      clientSecret: '8165de68d49c5cd2b4bc4edb3127a66b7e0059bd',
+      repo: 'java-knowledge-system',
+      owner: 'itzhanglg',
+      admin: ['itzhanglg'],
+      distractionFreeMode: false,
+      title: location.hash.match(/#(.*?)([?]|$)/)[1],
+      id: location.hash.match(/#(.*?)([?]|$)/)[1],
+    });
+    // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
+    window.onhashchange = function(event){
+      if(event.newURL.split('?')[0] !== event.oldURL .split('?')[0]) {
+        location.reload()
+      }
+    };
+    // 由于docsify/lib/plugins/gitalk.min.js文件中已经有下面代码了，所以不需要在写一次了
+    // gitalk.render('gitalk-container')
+  </script>
+</body>
+</html>

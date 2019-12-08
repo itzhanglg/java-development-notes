@@ -63,6 +63,8 @@
 ## java基础
 
 ### 基础语法
+* **[java基础语法](docs/javaBase/grammar/java基础语法.md)**
+
 ### 数组
 ### 面向对象
 ### 异常处理

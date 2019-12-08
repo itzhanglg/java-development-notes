@@ -6,7 +6,7 @@
   * [异常处理]()
 * java高级
   * [多线程]()
-  * [常用类]()
+  * [常用类](docs/javaSenior/commonClass/java常用类知识)
   * [集合]()
   * [IO流]()
   * [网络]()

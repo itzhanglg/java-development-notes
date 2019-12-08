@@ -118,26 +118,23 @@
 #### 1.关键字和保留字
 
 1.  关键字(keyword)的定义和特点
-
     -   定义：被Java 语言赋予了特殊含义，用做专门用途的字符串
     -   特点：关键字中所有字母都为 小写
 
-    ​
+| 定义类型         | 关键字                                      |
+| ------------ | ---------------------------------------- |
+| 定义数据类型       | class interface enum byte short int long float double char boolean void |
+| 定义流程控制       | if else switch case default while do for break continue return |
+| 定义访问权限修饰符    | private protected public                 |
+| 定义类,函数,变量修饰符 | abstract final static synchronized       |
+| 定义类与类之间关系    | extends implements                       |
+| 定义建立实例及引用实例  | new this super instanceof                |
+| 异常处理         | try catch finally throw throws           |
+| 包            | package import                           |
+| 其他修饰符        | native strictfp transient volatile assert |
+| 定义数据类型值      | true false null                          |
 
-    | 定义类型         | 关键字                                      |
-    | ------------ | ---------------------------------------- |
-    | 定义数据类型       | class interface enum byte short int long float double char boolean void |
-    | 定义流程控制       | if else switch case default while do for break continue return |
-    | 定义访问权限修饰符    | private protected public                 |
-    | 定义类,函数,变量修饰符 | abstract final static synchronized       |
-    | 定义类与类之间关系    | extends implements                       |
-    | 定义建立实例及引用实例  | new this super instanceof                |
-    | 异常处理         | try catch finally throw throws           |
-    | 包            | package import                           |
-    | 其他修饰符        | native strictfp transient volatile assert |
-    | 定义数据类型值      | true false null                          |
-
-2.  保留字(reserved word)
+1.  保留字(reserved word)
 
     现有Java版本尚未使用，但以后版本可能会作为关键字使用
 

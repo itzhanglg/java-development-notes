@@ -13,7 +13,6 @@
 - [x] Java 高级(---正在进行中---)
 - [ ] javaEE 总结
 
-### 资源
 ### 描述
 
 <span style="font-size:20px;">**java-knowledge-system介绍**</span>

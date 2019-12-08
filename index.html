@@ -7,22 +7,27 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/prism.css">
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"> -->
   <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <link rel="stylesheet" href="iconfont.css">
 </head>
 <body>
   <div id="app">加载中...</div>
   <script>
     window.$docsify = {
       name: 'java-knowledge',
-      repo: 'https://github.com/itzhanglg',
-      loadSidebar: true,// 设置多文档侧边栏
+      repo: 'https://github.com/itzhanglg/java-knowledge-system',
+      maxLevel: 3,//最大支持渲染的标题层级
+      loadSidebar: true,// 设置多文档侧边栏,_sidebar.md
       subMaxLevel: 4,   // 设置章节目录显示
-      coverpage: true,  // 设置封面
-      loadNavbar: true, // 定义导航栏
+      coverpage: true,  // 设置封面,_coverpage.md
+      loadNavbar: true, // 定义导航栏,_navbar.md
       onlyCover: false,  // 把封面作为首页
+      auto2top: true, // 切换页面后是否自动跳转到页面顶部
+      // logo: '' ,
       search: { // 添加搜索功能
-        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        // maxAge: 86400000, // 过期时间，单位毫秒，默认一天
         noData: 'No Results!',// 搜索不到结果时显示
         paths: 'auto',// 自动
         placeholder: 'Type to search',// 搜索框提示
@@ -31,8 +36,14 @@
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <!-- Java代码高亮 -->
+  <script src="//unpkg.com/prismjs/components/prism-java.js"></script>
+  <!-- java代码复制按钮 -->
   <script src="//unpkg.com/docsify-copy-code"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+  <!--全文搜索,直接用官方提供的无法生效-->
+  <script src="https://cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
+  <!-- 在线引入icon图标 -->
+  <script src="//at.alicdn.com/t/font_1511651_4wb87qstrwc.js"></script>
 
   <!-- 评论系统 -->
   <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>

@@ -1,4 +1,4 @@
-![logo](_media/java.svg)
+![logo](media/icon/java.svg)
 ## java-knowledge-system
 > java知识体系全面介绍, 持续更新
 ## 勿浅尝辄止

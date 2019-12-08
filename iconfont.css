@@ -1,0 +1,8 @@
+.svgIcon {
+    /* width: 1em;
+    height: 1em; */
+    width: 90px; height: 90px;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}

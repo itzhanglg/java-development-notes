@@ -122,6 +122,8 @@
     -   定义：被Java 语言赋予了特殊含义，用做专门用途的字符串
     -   特点：关键字中所有字母都为 小写
 
+    ​
+
     | 定义类型         | 关键字                                      |
     | ------------ | ---------------------------------------- |
     | 定义数据类型       | class interface enum byte short int long float double char boolean void |

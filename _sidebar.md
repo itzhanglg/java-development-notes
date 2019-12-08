@@ -1,4 +1,4 @@
-* [目录]()
+* [说明]()
 * java基础
   * [基础语法](docs/javaBase/grammar/java基础语法)
   * [数组]()

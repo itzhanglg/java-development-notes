@@ -20,6 +20,7 @@
   * [maven]()
   * [shiro]()
   * [httpclient]()
+  * [activemq]()
 * 微服务
   * [springboot]()
   * [springcloud]()

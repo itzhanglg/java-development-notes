@@ -58,6 +58,7 @@
 
     **java源程序 --(java编译器编译)--> .class文件 --(JVM解释)--> 计算机语言**
     ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174309384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
 #### 3.java环境搭建
 
 1. 什么是JDK ，JRE
@@ -81,7 +82,7 @@
 
     -   **Java_HOME**:JDK的安装路径  (JAVA_HOME: JDK安装路径)
     -   **PATH**：使系统可以在任何路径下识别java命令  (PATH: %JAVA_HOME%\bin)
-      -   **CLASSPATH**：Java加载类的路径  (CLASSPATH: .;%JAVA_HOME%\lib)'.'表示当前路径
+    -   **CLASSPATH**：Java加载类的路径  (CLASSPATH: .;%JAVA_HOME%\lib)'.'表示当前路径
 
 4. 运行步骤：在cmd窗口中执行java程序时先用javac命令将java源文件编译成字节码（.class）文件`javac 源文件名.java`，再用java命令将字节码文件解释为能被计算机执行的语言`java 字节码文件  (不能加后缀名)`。文档注释（/** */）可以通过javadoc命令生成API文档`javadoc -d 文档存放目录 源文件名.java `。
 
@@ -184,22 +185,33 @@
 
        ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174838191.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
+       ​
+
 2. **数据类型**
+
   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174909540.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
    - **整数类型**：默认为int型，声明long需加'l'或'L'
+
      ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174940245.png)
 
+     ​
+
    - **浮点类型**：默认为double型，声明float型需要加'f'或'F';float可以精确到7位有效数字，double精度是float的两倍。
+
      ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174957210.png)
+
+     ​
+
    - **字符类型**：占2个字节。
 
    - **布尔类型**：只允许true和false，无null。不可以使用0或非0的整数替代false和true。
 
 3. **基本数据类型变量间转换**
 
-   - **自动类型转换：容量小的类型自动转换为容量大的数据类型**。
-     ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181137722.png)
+   - **自动类型转换：容量小的类型自动转换为容量大的数据类型**。![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181137722.png)
+
+     ​
 
      当和字符串进行连接运算时(+)时，
 
@@ -222,7 +234,10 @@
 运算符是一种特殊的符号，用以表示数据的运算、赋值和比较等。
 
 1. **算术运算符**
+
   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181337849.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+  ​
 
 2. **赋值运算符**
 
@@ -238,11 +253,15 @@
 
    比较运算符“==” 不能误写成“=”。
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181407858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+   ​
+
 4. **逻辑运算符**
 
    `& —逻辑与` `| —逻辑或` `！ —逻辑非`
    `&& —短路与` `|| —短路或` `^ —逻辑异或`
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181450478.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
    “&”和“&&”的区别：
 
    **单&时，左边无论真假，右边都进行运算；**
@@ -273,8 +292,14 @@
 
    位运算只对整数有效，遇到小数时，会将小数部分舍去，只保留整数部分。所以，将一个小数与`0`进行二进制或运算，等同于对该数去除小数部分，即取整数位。
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181616283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+   ​
+
    无 <<< 运算符
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181633493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+   ​
+
 6. **三元运算符**
 
    格式：`(条件表达式)？表达式1：表达式2`
@@ -285,6 +310,7 @@
 
    只有单目运算符、三元运算符、赋值运算符是从右向左运算的。
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181700982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
 ### 三.流程控制
 
 流程控制语句是用来控制程序中各语句执行顺序的语句，可以把语句组合成能完成一定功能的小逻辑模块。

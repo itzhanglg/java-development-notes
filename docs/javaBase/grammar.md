@@ -195,13 +195,9 @@
 
      ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174940245.png)
 
-     ​
-
    - **浮点类型**：默认为double型，声明float型需要加'f'或'F';float可以精确到7位有效数字，double精度是float的两倍。
 
      ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209174957210.png)
-
-     ​
 
    - **字符类型**：占2个字节。
 
@@ -210,8 +206,6 @@
 3. **基本数据类型变量间转换**
 
    - **自动类型转换：容量小的类型自动转换为容量大的数据类型**。![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181137722.png)
-
-     ​
 
      当和字符串进行连接运算时(+)时，
 
@@ -237,8 +231,6 @@
 
   ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181337849.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
-  ​
-
 2. **赋值运算符**
 
    符号：=
@@ -253,8 +245,6 @@
 
    比较运算符“==” 不能误写成“=”。
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181407858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
-
-   ​
 
 4. **逻辑运算符**
 
@@ -293,12 +283,8 @@
    位运算只对整数有效，遇到小数时，会将小数部分舍去，只保留整数部分。所以，将一个小数与`0`进行二进制或运算，等同于对该数去除小数部分，即取整数位。
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181616283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
-   ​
-
    无 <<< 运算符
    ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209181633493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
-
-   ​
 
 6. **三元运算符**
 

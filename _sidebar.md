@@ -1,12 +1,12 @@
 * [说明]()
 * java基础
   * [基础语法](docs/javaBase/grammar)
-  * [数组]()
+  * [数组](docs/javaBase/array)
   * [面向对象]()
   * [异常处理]()
 * java高级
   * [多线程]()
-  * [常用类](docs/javaSenior/commonClass/java常用类知识)
+  * [常用类]()
   * [集合]()
   * [IO流]()
   * [网络]()

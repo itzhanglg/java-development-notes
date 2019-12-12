@@ -127,7 +127,8 @@
 | 异常处理         | try catch finally throw throws           |
 | 包            | package import                           |
 | 其他修饰符        | native strictfp transient volatile assert |
-| 定义数据类型值      | true false null                          |
+
+用于定义数据类型值的字面值：true、false、null，不是关键字。
 
 - 保留字(reserved word)
 

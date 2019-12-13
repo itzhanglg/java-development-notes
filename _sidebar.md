@@ -3,7 +3,7 @@
   * [基础语法](docs/javaBase/grammar)
   * [数组](docs/javaBase/array)
   * [面向对象](docs/javaBase/object)
-  * [异常处理]()
+  * [异常处理](docs/javaBase/exception)
 * java高级
   * [多线程]()
   * [常用类]()

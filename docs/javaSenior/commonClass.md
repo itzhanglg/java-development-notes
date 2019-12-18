@@ -105,6 +105,7 @@ String的实例化方式：
 	System.out.println(s3 == s10);//true
 ```
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191204163431407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
 **面试题：**
 
 ```java
@@ -245,7 +246,7 @@ e.切片：
 ```
 
 #### 1.5 string类与其他结构之间的转换
-a.String 与基本数据类型、包装类之间的转换
+**a.String 与基本数据类型、包装类之间的转换**
 - String --> 基本数据类型、包装类：调用`包装类的静态方法`：parseXxx(str)
 - 基本数据类型、包装类 --> String:调用String重载的`valueOf(xxx)`
 
@@ -260,7 +261,7 @@ a.String 与基本数据类型、包装类之间的转换
     System.out.println(str1 == str3);	// false
 ```
 
-b.String 与 char[]之间的转换
+**b.String 与 char[]之间的转换**
 - String --> char[] : 调用String的`toCharArray()`
 - char[] --> String : 调用String的`构造器`
 
@@ -276,7 +277,7 @@ b.String 与 char[]之间的转换
 	System.out.println(str2);
 ```
 
-c.String 与 byte[]之间的转换
+**c.String 与 byte[]之间的转换**
 - **编码**：String --> byte[] : 调用String的`getBytes()`
   编码：字符串 -->字节数组  (看得懂 --->看不懂的二进制数据)
 - **解码**：byte[] --> String : 调用String的`构造器`
@@ -304,9 +305,9 @@ c.String 与 byte[]之间的转换
 
 #### 2.1 概念
 
-StringBuffer与StringBuilder都是可变的字符序列，都可以对字符串内容进行增删，不会产生新的对象。两者非常相似，很多方法与String相同。
+StringBuffer与StringBuilder都是**可变的字符序列**，都可以对字符串内容进行增删，**不会产生新的对象**。两者非常相似，很多方法与String相同。
 
-下面是StringBuffer、StringBuilder及AbstractStringBuilder的部分源码：
+下面是**StringBuffer、StringBuilder及AbstractStringBuilder的部分源码**：
 
 ```java
 // StringBuffer 
@@ -424,24 +425,24 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 
 **构造器：**
 
-| 构造器                   | 描述                         |
-| ------------------------ | ---------------------------- |
-| StringBuffer()           | 初始容量为16 的字符串缓冲区  |
+| 构造器                      | 描述              |
+| ------------------------ | --------------- |
+| StringBuffer()           | 初始容量为16 的字符串缓冲区 |
 | StringBuffer(int size)   | 构造指定容量的字符串缓冲区   |
-| StringBuffer(String str) | 将内容初始化为指定字符串内容 |
+| StringBuffer(String str) | 将内容初始化为指定字符串内容  |
 
 **常用方法：**
 
-| 方法                                                 | 描述                           |
-| ---------------------------------------------------- | ------------------------------ |
-| StringBuffer append(xxx)                             | 增                             |
-| StringBuffer delete(int start,int end)               | 删                             |
-| public void setCharAt(int n ,char ch)                | 改                             |
+| 方法                                       | 描述                     |
+| ---------------------------------------- | ---------------------- |
+| StringBuffer append(xxx)                 | 增                      |
+| StringBuffer delete(int start,int end)   | 删                      |
+| public void setCharAt(int n ,char ch)    | 改                      |
 | StringBuffer replace(int start, int end, String str) | 改：把[start,end)位置替换为str |
-| public char charAt(int n )                           | 查                             |
-| StringBuffer insert(int offset, xxx)                 | 插                             |
-| public int length()                                  | 长度                           |
-| for() + charAt() / toString()                        | 遍历                           |
+| public char charAt(int n )               | 查                      |
+| StringBuffer insert(int offset, xxx)     | 插                      |
+| public int length()                      | 长度                     |
+| for() + charAt() / toString()            | 遍历                     |
 
 注意：
 
@@ -467,7 +468,7 @@ System.out.println(sb1);//java.lang.NullPointerException
 异同点：
 1. String是不可变的字符序列(char[] 是final修饰的)，每次对String对象改变，都会返回一个新的String对象；StringBuffer、StringBuilder是可变的字符序列(char[]没有final修饰)，不会产生新的对象；
 2. StringBuffer是线程安全的，效率低；StringBuilder是线程不安全的，效率高；StringBuilder > StringBuffer > String。
-3. StringBuffer和StringBuilder扩容都是value长度的2倍+2。
+3. StringBuffer和StringBuilder扩容都是(count+len)长度的2倍+2。
 
 </div>
 
@@ -494,17 +495,17 @@ java.util.Date类表示特定的瞬间，精确到毫秒。子类java.sql.Date�
 
 **构造器：**
 
-| 构造器          | 描述                           |
-| --------------- | ------------------------------ |
+| 构造器             | 描述                |
+| --------------- | ----------------- |
 | Date()          | 创建一个对应当前时间的Date对象 |
-| Date(long date) | 创建指定毫秒数的Date对象       |
+| Date(long date) | 创建指定毫秒数的Date对象    |
 
 **常用方法：**
 
-| 方法       | 描述                                                         |
-| ---------- | ------------------------------------------------------------ |
+| 方法         | 描述                                       |
+| ---------- | ---------------------------------------- |
 | toString() | 把此 Date 对象转换为以下形式的 String： dow mon dd hhmmss zzz yyyy |
-| getTime()  | 获取当前Date对象对应的毫秒数。（时间戳）                     |
+| getTime()  | 获取当前Date对象对应的毫秒数。（时间戳）                   |
 
 示例：
 
@@ -554,10 +555,10 @@ SimpleDateFormat类对日期Date类的格式化和解析：
 
 相关构造器及方法：
 
-| 方法                                    | 描述                                              |
-| --------------------------------------- | ------------------------------------------------- |
+| 方法                                      | 描述                           |
+| --------------------------------------- | ---------------------------- |
 | public SimpleDateFormat(String pattern) | 该构造方法可以用参数pattern指定的格式创建一个对象 |
-| public String format(Date date)         | 格式化时间对象date                                |
+| public String format(Date date)         | 格式化时间对象date                  |
 | public Date parse(String source)        | 从给定字符串的开始解析文本，以生成一个日期        |
 
 示例：
@@ -584,14 +585,14 @@ System.out.println(date2);
 
 **int field**：静态属性(YEAR、MONTH、DAY_OF_WEEK、HOUR_OF_DAY 、MINUTE、SECOND)等
 
-| 方法                                      | 描述                   |
-| ----------------------------------------- | ---------------------- |
-| **Calendar.getInstance()**                | 获取Calendar实例       |
-| public int **get(int field)**             | 获取指定部位的时间信息 |
-| public void **set(int field,int value)**  | 设置指定部位的时间信息 |
-| public void **add(int field,int amount)** | 修改指定部位的时间信息 |
-| public final Date **getTime()**           | 日历类---> Date        |
-| public final void **setTime(Date date)**  | Date ---> 日历类       |
+| 方法                                       | 描述            |
+| ---------------------------------------- | ------------- |
+| **Calendar.getInstance()**               | 获取Calendar实例  |
+| public int **get(int field)**            | 获取指定部位的时间信息   |
+| public void **set(int field,int value)** | 设置指定部位的时间信息   |
+| public void **add(int field,int amount)** | 修改指定部位的时间信息   |
+| public final Date **getTime()**          | 日历类---> Date  |
+| public final void **setTime(Date date)** | Date ---> 日历类 |
 
 **注意：**
 
@@ -648,13 +649,13 @@ Java 8 吸收了 Joda-Time 的精华，以一个新的开始为 Java 创建优�
 
 **API：**
 
-| 包                 | 描述                       |
-| ------------------ | -------------------------- |
-| java.time          | 包含值对象的基础包         |
+| 包                  | 描述            |
+| ------------------ | ------------- |
+| java.time          | 包含值对象的基础包     |
 | java.time.chrono   | 提供对不同的日历系统的访问 |
-| java.time.format   | 格式化和解析时间和日期     |
-| java.time.temporal | 包括底层框架和扩展特性     |
-| java.time.zone     | 包含时区支持的类           |
+| java.time.format   | 格式化和解析时间和日期   |
+| java.time.temporal | 包括底层框架和扩展特性   |
+| java.time.zone     | 包含时区支持的类      |
 
 #### 2.1 LocalDate、LocalTime、LocalDateTime
 
@@ -662,18 +663,18 @@ Java 8 吸收了 Joda-Time 的精华，以一个新的开始为 Java 创建优�
 
 LocalDateTime使用频率偏高，**用法类似于Calendar**。
 
-| 方法                                                         | 描述                                                         |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| now()                                                        | 静态方法，根据当前时间创建对象                               |
-| of()                                                         | 静态方法，根据指定日期/时间创建对象                          |
-| getDayOfMonth() / getDayOfYear()                             | 获得月份天数(1-31) /获得年份天数(1-366)                      |
-| getDayOfWeek()                                               | 获得星期几(返回一个 DayOfWeek 枚举值)                        |
-| getMonth()                                                   | 获得月份, 返回一个 Month 枚举值                              |
-| getMonthValue() / getYear()                                  | 获得月份(1-12) /获得年份                                     |
-| getHour() / getMinute() / getSecond()                        | 获得当前对象对应的小时、分钟、秒                             |
+| 方法                                       | 描述                             |
+| ---------------------------------------- | ------------------------------ |
+| now()                                    | 静态方法，根据当前时间创建对象                |
+| of()                                     | 静态方法，根据指定日期/时间创建对象             |
+| getDayOfMonth() / getDayOfYear()         | 获得月份天数(1-31) /获得年份天数(1-366)    |
+| getDayOfWeek()                           | 获得星期几(返回一个 DayOfWeek 枚举值)      |
+| getMonth()                               | 获得月份, 返回一个 Month 枚举值           |
+| getMonthValue() / getYear()              | 获得月份(1-12) /获得年份               |
+| getHour() / getMinute() / getSecond()    | 获得当前对象对应的小时、分钟、秒               |
 | withDayOfMonth() / withDayOfYear() / withMonth() / withYear() | 将月份天数、年份天数、月份、年份修改为指定的值并返回新的对象 |
-| plusDays() / plusWeeks() / plusMonths() / plusYears() / plusHours() | 向当前对象添加几天、几周、几个月、几年、几小时               |
-| minusMonths() / minusWeeks() / minusDays() / minusYears() / minusHours() | 从当前对象减去几月、几周、几天、几年、几小时                 |
+| plusDays() / plusWeeks() / plusMonths() / plusYears() / plusHours() | 向当前对象添加几天、几周、几个月、几年、几小时        |
+| minusMonths() / minusWeeks() / minusDays() / minusYears() / minusHours() | 从当前对象减去几月、几周、几天、几年、几小时         |
 
 示例：
 
@@ -724,12 +725,12 @@ Instant：**时间线上的一个瞬时点，不需要任何上下文信息**。
 
 1秒 = 1000毫秒 =10^6 微妙=10^9纳秒
 
-| 方法                          | 描述                                                         |
-| ----------------------------- | ------------------------------------------------------------ |
-| now()                         | 静态方法，返回默认UTC时区的Instant类的对象                   |
+| 方法                            | 描述                                       |
+| ----------------------------- | ---------------------------------------- |
+| now()                         | 静态方法，返回默认UTC时区的Instant类的对象               |
 | ofEpochMilli(long epochMilli) | 静态方法，返回在1970-01-01 00 00 00基础上加上指定毫秒数之后的Instant类的对象 |
-| atOffset(ZoneOffset offset)   | 结合即时的偏移来创建一个 OffsetDateTime                      |
-| toEpochMilli()                | 返回1970-01-01 00 00 00到当前时间的毫秒数，即为时间戳        |
+| atOffset(ZoneOffset offset)   | 结合即时的偏移来创建一个 OffsetDateTime              |
+| toEpochMilli()                | 返回1970-01-01 00 00 00到当前时间的毫秒数，即为时间戳     |
 
 **时间戳是指格林威治时间1970 年01 月01 日00 时00 分00 秒( 北京时间1970 年01 月01**
 **日08 时00 分00 秒) 起至现在的总秒数(东八区)**。
@@ -778,11 +779,11 @@ java.time.format.DateTimeFormatter类：格式化与解析日期或时间类。*
 
 - **自定义的格式(常用)**。如：ofPattern(“yyyy-MM-dd hh mm ss”)
 
-| 方法                       | 描述                                                |
-| -------------------------- | --------------------------------------------------- |
+| 方法                         | 描述                                 |
+| -------------------------- | ---------------------------------- |
 | ofPattern(String pattern)  | 静态方法，返回一个指定字符串格式的DateTimeFormatter |
-| format(TemporalAccessor t) | 格式化一个日期、时间，返回字符串                    |
-| parse(CharSequence text)   | 将指定格式的字符序列解析为一个日期、时间            |
+| format(TemporalAccessor t) | 格式化一个日期、时间，返回字符串                   |
+| parse(CharSequence text)   | 将指定格式的字符序列解析为一个日期、时间               |
 
 示例：
 
@@ -976,49 +977,49 @@ System类代表系统，系统级的很多属性和控制方法都放置在该�
 
 成员变量：
 
-| 成员变量 | 描述                   |
-| -------- | ---------------------- |
-| in       | 标准输入流(键盘输入)   |
-| out      | 标准输出流(显示器)     |
-| err      | 标准错误输出流(显示器) |
+| 成员变量 | 描述           |
+| ---- | ------------ |
+| in   | 标准输入流(键盘输入)  |
+| out  | 标准输出流(显示器)   |
+| err  | 标准错误输出流(显示器) |
 
 成员方法：
 
-| 成员方法                        | 描述                                              |
-| ------------------------------- | ------------------------------------------------- |
-| native long currentTimeMillis() | 返回当前的计算机时间(1970-01-01 00-00-00)         |
-| void exit(int status)           | 退出程序。其中status的值为0代表正常退出，非零代表 |
+| 成员方法                            | 描述                              |
+| ------------------------------- | ------------------------------- |
+| native long currentTimeMillis() | 返回当前的计算机时间(1970-01-01 00-00-00) |
+| void exit(int status)           | 退出程序。其中status的值为0代表正常退出，非零代表    |
 | void gc()                       | 请求系统进行垃圾回收(不一定是立刻回收)            |
-| String getProperty(String key)  | 获得系统中属性名为key的属性对应的值               |
+| String getProperty(String key)  | 获得系统中属性名为key的属性对应的值             |
 
 系统中常见的属性名以及属性的作用：
 
-| 属性名       | 属性说明           |
-| ------------ | ------------------ |
+| 属性名          | 属性说明        |
+| ------------ | ----------- |
 | java.version | java运行时环境版本 |
-| java.home    | java安装目录       |
+| java.home    | java安装目录    |
 | os.name      | 操作系统的名称     |
 | os.version   | 操作系统的版本     |
 | user.name    | 用户的账户名称     |
-| user.home    | 用户的主目录       |
-| user.dir     | 用户的当前工作目录 |
+| user.home    | 用户的主目录      |
+| user.dir     | 用户的当前工作目录   |
 
 ## 五.Math类
 
 java.lang.Math 提供了一系列静态方法用于科学计算。其方法的参数和返回值类型一般为double 型。
 
-| 方法                                              | 描述                                 |
-| ------------------------------------------------- | ------------------------------------ |
-| abs                                               | 绝对值                               |
-| sqrt                                              | 平方根                               |
-| pow(double a, double b)                           | a的b次幂                             |
-| log                                               | 自然对象                             |
-| exp                                               | e为底指数                            |
-| max(double a, double b) / min(double a, double b) | a和b的最大值/最小值                  |
-| random()                                          | 返回[0.0, 1.0)的随机数               |
-| long round(double a)                              | double 型数据a转换为long型(四舍五入) |
-| toDegrees(double angrad)                          | 弧度—> 角度                          |
-| toRadians(double angdeg)                          | 角度—> 弧度                          |
+| 方法                                       | 描述                        |
+| ---------------------------------------- | ------------------------- |
+| abs                                      | 绝对值                       |
+| sqrt                                     | 平方根                       |
+| pow(double a, double b)                  | a的b次幂                     |
+| log                                      | 自然对象                      |
+| exp                                      | e为底指数                     |
+| max(double a, double b) / min(double a, double b) | a和b的最大值/最小值               |
+| random()                                 | 返回[0.0, 1.0)的随机数          |
+| long round(double a)                     | double 型数据a转换为long型(四舍五入) |
+| toDegrees(double angrad)                 | 弧度—> 角度                   |
+| toRadians(double angdeg)                 | 角度—> 弧度                   |
 
 ## 六.BigInteger与BigDecimal
 
@@ -1032,13 +1033,13 @@ java.lang.Math 提供了一系列静态方法用于科学计算。其方法的�
 
 常用方法：
 
-| 方法                                            | 描述                                                         |
-| ----------------------------------------------- | ------------------------------------------------------------ |
-| BigInteger add(BigInteger val)                  | 返回其值为 (this + val) 的 BigInteger                        |
-| BigInteger subtract(BigInteger val)             | 返回其值为 (this - val) 的 BigInteger                        |
-| BigInteger multiply(BigInteger val)             | 返回其值为 (this * val) 的 BigInteger                        |
-| BigInteger divide(BigInteger val)               | 返回其值为 (this / val) 的 BigInteger。整数相除只保留整数部分 |
-| BigInteger remainder(BigInteger val)            | 返回其值为 (this % val) 的 BigInteger                        |
+| 方法                                       | 描述                                       |
+| ---------------------------------------- | ---------------------------------------- |
+| BigInteger add(BigInteger val)           | 返回其值为 (this + val) 的 BigInteger          |
+| BigInteger subtract(BigInteger val)      | 返回其值为 (this - val) 的 BigInteger          |
+| BigInteger multiply(BigInteger val)      | 返回其值为 (this * val) 的 BigInteger          |
+| BigInteger divide(BigInteger val)        | 返回其值为 (this / val) 的 BigInteger。整数相除只保留整数部分 |
+| BigInteger remainder(BigInteger val)     | 返回其值为 (this % val) 的 BigInteger          |
 | BigInteger[] divideAndRemainder(BigInteger val) | 返回包含 (this / val) 后跟(this % val) 的两个 BigInteger 的数组 |
 
 ### 2.BigDecimal类
@@ -1054,15 +1055,15 @@ java.lang.Math 提供了一系列静态方法用于科学计算。其方法的�
 
 **常用方法：**
 
-| 方法                                                         | 描述             |
-| ------------------------------------------------------------ | ---------------- |
-| public BigDecimal add(BigDecimal augend)                     | 加               |
-| public BigDecimal subtract(BigDecimal subtrahend)            | 减               |
-| public BigDecimal multiply(BigDecimal multiplicand)          | 乘               |
-| public BigDecimal divide(BigDecimal divisor, int scale, int roundingMode) | 除               |
-| public String toString()                                     | 数值转换成字符串 |
-| public double doubleValue()                                  | 以双精度数返回   |
-| public BigDecimal setScale(int newScale, int roundingMode)   | 格式化小数点     |
+| 方法                                       | 描述       |
+| ---------------------------------------- | -------- |
+| public BigDecimal add(BigDecimal augend) | 加        |
+| public BigDecimal subtract(BigDecimal subtrahend) | 减        |
+| public BigDecimal multiply(BigDecimal multiplicand) | 乘        |
+| public BigDecimal divide(BigDecimal divisor, int scale, int roundingMode) | 除        |
+| public String toString()                 | 数值转换成字符串 |
+| public double doubleValue()              | 以双精度数返回  |
+| public BigDecimal setScale(int newScale, int roundingMode) | 格式化小数点   |
 
 **注意**：
 

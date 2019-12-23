@@ -1,4 +1,4 @@
-﻿## 一.Java集合框架概述
+﻿##  一.Java集合框架概述
 
 集合、数组都是对多个数据进行存储操作的结构，简称Java容器。此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt, .jpg, .avi，数据库中）。Java 集合就像一种容器，可以动态地把多个对象的引用放入容器中。
 
@@ -316,8 +316,7 @@ private void updateList(List list) {
 **双向链表**，**内部没有声明数组**，而是**定义了Node类型的first和last，用于记录首末元素。定义内部类Node，作为LinkedList中保存数据的基本结构。**
 
 Node除了保存数据，还定义了两个变量：**prev变量记录前一个元素的位置; next变量记录下一个元素的位置.**
-
-![](../../media/pictures/003.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192515458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 ```java
 	// 双向链表
@@ -340,11 +339,11 @@ Node除了保存数据，还定义了两个变量：**prev变量记录前一个�
 新增方法:
 
 -    `void addFirst(Object obj)` 
--   ` void addLast(Object obj)` 
--   `Object getFirst()` 
--   `Object getLast()` 
--   `Object removeFirst()` 
--   `Object removeLast()` 
+-    ` void addLast(Object obj)` 
+-    `Object getFirst()` 
+-    `Object getLast()` 
+-    `Object removeFirst()` 
+-    `Object removeLast()` 
 
 更多内容详看 : 源码学习 -- > LinkedList
 
@@ -371,7 +370,300 @@ Vector 是一个古老的集合，JDK1.0就有了。大多数操作与ArrayList�
 
 ## 五.Set接口
 
+Set接口是Collection的子接口，set接口没有提供额外的方法，使用的都是Collection中声明过的方法。存储**无序的、不可重复**的数据，类似于高中数学中的"集合"。
 
+以HashSet为例：
+
+- **无序性**：不等于随机性。存储的数据在底层数组中并非按照数组索引的顺序添加，而是根据数据的哈希值决定的
+- **不可重复性**：保证添加的元素按照equals()判断时，不能返回true.即：相同的元素只能添加一个
+
+向Set(主要指：HashSet、LinkedHashSet)中添加的数据，其所在的类一定要**重写hashCode()和equals()**，重写的hashCode()和equals()尽可能保持一致性：**相等的对象必须具有相等的散列码**。 Set 判断两个对象是否相同不是使用 == 运算符，而是根据 **equals() 方法**。
+
+HashSet和TreeSet是Set接口的实现类，LinkedHashSet是HashSet的子类。
+
+- HashSet：作为Set接口的**主要实现类；线程不安全的；可以存储null值**
+- LinkedHashSet：作为HashSet的子类；遍历其内部数据时，可以**按照添加的顺序遍历**；对于频繁的**遍历操作**，LinkedHashSet效率高于HashSet
+- TreeSet：可以按照添加**对象的指定属性，进行排序**
+
+### 1.HashSet
+
+#### 1.1 概述
+
+HashSet 是 Set接口的主要实现，**HashSet 按Hash算法来存储集合中的元素**，因此具有很好的存取、查找、删除性能。底层是 **数组+链表结构**。数组**初始容量为16**，当如果使用率超过0.75，（16 * 0.75=12）就会扩大容量为**原来的2倍**。（16扩容为32，依次为64,128....等）。
+
+特点：不能保证元素的排列顺序、不是线程安全的、集合元素可以是null。
+
+判断两个元素相等的标准：两个对象通过 **hashCode() 方法比较相等**，并且两个对象的 **equals() 方法**返回值也相等。
+
+对于**存放在Set容器中的对象**， 对应的**类一定要重写equals() 和hashCode(Object obj) 方法，以实现对象相等规则** 。即： “**相等的对象必须具有相等的散列码**” 。
+
+#### 1.2 添加元素过程
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2019122319263649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+**向HashSet中添加元素的过程(重要)：**<div style="color:red;">
+
+首先调用元素a所在类的hashCode()方法，计算元素a的哈希值，此哈希值接着通过某种算法计算出在HashSet**底层数组中的存放位置**（即为：索引位置），判断**数组此位置**上是否已经有元素：
+
+- 如果此位置上没有其他元素，则元素a添加成功；
+- 如果此位置上有其他元素b(或以链表形式存在的多个元素），则比较元素a与元素b的**hash值**：
+  - 如果hash值不相同，则元素a添加成功；
+  - 如果hash值相同，进而需要调用元素a所在类的**equals()方法**：
+    - equals()返回true,元素a添加失败；
+    - equals()返回false,则元素a添加成功。</div>
+
+元素a 与已经存在指定索引位置上数据以**链表的方式存储**。可以用"七上八下"来形容。
+
+- JDK7：元素a放到数组中，指向原来的元素
+- JDK8：原来的元素在数组中，指向元素a
+
+如果两个元素的 equals() 方法返回 true，但它们的 hashCode() 返回值不相等，hashSet 将会把它们存储在不同的位置，但依然可以添加成功。
+
+示例：
+
+```java
+//其中Person 类中重写了hashCode() 和equal() 方法
+HashSet set = new HashSet();
+Person p1 = new Person(1001,"AA");
+Person p2 = new Person(1002,"BB");
+
+set.add(p1);
+set.add(p2);
+// [Person{id=1002, name='BB'}, Person{id=1001, name='AA'}]
+System.out.println(set);
+
+p1.name = "CC";
+set.remove(p1);	// 由于p1的name变化导致hash值变化了，去查找对应的存储位置是null的
+// [Person{id=1002, name='BB'}, Person{id=1001, name='CC'}]
+System.out.println(set);    
+
+set.add(new Person(1001,"CC"));	// p1原先的hash值是由"AA"算出来的
+// [Person{id=1002, name='BB'}, Person{id=1001, name='CC'}, 
+// Person{id=1001, name='CC'}]
+System.out.println(set);
+
+set.add(new Person(1001,"AA")); // hash值与p1相同，但equals时是false的
+// [Person{id=1002, name='BB'}, Person{id=1001, name='CC'}, 
+// Person{id=1001, name='CC'}, Person{id=1001, name='AA'}]
+System.out.println(set);
+```
+
+图示：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192656235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+#### 1.3 重写方法原则
+
+一般用idea自动生成的重写方法hashCode和equals方法就可以了，复写的hashCode方法有31这个数字。
+
+重写hashCode方法：
+
+- 同一个对象多次调用 hashCode() 方法应该返回相同的值
+- 当两个对象的 equals() 方法比较返回 true 时，这两个对象的 hashCode()方法的返回值也应相等
+- 对象中用作 equals() 方法比较的 Field，都应该用来计算 hashCode 值
+
+重写equals方法：
+
+- 当改写equals方法时，总要改写hashCode方法；
+- 相等的对象必须具有相等的散列码
+- 参与计算hashCode 的对象的属性也应该参与到equals() 中进行计算
+
+#### 1.4 示例
+
+```java
+Set set = new HashSet();
+set.add(456);
+set.add(123);
+set.add(123);
+set.add("AA");
+set.add("CC");
+set.add(new User("Tom",12));
+set.add(new User("Tom",12));
+set.add(129);
+
+// 若不重写hashCode方法，则用父类Object的hashCode方法，hash值是随机生成的
+// 先判断hash值，hash值不同，两个user对象都会添加到集合中
+Iterator iterator = set.iterator();
+while(iterator.hasNext()){
+    // AA	CC	129	456	123	User{name='Tom', age=12}
+    System.out.print(iterator.next()+"\t");
+}
+```
+
+Person类：
+
+```java
+public class User implements Comparable{
+    private String name;
+    private int age;
+
+    public User() {
+    }
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        System.out.println("User equals()....");
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (age != user.age) return false;
+        return name != null ? name.equals(user.name) : user.name == null;
+    }
+    @Override
+    public int hashCode() { //return name.hashCode() + age;
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + age;
+        return result;
+    }
+
+    //按照姓名从大到小排列,年龄从小到大排列
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof User){
+            User user = (User)o;
+//            return -this.name.compareTo(user.name);
+            int compare = -this.name.compareTo(user.name);
+            if(compare != 0){
+                return compare;
+            }else{
+                return Integer.compare(this.age,user.age);
+            }
+        }else{
+            throw new RuntimeException("输入的类型不匹配");
+        }
+
+    }
+}
+```
+
+使用HashSet去除List重复数字值：
+
+```java
+public List duplicateList(List list) {
+    HashSet set = new HashSet();
+    set.addAll(list);
+    return new ArrayList(set);
+}
+```
+
+### 2.LinkedHashSet
+
+LinkedHashSet 是 HashSet 的子类。根据**元素的 hashCode 值来决定元素的存储位置**，在添加数据的同时，每个数据还维护了**两个引用，记录此数据前一个数据和后一个数据**。对于**频繁的遍历操作，效率高于HashSet**。
+
+底层结构：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192717876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+示例：
+
+```java
+Set set = new LinkedHashSet();
+set.add(456);
+set.add(123);
+set.add(123);
+set.add("AA");
+set.add("CC");
+set.add(new User("Tom",12));
+set.add(new User("Tom",12));
+set.add(129);
+
+// 打印输出看似有序，是由于每个数据还维护了两个引用
+// 存储位置是由hash值决定的
+Iterator iterator = set.iterator();
+while(iterator.hasNext()){
+    //456	123	AA	CC	User{name='Tom', age=12}	129	
+    System.out.print(iterator.next()+"\t");
+}
+```
+
+### 3.TreeSet
+
+TreeSet 是 SortedSet 接口的实现类，TreeSet 可以确保**集合元素处于排序状态**。TreeSet底层使用 **红黑树结构**存储数据。有序，查询速度比List快。向TreeSet中**添加的数据**，要求是**相同类的对象**。
+
+结构：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192742765.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+TreeSet 两种排序方法： 自然排序和 定制排序。默认情况下，TreeSet 采用自然排序。
+
+- 自然排序中，比较两个对象是否相同的标准为：compareTo()返回0.不再是equals().
+- 定制排序中，比较两个对象是否相同的标准为：compare()返回0.不再是equals().
+
+#### 3.1 自然排序
+
+ TreeSet 会调用集合元素的 compareTo(Object obj) 方法来比较元素之间的大小关系，然后将集合元素按升序(默认情况)排列。
+
+如果试图把一个对象添加到 TreeSet 时，则该对象的类必须**实现 Comparable接口**。实现 Comparable 的类必须实现 compareTo(Object obj) 方法，两个对象即通过compareTo(Object obj) 方法的返回值来比较大小。
+
+示例：
+
+```java
+TreeSet set = new TreeSet();
+
+set.add(new User("Tom",12));
+set.add(new User("Jerry",32));
+set.add(new User("Jim",2));
+set.add(new User("Mike",65));
+set.add(new User("Jack",33));
+set.add(new User("Jack",56));
+
+Iterator iterator = set.iterator();
+while(iterator.hasNext()){
+    System.out.println(iterator.next());
+}
+//        User{name='Tom', age=12}
+//        User{name='Mike', age=65}
+//        User{name='Jim', age=2}
+//        User{name='Jerry', age=32}
+//        User{name='Jack', age=33}
+//        User{name='Jack', age=56}
+
+// User类
+public class User implements Comparable {
+    //按照姓名从大到小排列,年龄从小到大排列
+    @Override
+    public int compareTo(User u) {
+        int compare = -this.name.compareTo(u.name);
+        if(compare != 0){
+            return compare;
+        }else {
+            return Integer.compare(this.age,u.age);
+        }
+    }
+}
+```
+
+#### 3.2 定制排序
+
+定制排序，通过**Comparator接口**来实现。需要重写compare(T o1,T o2)方法。将实现Comparator接口的实例作为**形参传递给TreeSet的构造器**。向TreeSet中只能添加**类型相同**的对象。否则发生ClassCastException异常。
+
+示例：
+
+```java
+Comparator com = new Comparator() {
+    //按照年龄从小到大排列
+    @Override
+    public int compare(User u1, User u2) {
+        return Integer.compare(u1.getAge(),u2.getAge());
+    }
+};
+
+TreeSet set = new TreeSet(com);
+set.add(new User("Tom",12));
+set.add(new User("Jerry",32));
+set.add(new User("Jim",2));
+set.add(new User("Mike",65));
+set.add(new User("Mary",33));
+set.add(new User("Jack",33));
+set.add(new User("Jack",56));
+
+Iterator iterator = set.iterator();
+while(iterator.hasNext()){
+    System.out.println(iterator.next());
+}
+```
 
 ## 六.Map接口
 
@@ -652,6 +944,18 @@ public class ArrayList<E> extends AbstractList<E>
 	// 实例化：空实例，大小是 0；只有在使用到时，才会通过grow方法创建一个大小为 10 的数组
 	public ArrayList() {
         this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;	// 空数组实例
+    }
+    // 形参为Collection实现类对象：可将set对象转为list对象
+    public ArrayList(Collection<? extends E> c) {
+        elementData = c.toArray();
+        if ((size = elementData.length) != 0) {
+            // c.toArray might (incorrectly) not return Object[] (see 6260652)
+            if (elementData.getClass() != Object[].class)
+                elementData = Arrays.copyOf(elementData, size, Object[].class);
+        } else {
+            // replace with empty array.
+            this.elementData = EMPTY_ELEMENTDATA;
+        }
     }
    
    

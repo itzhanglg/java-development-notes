@@ -409,7 +409,90 @@ public class ListFilesTest {
 }
 ```
 
-### 二.文件流(节点流)
+### 二.IO流体系结构
+
+#### 1.IO流原理
+
+ I/O是Input/Output的缩写， I/O技术是非常实用的技术，**用于处理设备之间的数据传输**。如读/写文件，网络通讯等。
+
+-   **输入input**：读取外部数据（磁盘、光盘等存储设备的数据）到程序（内存）中。
+-   **输出output**：将程序（内存）数据输出到磁盘、光盘等存储设备中。
+
+Java程序中，对于数据的输入/输出操作以 **流(stream)**的方式进行。java.io包下提供了各种“流”类和接口，用以获取不同种类的数据，并通过**标准的方法**输入或输出数据。
+
+#### 2.IO流分类
+
+-   **操作单元**：字节流和字符流
+-   **流的流向**：输入流和输出流
+-   **流的角色**：节点流和处理流
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225233530102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+#### 3.IO流体系结构
+
+| 抽象基本类        | 节点流(文件流)                                 | 缓冲流(处理流的一种)                              |
+| ------------ | ---------------------------------------- | ---------------------------------------- |
+| InputStream  | FileInputStream (read(byte[] buffer))    | BufferedInputStream (read(byte[] buffer)) |
+| OutputStream | FileOutputStream (write(byte[] buffer,0,len) | BufferedOutputStream (write(byte[] buffer,0,len) / flush() |
+| Reader       | FileReader (read(char[] cbuf))           | BufferedReader (read(char[] cbuf) / readLine()) |
+| Writer       | FileWriter (write(char[] cbuf,0,len)     | BufferedWriter (write(char[] cbuf,0,len) / flush() |
+
+#### 4.抽象基本类
+
+##### 4.1 InputStream & Reader
+
+**InputStream** 和 **Reader** 是所有 输入流的基类。程序中打开的文件 IO 资源不属于内存里的资源，垃圾回收机制无法回收该资源，所以应该件 **显式关闭文件 IO  资源**。
+
+FileInputStream 从文件系统中的某个文件中获得输入字节。FileInputStream用于读取非文本数据之类的原始字节流。要读取字符流，需要使用 FileReader.
+
+**InputStream类中方法:**
+
+-   `int read()` : 从输入流中读取数据的下一个字节。返回 0 到 255 范围内的 int 字节值。如果因为已经到达流末尾而没有可用的字节，则返回值 -1。
+-   `int read(byte[] b)` : 从此输入流中将最多 b.length 个字节的数据读入一个 byte 数组中。如果因为已经到达流末尾而没有可用的字节，则返回值 -1。否则**以整数形式返回实际读取的字节数**。
+-   `int read(byte[] b, int off,int len)` : 将输入流中最多 len 个数据字节读入 byte 数组。尝试读取 len 个字节，但读取的字节也可能小于该值。以整数形式返回实际读取的字节数。如果因为流位于文件末尾而没有可用的字节，则返回值-1。
+-   `public void close() throws IOException` : 关闭此输入流并释放与该流关联的所有系统资源
+
+**Reader类中方法:**
+
+-   `int read()`: 读取单个字符。作为整数读取的字符，范围在 0 到 65535 之间 (0x00-0xffff)（2个字节的Unicode码），如果已到达流的末尾，则返回 -1
+-   `int read(char[] cbuf)` : 将字符读入数组。如果已到达流的末尾，则返回 -1。否则返回本次读取的字符数。
+-   `int read(char[] cbuf,int off,int len)` : 将字符读入数组的某一部分。存到数组cbuf中，从off处开始存储，最多读len个字符。如果已到达流的末尾，则返回 -1。否则返回本次读取的字符数。
+-   `public void close() throws IOException` : 关闭此输入流并释放与该流关联的所有系统资源
+
+##### 4.2 OutputStream & Writer
+
+1.  OutputStream 和 Writer 也非常相似：
+
+    `void write(int b/int c);` : 将指定的字节或字符写入此输出流
+    `void write(byte[] b/char[] cbuf);`: 写入字节或字符数组
+    `void write(byte[] b/char[] buff, int off, int len);` : 将指定 byte 数组中从偏移量 off 开始的 len 个字节或字符写入此输出流
+    `void flush();`: 刷新该流的缓冲，则立即将它们写入预期目标
+    `void close();` 需要先刷新，再关闭此流
+
+2.  因为字符流直接以字符作为操作单位，所以 Writer 可以用字符串来替换字符数组，即以 String 对象作为参数
+
+    `void write(String str);`: 写入字符串。
+    `void write(String str, int off, int len);`: 写入字符串的某一部分。
+
+3.  FileOutputStream 从文件系统中的某个文件中获得输出字节。FileOutputStream用于写出非文本数据之类的原始字节流。要写出字符流，需要使用 FileWriter
+
+#### 5.结构图
+
+##### 5.1 IO流体系
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225233552369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+##### 5.2 操作方式分类结构图
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2019122523360525.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+##### 5.3 操作对象分类结构图
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225233617745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+
+
+### 三.文件流(节点流)
 
 #### 1.FileReader/FileWriter应用
 
@@ -731,7 +814,7 @@ public class ListFilesTest {
     反之，非文本文件，是不可以用字符流来处理的
 
 
-### 三.缓存流(处理流)
+### 四.缓存流(处理流)
 
 #### 1.概念
 
@@ -1085,7 +1168,7 @@ public class WordCount {
 }
 ```
 
-### 四.转换流(处理流)
+### 五.转换流(处理流)
 
 #### 1.概念
 
@@ -1196,7 +1279,7 @@ public class TransformStream {
 }
 ```
 
-### 五.字符编码
+### 六.字符编码
 
 #### 1.编码表由来
 
@@ -1230,7 +1313,7 @@ ANSI与Unicode
 
 解码：字节、**字节数组**  --->字符数组、**字符串**      **InputStreamReader**(读取)
 
-### 六.其他流(处理流)
+### 七.其他流(处理流)
 
 #### 1.标准输入、输出流
 
@@ -1436,7 +1519,7 @@ ANSI与Unicode
     }
 ```
 
-### 七.对象流(处理流)
+### 八.对象流(处理流)
 
 #### 1.概念
 
@@ -1684,7 +1767,7 @@ public class Card implements Serializable{
 }
 ```
 
-### 八.随机存取文件流
+### 九.随机存取文件流
 
 #### 1.概念
 
@@ -1800,7 +1883,7 @@ public class Card implements Serializable{
         }
 ```
 
-### 九.NIO.2概念及相关类
+### 十.NIO.2概念及相关类
 
 #### 1.NIO概述
 

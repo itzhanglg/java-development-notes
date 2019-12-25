@@ -472,6 +472,200 @@ System.out.println(sb1);//java.lang.NullPointerException
 
 </div>
 
+### 4.String相关应用
+
+4.1 模拟一个trim方法，去除字符串两端的空格
+
+```java
+public String myTrim(String str) {
+    if (str != null) {
+        int start = 0;// 用于记录从前往后首次索引位置不是空格的位置的索引
+        int end = str.length() - 1;// 用于记录从后往前首次索引位置不是空格的位置的索引
+      
+        while (start < end && str.charAt(start) == ' ') {
+          	start++;
+        }
+        while (start < end && str.charAt(end) == ' ') {
+          	end--;
+        }
+        if (str.charAt(start) == ' ') {
+          	return "";
+        }
+        return str.substring(start, end + 1);
+    }
+    return null;
+}
+```
+
+4.2 将一个字符串进行反转或将字符串中指定部分进行反转。
+
+```java
+	//方式一：转换为char[]
+    public String reverse(String str,int startIndex,int endIndex){
+        if(str != null){
+            char[] arr = str.toCharArray();
+            for(int x = startIndex,y = endIndex;x < y;x++,y--){
+                char temp = arr[x];
+                arr[x] = arr[y];
+                arr[y] = temp;
+            }
+            return new String(arr);
+        }
+        return null;
+    }
+
+    //方式二：使用String的拼接
+    public String reverse1(String str,int startIndex,int endIndex){
+        if(str != null){
+            //第1部分
+            String reverseStr = str.substring(0,startIndex);
+            //第2部分
+            for(int i = endIndex;i >= startIndex;i--){
+                reverseStr += str.charAt(i);
+            }
+            //第3部分
+            reverseStr += str.substring(endIndex + 1);
+            return reverseStr;
+        }
+        return null;
+    }
+    //方式三：使用StringBuffer/StringBuilder替换String
+    public String reverse2(String str,int startIndex,int endIndex){
+        if(str != null){
+            StringBuilder builder = new StringBuilder(str.length());
+
+            //第1部分
+            builder.append(str.substring(0,startIndex));
+            //第2部分
+            for(int i = endIndex;i >= startIndex;i--){
+                builder.append(str.charAt(i));
+            }
+            //第3部分
+            builder.append(str.substring(endIndex + 1));
+            return builder.toString();
+        }
+        return null;
+
+    }
+```
+
+4.3 获取一个字符串在另一个字符串中出现的次数
+
+```java
+	// 获取subStr在mainStr中出现的次数
+	public int getCount(String mainStr,String subStr){
+        int mainLength = mainStr.length();
+        int subLength = subStr.length();
+        int count = 0;
+        int index = 0;
+        if(mainLength >= subLength){
+            //方式一：
+//            while((index = mainStr.indexOf(subStr)) != -1){
+//                count++;
+//                mainStr = mainStr.substring(index + subStr.length());
+//            }
+            //方式二：对方式一的改进
+            while((index = mainStr.indexOf(subStr,index)) != -1){
+                count++;
+                index += subLength;
+            }
+            return count;
+        }else{
+            return 0;
+        }
+    }
+```
+
+4.4 获取两个字符串中最大相同子串
+
+```java
+	// 提示：将短的那个串进行长度依次递减的子串与较长的串比较
+	//前提：两个字符串中只有一个最大相同子串
+    public String getMaxSameString(String str1,String str2){
+        if(str1 != null && str2 != null){
+            String maxStr = (str1.length() >= str2.length())? str1 : str2;
+            String minStr = (str1.length() < str2.length())? str1 : str2;
+            int length = minStr.length();
+
+            for(int i = 0;i < length;i++){
+                for(int x = 0,y = length - i;y <= length;x++,y++){
+                    String subStr = minStr.substring(x,y);
+                    if(maxStr.contains(subStr)){
+                        return subStr;
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
+
+    // 如果存在多个长度相同的最大相同子串
+    // 此时先返回String[]，后面可以用集合中的ArrayList替换，较方便
+    public String[] getMaxSameString1(String str1, String str2) {
+        if (str1 != null && str2 != null) {
+            StringBuffer sBuffer = new StringBuffer();
+            String maxString = (str1.length() > str2.length()) ? str1 : str2;
+            String minString = (str1.length() > str2.length()) ? str2 : str1;
+
+            int len = minString.length();
+            for (int i = 0; i < len; i++) {
+                for (int x = 0, y = len - i; y <= len; x++, y++) {
+                    String subString = minString.substring(x, y);
+                    if (maxString.contains(subString)) {
+                        sBuffer.append(subString + ",");
+                    }
+                }
+//                System.out.println(sBuffer);
+                if (sBuffer.length() != 0) {
+                    break;
+                }
+            }
+            String[] split = sBuffer.toString().replaceAll(",$", "").split("\\,");
+            return split;
+        }
+        return null;
+    }
+
+	// 如果存在多个长度相同的最大相同子串：使用ArrayList
+	public List<String> getMaxSameSubString1(String str1, String str2) {
+		if (str1 != null && str2 != null) {
+			List<String> list = new ArrayList<String>();
+			String maxString = (str1.length() > str2.length()) ? str1 : str2;
+			String minString = (str1.length() > str2.length()) ? str2 : str1;
+
+			int len = minString.length();
+			for (int i = 0; i < len; i++) {
+				for (int x = 0, y = len - i; y <= len; x++, y++) {
+					String subString = minString.substring(x, y);
+					if (maxString.contains(subString)) {
+						list.add(subString);
+					}
+				}
+				if (list.size() != 0) {
+					break;
+				}
+			}
+			return list;
+		}
+		return null;
+	}
+```
+
+4.5 对字符串中字符进行自然顺序排序
+
+```java
+public String charSort(String str){
+  	//1.字符串变成字符数组
+    char[] arr = str.toCharArray();
+    //2.对数组排序，选择，冒泡，Arrays.sort(str.toCharArray())
+    Arrays.sort(arr);
+    //3.将排序后的数组变成字符串
+    String newStr = new String(arr);
+    return newStr;
+}
+```
+
 ## 二.日期时间API
 ### 1.JDK8之前
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191218113633652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)

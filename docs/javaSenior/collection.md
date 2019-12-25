@@ -1,4 +1,4 @@
-﻿##  一.Java集合框架概述
+## 一.Java集合框架概述
 
 集合、数组都是对多个数据进行存储操作的结构，简称Java容器。此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt, .jpg, .avi，数据库中）。Java 集合就像一种容器，可以动态地把多个对象的引用放入容器中。
 
@@ -289,7 +289,7 @@ ArrayList 是 List 接口的**主要实现类**,本质上,ArrayList是对象引�
 ArrayList 的JDK1.8 之前与之后的实现区别？
 
 -   JDK1.7：ArrayList像饿汉式，直接创建一个**初始容量为10的数组**
--   JDK1.8：ArrayList像懒汉式，一开始创建一个长度为0的数组，当**添加第一个元素时**再创建一个始容量为10的数组
+-   JDK1.8：ArrayList像懒汉式，一开始创建一个长度为0的数组，当**添加第一个元素时再创建一个初始容量为10的数组**
 
 区分List中remove(int index)和remove(Object obj) ?
 
@@ -316,7 +316,8 @@ private void updateList(List list) {
 **双向链表**，**内部没有声明数组**，而是**定义了Node类型的first和last，用于记录首末元素。定义内部类Node，作为LinkedList中保存数据的基本结构。**
 
 Node除了保存数据，还定义了两个变量：**prev变量记录前一个元素的位置; next变量记录下一个元素的位置.**
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192515458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2019122518054592.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 ```java
 	// 双向链表
@@ -381,9 +382,9 @@ Set接口是Collection的子接口，set接口没有提供额外的方法，使�
 
 HashSet和TreeSet是Set接口的实现类，LinkedHashSet是HashSet的子类。
 
-- HashSet：作为Set接口的**主要实现类；线程不安全的；可以存储null值**
-- LinkedHashSet：作为HashSet的子类；遍历其内部数据时，可以**按照添加的顺序遍历**；对于频繁的**遍历操作**，LinkedHashSet效率高于HashSet
-- TreeSet：可以按照添加**对象的指定属性，进行排序**
+- `HashSet`：作为Set接口的**主要实现类；线程不安全的；可以存储null值**
+- `LinkedHashSet`：作为HashSet的子类；遍历其内部数据时，可以**按照添加的顺序遍历**；对于频繁的**遍历操作**，LinkedHashSet效率高于HashSet
+- `TreeSet`：可以按照添加**对象的指定属性，进行排序**
 
 ### 1.HashSet
 
@@ -398,7 +399,8 @@ HashSet 是 Set接口的主要实现，**HashSet 按Hash算法来存储集合中
 对于**存放在Set容器中的对象**， 对应的**类一定要重写equals() 和hashCode(Object obj) 方法，以实现对象相等规则** 。即： “**相等的对象必须具有相等的散列码**” 。
 
 #### 1.2 添加元素过程
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019122319263649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180604760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 **向HashSet中添加元素的过程(重要)：**<div style="color:red;">
 
@@ -448,7 +450,8 @@ System.out.println(set);
 ```
 
 图示：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192656235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180620804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 #### 1.3 重写方法原则
 
@@ -555,7 +558,8 @@ public List duplicateList(List list) {
 LinkedHashSet 是 HashSet 的子类。根据**元素的 hashCode 值来决定元素的存储位置**，在添加数据的同时，每个数据还维护了**两个引用，记录此数据前一个数据和后一个数据**。对于**频繁的遍历操作，效率高于HashSet**。
 
 底层结构：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192717876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180638165.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 示例：
 
@@ -583,8 +587,11 @@ while(iterator.hasNext()){
 
 TreeSet 是 SortedSet 接口的实现类，TreeSet 可以确保**集合元素处于排序状态**。TreeSet底层使用 **红黑树结构**存储数据。有序，查询速度比List快。向TreeSet中**添加的数据**，要求是**相同类的对象**。
 
+红黑树介绍：[平衡查找树之红黑树](https://www.cnblogs.com/yangecnu/p/Introduce-Red-Black-Tree.html)
+
 结构：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191223192742765.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180648282.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 TreeSet 两种排序方法： 自然排序和 定制排序。默认情况下，TreeSet 采用自然排序。
 
@@ -669,9 +676,389 @@ while(iterator.hasNext()){
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191220135937272.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
+1.Map与Collection并列存在。用于保存具有**映射关系的数据：key-value**。key和value可以是任何引用类型的数据。 Map接口的常用实现类：**HashMap、TreeMap、LinkedHashMap和**
+**Properties**。
+
+- `HashMap`：作为Map的**主要实现类；线程不安全的，效率高；可以存储null的key和value**。
+- `LinkedHashMap`：保证在遍历map元素时，可以按照**添加的顺序实现遍历**。原因：在原有的HashMap底层结构基础上，添加了一对指针，指向前一个和后一个元素。对于**频繁的遍历操作，此类执行效率高于HashMap**。
+- `TreeMap`：保证按照添加的key-value对进行排序，实现排序遍历。此时考虑**key的自然排序或定制排序**。底层使用**红黑树**。
+- `Hashtable`：作为古老的实现类；**线程安全的，效率低；不能存储null的key或value**。
+- `Properties`：常用来**处理配置文件**。**key和value都是String类型**。
+
+**2.Map常用方法：**
+
+- 添加：
+  - `Object put(Object key,Object value)`：**将指定key-value添加到(或修改)当前map对象中**
+  - `void putAll(Map m)`：将m中的所有key-value对存放到当前map中
+- 删除：
+  - `Object remove(Object key)`：**移除指定key的key-value对，并返回value**
+  - `void clear()`：清空当前map中的所有数据
+- 修改：
+  - `Object put(Object key,Object value)`：将指定key-value添加到(或修改)当前map对象中
+- 查询：
+  - `Object get(Object key)`：**获取指定key对应的value**
+  - `int size()`：**返回map中key-value对的个数**
+- 判断：
+  - `boolean containsKey(Object key)`：**是否包含指定的key**
+  - `boolean containsValue(Object value)`：是否包含指定的value
+  - `boolean isEmpty()`：**判断当前map是否为空**
+  - `boolean equals(Object obj)`：**判断当前map和参数对象obj是否相等**
+- 遍历：
+  - `Set keySet()`：**返回所有key构成的Set集合**
+  - `Collection values()`：**返回所有value构成的Collection集合**
+  - `Set entrySet()`：**返回所有key-value对构成的Set集合**
+
+### 1.HashMap
+
+HashMap是Map接口的主要实现类。允许使用null键和null值。
+
+#### 1.1 结构理解
+
+- `key`：**无序的、不可重复的，使用Set存储所有的key  -->  key所在的类要重写equals()和hashCode()**
+- `value`：**无序的、可重复的，使用Collection存储所有的value  -->  value所在的类要重写equals()**
+- `键值对`：key-value构成了一个Entry对象
+- `entry`：**无序的、不可重复的，使用Set存储所有的entry**
+
+即判断两个key相等的标准：hashCode相等且equals相等；判断value相等的标准：equals相等。
+
+#### 1.2 重要常量
+
+- `DEFAULT_INITIAL_CAPACITY` : 默认容量：16
+- `DEFAULT_LOAD_FACTOR`：默认加载因子：0.75
+- `threshold`：扩容的临界值(容量*填充因子)：16 * 0.75 => 12
+- `TREEIFY_THRESHOLD`：Bucket(桶)中链表长度大于该默认值，转化为红黑树：8
+- `MIN_TREEIFY_CAPACITY`：桶中的Node被树化时最小的hash表容量：64
+
+#### 1.3 底层实现
+
+JDK7：
+
+- `new HashMap()`：创建了一个长度为**16的Entry[] table数组**
+- **数组+链表**(形成链表时：**新的元素指向旧的元素**)
+
+JDK8：
+
+- `new HashMap()`：**没有创建**一个长度为16的数组，首次**调用put()方法**，底层创建成都为**16的 Node[] 数组**
+- **数组+链表+红黑树**(形成链表时：**旧的元素指向新的元素**)
+- 当数组的某一个索引位置上的元素以**链表形式存在的数据个数(大于8) 且当前数组的长度(大于64)**时，此索引位置上的**所有数据改为使用红黑树存储**
+
+#### 1.4 添加元素的过程(JDK7)
+
+<div style="color:red;">
+
+向HashMap中**添加entry1(key，value)**，需要首先**计算entry1中key的哈希值**(根据key所在类的hashCode()计算得到)，此**哈希值**经过处理以后，得到在底层**Entry[]数组中要存储的位置i**。
+
+- 如果**位置i**上没有元素，则entry1直接添加成功。
+- 如果位置i上已经存在entry2(或还有链表存在的entry3，entry4)，则需要通过循环的方法，依次比较entry1中key和其他的entry。
+  - 如果彼此**hash值**不同，则直接添加成功。
+  - 如果hash值相同，继续比较二者是否**equals**。
+    - 如果返回值为true，则使用entry1的value去**替换**equals为true的entry的value。
+    - 如果遍历一遍以后，发现所有的equals返回都为false,则entry1仍可添加成功。entry1**指向原有**的entry元素。</div>
+
+#### 1.5 数组扩容
+
+JDK7：
+
+在不断的添加过程中，会涉及到扩容问题，**当超出临界值12(且要存放的位置非空)**时，扩容。默认的扩容方式：**扩容为原来容量的2倍，并将原有的数据复制过来**。
+
+HashMap数组扩容后，原数组中的数据必须**重新计算其在新数组中的位置，并放进去，这就是resize方法**。比较消耗性能。
+
+JDK8：
+
+扩容：当HashMap中元素个数超过16 * 0.75=12（这个值就是代码中的threshold值，也叫做临界值）的时候，就把数组的大小扩展为 2*16=32，即扩大一倍，然后重新计算每个元素在数组中的位置，并放进去。
+
+树形化：当HashMap中的其中**一个链的对象个数如果达到了8个**，此时如果**数组capacity没有达到64**，那么HashMap会**先扩容解决**，如果**已经达到了64**，那么这个**链会变成树**，结点类型由Node变成TreeNode类型。
+
+#### 1.6 负载因子值
+
+- 负载因子的大小决定了HashMap的数据密度
+- 负载因子越大密度越大，发生碰撞的几率越高，数组中的链表越容易长,造成查询或插入时的**比较次数增多**，性能会下降
+- 负载因子越小，就越容易触发扩容，数据密度也越小，意味着发生碰撞的几率越小，数组中的链表也就越短，查询和插入时比较的次数也越小，性能会更高。但是会**浪费一定的内存空间**。而且经常扩容也会影响性能
+- 按照语言参考及研究经验，会将负载因子设置为 **0.7~0.75**，此时平均检索长度接近于常数
+
+#### 1.7 示例
+
+```java
+Map map = new HashMap();
+map.put("AA",123);
+map.put(45,123);
+map.put("BB",56);
+map.put(null,76);
+
+System.out.println(map.get(45));	// 123
+
+Object value = map.remove("AA");
+System.out.println(value);	// 123 
+
+boolean isExist = map.containsKey("BB");
+System.out.println(isExist);	// true
+isExist = map.containsValue(123);
+System.out.println(isExist);	// true
+
+map.clear();
+System.out.println(map.isEmpty());	// true
+
+//遍历时：通常使用增强for循环
+//遍历所有的key集：keySet()
+Set set = map.keySet();
+Iterator iterator = set.iterator();
+while(iterator.hasNext()){
+    System.out.println(iterator.next());
+}
+//遍历所有的value集：values()
+Collection values = map.values();
+for(Object obj : values){
+    System.out.println(obj);
+}
+//遍历所有的key-value
+//方式一：entrySet()
+Set entrySet = map.entrySet();
+Iterator iterator1 = entrySet.iterator();
+while (iterator1.hasNext()){
+    Object obj = iterator1.next();
+    //entrySet集合中的元素都是entry
+    Map.Entry entry = (Map.Entry) obj;
+    System.out.println(entry.getKey() + "---->" + entry.getValue());
+}
+//方式二：
+Set keySet = map.keySet();
+Iterator iterator2 = keySet.iterator();
+while(iterator2.hasNext()){
+    Object key = iterator2.next();
+    Object value = map.get(key);
+    System.out.println(key + "=====" + value);
+}
+```
+
+更多内容详看 : 源码学习 -- > HashMap
+
+### 2.LinkedHashMap
+
+LinkedHashMap 是 HashMap 的子类。
+
+在HashMap存储结构的基础上，**使用了一对双向链表来记录添加元素的顺序**。迭代遍历时：**顺序与添加顺序一致**。
+
+```java
+// HashMap内部类：Node
+static class Node<K,V> implements Map.Entry<K,V> {
+    final int hash;
+    final K key;
+    V value;
+    Node<K,V> next;
+}
+
+// LinkedHashMap内部类：Entry 继承 Node
+static class Entry<K,V> extends HashMap.Node<K,V> {
+    Entry<K,V> before, after;	// 前驱节点和后继节点：记录添加元素的顺序
+    Entry(int hash, K key, V value, Node<K,V> next) {
+        super(hash, key, value, next);
+    }
+}
+```
+
+### 3.TreeMap
+
+TreeMap底层使用**红黑树结构**存储数据。可以保证所有的 Key-Value 对处于**有序状态**。向TreeMap中添加key-value，要求**key必须是由同一个类创建的对象**。
+
+按照key进行排序：
+
+- 自然排序：所有key必须**实现Comparable接口**，所有key应是同一个类的对象，否则抛出ClassCastException
+- 定制排序：TreeMap构造器中**传入一个Comparator对象**，该对象负责对所有key进行排序，此时不需要Key所在类实现Comparable接口
+
+**判断两个key相等的标准：两个key通过compareTo()方法或者compare()方法返回0**
+
+自然排序示例：
+
+```java
+TreeMap map = new TreeMap();
+User u1 = new User("Tom",23);
+User u2 = new User("Jerry",32);
+User u3 = new User("Jack",20);
+User u4 = new User("Rose",18);
+
+map.put(u1,98);
+map.put(u2,89);
+map.put(u3,76);
+map.put(u4,100);
+
+// 遍历打印
+Set<User> keys = map.keySet();
+for (User key : keys) {
+    System.out.print(key + "：" + map.get(key)+"   ");
+
+}
+
+// User类：实现 Comparable接口
+public class User implements Comparable{
+	private String name;
+    private int age;
+    
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    //按照姓名从大到小排列,年龄从小到大排列
+    @Override
+    public int compareTo(User u) {
+        if(this.name.equals(u.name)){
+            return Integer.compare(this.age,U.age);
+        }else{
+            return -this.name.compareTo(u.name);
+        }
+    }
+}    
+```
+
+定制排序示例：
+
+```java
+TreeMap map = new TreeMap(new Comparator() {
+    @Override
+    public int compare(User u1, User u2) {
+        return Integer.compare(u1.getAge(), u2.getAge());
+    }
+});
+
+User u1 = new User("Tom",23);
+User u2 = new User("Jerry",32);
+User u3 = new User("Jack",20);
+User u4 = new User("Rose",18);
+
+map.put(u1,98);
+map.put(u2,89);
+map.put(u3,76);
+map.put(u4,100);
+
+// 遍历打印
+Set<User> keys = map.keySet();
+for (User key : keys) {
+    System.out.print(key + "：" + map.get(key)+"   ");
+}
+```
+
+### 4.Hashtable与Properties
+
+1.Hashtable比较古老了，JDK1.0就提供了。**Hashtable实现原理和HashMap相同**，功能相同。判断两个key或value值相等的标准也一致。
+
+HashMap与Hashtable区别：
+
+- **HashMap线程不安全，Hashtable线程安全**
+- **HashMap允许使用null作为key或value，Hashtable不允许**
+
+2.Properties 类是 Hashtable 的子类，该对象用于**处理配置文件**。由于属性文件里的 key、value 都是字符串类型，所以 Properties 里的 **key和 value 都是字符串类型**。
+
+存取数据时，建议使用`setProperty(String key,String value)`方法和`getProperty(String key)`方法：
+
+```java
+Properties pros = new Properties();
+
+FileInputStream fis = new FileInputStream("jdbc.properties");
+pros.load(fis);//加载流对应的文件
+
+String name = pros.getProperty("name");
+System.out.println("name = " + name);
+```
+
 ## 七.Collections工具类
 
+Collections 是一个操作 Collection 和 Map 等集合的工具类。Collections 中提供了一系列**静态的方法**对集合元素进行**排序、查询和替换**等操作，还提供了对集合对象设置不可变、对集合对象**实现同步控制**等方法。
 
+**1.排序操作**
+
+| 方法                     | 描述                                    |
+| ---------------------- | ------------------------------------- |
+| reverse(List)          | 反转 List 中元素的顺序                        |
+| shuffle(List)          | 对 List 集合元素进行随机排序                     |
+| sort(List)             | 根据元素的自然顺序对指定 List 集合元素按升序排序           |
+| sort(List, Comparator) | 根据指定的 Comparator 产生的顺序对 List 集合元素进行排序 |
+| swap(List, int, int)   | 将指定 list 集合中的 i 处元素和 j 处元素进行交换        |
+
+示例：
+
+```java
+List list = new ArrayList();
+list.add(56);
+list.add(12);
+list.add(34);
+list.add(89);
+list.add(-53);
+list.add(0);
+list.add(34);
+// 反转
+Collections.reverse(list);
+System.out.println(list);
+// 随机排序
+Collections.shuffle(list);
+System.out.println(list);
+// 两个索引位置的元素进行交换
+Collections.swap(list,1,2);
+System.out.println(list);
+
+// Collections自然排序和定制排序方法底层都还是调用的 Arrays.sort(a, (Comparator) c)方法
+// 自然排序
+Collections.sort(list);
+System.out.println(list);
+
+// List接口中sort默认方法部分源码(JDK8中接口新特性)
+default void sort(Comparator<? super E> c) {
+    Object[] a = this.toArray();	// 将集合转为数组
+    Arrays.sort(a, (Comparator) c);	// 调用Arrays的sort方法
+    
+    ...
+}
+```
+
+**2.查找、替换操作**
+
+| 方法                                       | 描述                               |
+| ---------------------------------------- | -------------------------------- |
+| Object max(Collection)                   | 根据元素的自然顺序，返回给定集合中的最大元素           |
+| Object max(Collection，Comparator)        | 根据 Comparator 指定的顺序，返回给定集合中的最大元素 |
+| Object min(Collection)                   |                                  |
+| Object min(Collection，Comparator)        |                                  |
+| int frequency(Collection，Object)         | 返回指定集合中指定元素的出现次数                 |
+| void copy(List dest,List src)            | 将src中的内容复制到dest中                 |
+| boolean replaceAll(List list，Object oldVal，Object newVal) | 使用新值替换List 对象的所有旧值               |
+
+示例：
+
+```java
+// 元素出现次数
+int frequency = Collections.frequency(list, 34);
+System.out.println(frequency);
+
+// 复制
+//报异常：IndexOutOfBoundsException("Source does not fit in dest")
+// List dest = new ArrayList();
+// Collections.copy(dest,list);
+//正确的：目标集合size大小 大于等于 原集合size大小
+List dest = Arrays.asList(new Object[list.size()]);
+System.out.println(dest.size());//list.size();
+Collections.copy(dest,list);
+
+// Collections中void copy(List dest,List src)方法源码
+public static <T> void copy(List<? super T> dest, List<? extends T> src) {
+    int srcSize = src.size();
+    // 若原集合size大小 大于 目标集合size大小(并不是集合初始化容量大小)，则抛异常
+    if (srcSize > dest.size())	
+        throw new IndexOutOfBoundsException("Source does not fit in dest");
+
+    ...
+}
+```
+
+**3.同步控制操作**
+
+Collections 类中提供了多个 `synchronizedXxx()` 方法，该方法可使将**指定集合包装成线程同步的集合**，从而可以解决多线程并发访问集合时的线程安全问题。
+
+```java
+List list = new ArrayList();
+list.add(56);
+list.add(12);
+//返回的list2即为线程安全的List
+List list2 = Collections.synchronizedList(list);
+```
 
 ## 八.源码学习
 
@@ -1310,7 +1697,7 @@ LinkedList 是通过一个**双向链表**来实现的，它允许插入所有�
 
 #### 2.1 内部结构
 
-![](../../media/pictures/004.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180751305.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 双向链表每个结点除了数据域之外，还有一个前指针和后指针，分别指向**前驱结点和后继结点**（如果有前驱/后继的话）。另外，双向链表还有一个 first 指针，指向头节点，和 last 指针，指向尾节点。
 
@@ -1364,7 +1751,7 @@ public class LinkedList<E>
 
 ##### 2.3.1 表头添加元素
 
-![](../../media/pictures/005.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180803951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 **addFirst(E e), push(E e), offerFirst(E e)**
 
@@ -1396,7 +1783,7 @@ public class LinkedList<E>
 
 ##### 2.3.2 表尾添加元素
 
-![](../../media/pictures/006.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180824621.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 **add(E e), addLast(E e), offer(E e), offerLast(E e)**
 
@@ -1431,7 +1818,7 @@ public class LinkedList<E>
 
 ##### 2.3.3 指定位置添加元素
 
-![](../../media/pictures/007.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180836833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 **add(int index, E element)**
 
@@ -1538,7 +1925,7 @@ public class LinkedList<E>
 
 ##### 2.4.3 删除指定节点
 
-![](../../media/pictures/008.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180847708.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
 **remove(Object o), remove(int index)**
 
@@ -1727,6 +2114,16 @@ public class LinkedList<E>
     }
 ```
 
-
-
 参考链接: [LinkedList 源码学习](https://snailclimb.gitee.io/javaguide/#/docs/java/collection/LinkedList)
+
+### 3.HashMap
+
+HashMap源码学习正在进行中......
+
+
+
+参考链接：[HashMap(JDK1.8)源码学习](https://snailclimb.gitee.io/javaguide/#/docs/java/collection/HashMap)
+
+
+
+

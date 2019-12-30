@@ -156,7 +156,6 @@ Lambda表达式（也称为闭包）是Java 8中最大和最令人期待的语�
 **格式:**  
 
 - 示例：`(o1,o2) -> Integer.compare(o1,o2);`
-
 - -> : Lambada操作符或箭头操作符
 - 符号左边: Lambda形参列表 （其实就是接口中的抽象方法的**形参列表**）
 - 符号右边: lambda体 （其实就是重写的抽象方法的**方法体**）
@@ -962,3 +961,4 @@ public class Address {
 -   [Java 8 新特性总结](https://snailclimb.gitee.io/javaguide/#/docs/java/What's%20New%20in%20JDK8/Java8Tutorial)
 -   [Java 8的新特性—终极版](https://blog.csdn.net/yczz/article/details/50896975)
 -   [理解、学习与使用 JAVA 中的 OPTIONAL](https://www.cnblogs.com/zhangboyu/p/7580262.html)
+

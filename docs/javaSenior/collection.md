@@ -2118,7 +2118,7 @@ public class LinkedList<E>
 
 ### 3.HashMap
 
-HashMap源码学习正在进行中......
+HashMap源码学习可参考下面文章...
 
 
 

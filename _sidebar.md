@@ -7,10 +7,10 @@
   * [常用类](docs/javaBase/commonClass)
 * java高级
   * 集合
-    * [知识总结](docs/javaSenior/collection/basis)
+    * [集合总结](docs/javaSenior/collection/basis)
     * [源码学习](docs/javaSenior/collection/source)
   * 多线程
-    * [知识总结](docs/javaSenior/concurrence/thread)
+    * [并发总结](docs/javaSenior/concurrence/thread)
     * [线程池学习](docs/javaSenior/concurrence/threadPool)
   * [IO流](docs/javaSenior/ioStream)
   * [JDK8](docs/javaSenior/JDK8)

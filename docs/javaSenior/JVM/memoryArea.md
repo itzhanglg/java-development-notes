@@ -1,6 +1,6 @@
-﻿转载链接：[Java 内存区域详解](https://snailclimb.gitee.io/javaguide/#/docs/java/jvm/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F)
+该篇文章﻿转载于：[Java 内存区域详解](https://snailclimb.gitee.io/javaguide/#/docs/java/jvm/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F) , 每一小节最后红色字体部分内容为个人阅读后的笔记.
 
-### 一.摘要
+### 一.概述
 
 因为 Java 程序员把内存控制权利交给 Java 虚拟机，一旦出现内存泄漏和溢出方面的问题，如果不了解虚拟机是怎样使用内存的，那么排查错误将会是一个非常艰巨的任务。
 
@@ -107,11 +107,11 @@ Java 堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（G
 2. 老生代(Old Generation)
 3. 永生代(Permanent Generation)
 
-![JVM堆内存结构-JDK7](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9teS1ibG9nLXRvLXVzZS5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vMjAxOS0xMS9KVk0lRTUlQTAlODYlRTUlODYlODUlRTUlQUQlOTglRTclQkIlOTMlRTYlOUUlODQtSkRLNy5qcGc?x-oss-process=image/format,png)
+![](../../../media/pictures/009.png)
 
 JDK 8 版本之后方法区（HotSpot 的永久代）被彻底移除了（JDK1.7 就已经开始了），取而代之是元空间，元空间使用的是直接内存。
 
-![JVM堆内存结构-JDK8](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9teS1ibG9nLXRvLXVzZS5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vMjAxOS0xMS9KVk0lRTUlQTAlODYlRTUlODYlODUlRTUlQUQlOTglRTclQkIlOTMlRTYlOUUlODQtamRrOC5qcGc?x-oss-process=image/format,png)
+![](../../../media/pictures/010.png)
 
 **上图所示的 Eden 区、两个 Survivor 区都属于新生代（为了区分，这两个 Survivor 区域按照顺序被命名为 from 和 to），中间一层属于老年代。**
 
@@ -215,7 +215,7 @@ JDK 1.8 的时候，方法区（HotSpot 的永久代）被彻底移除了（JDK1
 
 **JDK1.7 及之后版本的 JVM 已经将运行时常量池从方法区中移了出来，在 Java 堆（Heap）中开辟了一块区域存放运行时常量池。** 
 
-![](https://imgconvert.csdnimg.cn/aHR0cDovL215LWJsb2ctdG8tdXNlLm9zcy1jbi1iZWlqaW5nLmFsaXl1bmNzLmNvbS8xOC05LTE0LzI2MDM4NDMzLmpwZw?x-oss-process=image/format,png)
+![](../../../media/pictures/011.png)
 ——图片来源：https://blog.csdn.net/wangbiao007/article/details/78545189
 
 推荐阅读：[Java 中几种常量池的区分](https://blog.csdn.net/qq_26222859/article/details/73135660)
@@ -248,7 +248,7 @@ JDK1.4 中新加入的 **NIO(New Input/Output) 类**，引入了一种基于**�
 #### 3.1 对象的创建
 
 下图便是 Java 对象的创建过程，我建议最好是能默写出来，并且要掌握每一步在做什么。
-![Java创建对象的过程](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9teS1ibG9nLXRvLXVzZS5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vMjAxOS02L0phdmElRTUlODglOUIlRTUlQkIlQkElRTUlQUYlQjklRTglQjElQTElRTclOUElODQlRTglQkYlODclRTclQTglOEIucG5n?x-oss-process=image/format,png)
+![](../../../media/pictures/012.png)
 
 ##### Step1:类加载检查
 
@@ -262,7 +262,7 @@ JDK1.4 中新加入的 **NIO(New Input/Output) 类**，引入了一种基于**�
 
 选择以上两种方式中的哪一种，取决于 Java 堆内存是否规整。而 Java 堆内存是否规整，取决于 GC 收集器的算法是"标记-清除"，还是"标记-整理"（也称作"标记-压缩"），值得注意的是，复制算法内存也是规整的
 
-![内存分配的两种方式](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9teS1ibG9nLXRvLXVzZS5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vMjAxOS02LyVFNSU4NiU4NSVFNSVBRCU5OCVFNSU4OCU4NiVFOSU4NSU4RCVFNyU5QSU4NCVFNCVCOCVBNCVFNyVBNyU4RCVFNiU5NiVCOSVFNSVCQyU4Ri5wbmc?x-oss-process=image/format,png)
+![](../../../media/pictures/013.png)
 
 **内存分配并发问题（补充内容，需要掌握）**
 
@@ -303,21 +303,205 @@ JDK1.4 中新加入的 **NIO(New Input/Output) 类**，引入了一种基于**�
 
 **对齐填充部分不是必然存在的，也没有什么特别的含义，仅仅起占位作用。** 因为 Hotspot 虚拟机的自动内存管理系统要求对象起始地址必须是 8 字节的整数倍，换句话说就是对象的大小必须是 8 字节的整数倍。而对象头部分正好是 8 字节的倍数（1 倍或 2 倍），因此，当对象实例数据部分没有对齐时，就需要通过对齐填充来补全。
 
+**小结:** <div style="color:red;">
+
+-   对象在内存中的布局可分为: 对象头, 实例数据 和 对齐填充
+-   对象头一部分信息用于存储对象自身的运行时数据,另一部分是类型指针
+-   实例数据部分存储各种类型的字段内容
+-   对齐填充部分不是必须的,仅仅起占位作用
+
+</div>
+
 #### 3.3 对象的访问定位
 
 建立对象就是为了使用对象，我们的 Java 程序通过栈上的 reference 数据来操作堆上的具体对象。对象的访问方式由虚拟机实现而定，目前主流的访问方式有**①使用句柄**和**②直接指针**两种：
 
-1. **句柄：** 如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息；
+1.  **句柄：** 如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息；
 
-   [外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-nTQRdphl-1577791232639)(https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/对象的访问定位-使用句柄.png)]
+    ![](../../../media/pictures/014.png)
 
-2. **直接指针：**  如果使用直接指针访问，那么 Java 堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而 reference 中存储的直接就是对象的地址。
+2.  **直接指针：**  如果使用直接指针访问，那么 Java 堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而 reference 中存储的直接就是对象的地址。
 
-![对象的访问定位-直接指针](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9teS1ibG9nLXRvLXVzZS5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vMjAxOS02LyVFNSVBRiVCOSVFOCVCMSVBMSVFNyU5QSU4NCVFOCVBRSVCRiVFOSU5NyVBRSVFNSVBRSU5QSVFNCVCRCU4RC0lRTclOUIlQjQlRTYlOEUlQTUlRTYlOEMlODclRTklOTIlODgucG5n?x-oss-process=image/format,png)
+![](../../../media/pictures/015.png)
 
 **这两种对象访问方式各有优势。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。使用直接指针访问方式最大的好处就是速度快，它节省了一次指针定位的时间开销。**
 
+**小结:** <div style="color:red;">
 
+-   对象的主流访问方式有句柄和直接指针两种
+-   句柄: reference存储对象的句柄地址,句柄中包含对象实例数据与类型数据各自具体地址
+-   直接指针: reference直接存储对象的地址
+
+</div>
+
+### 四.重点补充内容
+
+#### 4.1 String 类和常量池
+
+**String 对象的两种创建方式：**
+
+```java
+String str1 = "abcd";//先检查字符串常量池中有没有"abcd"，如果字符串常量池中没有，则创建一个，然后 str1 指向字符串常量池中的对象，如果有，则直接将 str1 指向"abcd""；
+String str2 = new String("abcd");//堆中创建一个新的对象
+String str3 = new String("abcd");//堆中创建一个新的对象
+System.out.println(str1==str2);//false
+System.out.println(str2==str3);//false
+```
+
+这两种不同的创建方法是有差别的。
+
+-   第一种方式是在常量池中拿对象；
+-   第二种方式是直接在堆内存空间创建一个新的对象。
+
+记住一点：**只要使用 new 方法，便需要创建新的对象。**
+
+再给大家一个图应该更容易理解，图片来源：<https://www.journaldev.com/797/what-is-java-string-pool>：
+
+![](../../../media/pictures/016.png)
+
+**String 类型的常量池比较特殊。它的主要使用方法有两种：**
+
+-   直接使用双引号声明出来的 String 对象会直接存储在常量池中。
+-   如果不是用双引号声明的 String 对象，可以使用 String 提供的 intern 方法。String.intern() 是一个 Native 方法，它的作用是：如果运行时常量池中已经包含一个等于此 String 对象内容的字符串，则返回常量池中该字符串的引用；如果没有，JDK1.7之前（不包含1.7）的处理方式是在常量池中创建与此 String 内容相同的字符串，并返回常量池中创建的字符串的引用，JDK1.7以及之后的处理方式是在常量池中记录此字符串的引用，并返回该引用。
+
+```java
+	      String s1 = new String("计算机");
+	      String s2 = s1.intern();
+	      String s3 = "计算机";
+	      System.out.println(s2);//计算机
+	      System.out.println(s1 == s2);//false，因为一个是堆内存中的 String 对象一个是常量池中的 String 对象，
+	      System.out.println(s3 == s2);//true，因为两个都是常量池中的 String 对象
+```
+
+**字符串拼接:**
+
+```java
+		  String str1 = "str";
+		  String str2 = "ing";
+		 
+		  String str3 = "str" + "ing";//常量池中的对象
+		  String str4 = str1 + str2; //在堆上创建的新的对象	  
+		  String str5 = "string";//常量池中的对象
+		  System.out.println(str3 == str4);//false
+		  System.out.println(str3 == str5);//true
+		  System.out.println(str4 == str5);//false
+```
+
+![](../../../media/pictures/017.png)
+
+尽量避免多个字符串拼接，因为这样会重新创建对象。如果需要改变字符串的话，可以使用 StringBuilder 或者 StringBuffer。
+
+**小结:** <div style="color:red;">
+
+-   使用双引号声明的String对象在常量池中. 只要使用new方法,便会在堆中创建新的对象
+-   常量与常量的拼接结果在常量池。且常量池中不会存在相同内容的常量
+-   只要其中有一个是变量，结果就在堆中
+-   如果拼接的结果或使用关键字new的String对象调用intern()方法，返回值就在常量池中
+
+</div>
+
+#### 4.2 String s1 = new String("abc");这句话创建了几个字符串对象？
+
+**将创建 1 或 2 个字符串。如果池中已存在字符串常量“abc”，则只会在堆空间创建一个字符串常量“abc”。如果池中没有字符串常量“abc”，那么它将首先在池中创建，然后在堆空间中创建，因此将创建总共 2 个字符串对象。**
+
+**验证：**
+
+```java
+		String s1 = new String("abc");// 堆内存的地址值
+		String s2 = "abc";
+		System.out.println(s1 == s2);// 输出 false,因为一个是堆内存，一个是常量池的内存，故两者是不同的。
+		System.out.println(s1.equals(s2));// 输出 true
+```
+
+**结果：**
+
+```
+false
+true
+```
+
+#### 4.3 8 种基本类型的包装类和常量池
+
+-   **Java 基本类型的包装类的大部分都实现了常量池技术，即 Byte,Short,Integer,Long,Character,Boolean；这 6 种包装类默认创建了数值[-128，127] 的相应类型的缓存数据，但是超出此范围仍然会去创建新的对象。** 为啥把缓存设置为[-128，127]区间？（[参见issue/461](https://github.com/Snailclimb/JavaGuide/issues/461)）性能和资源之间的权衡。
+-   **两种浮点数类型的包装类 Float,Double 并没有实现常量池技术。**
+
+```java
+		Integer i1 = 33;
+		Integer i2 = 33;
+		System.out.println(i1 == i2);// 输出 true
+		Integer i11 = 333;
+		Integer i22 = 333;
+		System.out.println(i11 == i22);// 输出 false
+		Double i3 = 1.2;
+		Double i4 = 1.2;
+		System.out.println(i3 == i4);// 输出 false
+```
+
+**Integer 缓存源代码：** 
+
+```java
+/**
+*此方法将始终缓存-128 到 127（包括端点）范围内的值，并可以缓存此范围之外的其他值。
+*/
+    public static Integer valueOf(int i) {
+        if (i >= IntegerCache.low && i <= IntegerCache.high)
+            return IntegerCache.cache[i + (-IntegerCache.low)];
+        return new Integer(i);
+    }
+
+```
+
+**应用场景：**
+
+1.  Integer i1=40；Java 在编译的时候会直接将代码封装成 Integer i1=Integer.valueOf(40);，从而使用常量池中的对象。
+2.  Integer i1 = new Integer(40);这种情况下会创建新的对象。
+
+```java
+  Integer i1 = 40;
+  Integer i2 = new Integer(40);
+  System.out.println(i1==i2);//输出 false
+```
+
+**Integer 比较更丰富的一个例子:**
+
+```java
+  Integer i1 = 40;
+  Integer i2 = 40;
+  Integer i3 = 0;
+  Integer i4 = new Integer(40);
+  Integer i5 = new Integer(40);
+  Integer i6 = new Integer(0);
+  
+  System.out.println("i1=i2   " + (i1 == i2));
+  System.out.println("i1=i2+i3   " + (i1 == i2 + i3));
+  System.out.println("i1=i4   " + (i1 == i4));
+  System.out.println("i4=i5   " + (i4 == i5));
+  System.out.println("i4=i5+i6   " + (i4 == i5 + i6));   
+  System.out.println("40=i5+i6   " + (40 == i5 + i6));     
+```
+
+结果：
+
+```
+i1=i2   true
+i1=i2+i3   true
+i1=i4   false
+i4=i5   false
+i4=i5+i6   true
+40=i5+i6   true
+```
+
+解释：
+
+语句 i4 == i5 + i6，因为+这个操作符不适用于 Integer 对象，首先 i5 和 i6 进行自动拆箱操作，进行数值相加，即 i4 == 40。然后 Integer 对象无法与数值进行直接比较，所以 i4 自动拆箱转为 int 值 40，最终这条语句转为 40 == 40 进行数值比较。
+
+**小结:** <div style="color:red;">
+
+-   基本数据类型的包装类大部分实现了常量池技术,创建了数值[-128, 127]的相应类型的缓存数据,超过该范围会存在堆中创建新的对象
+-   包装类Float, Double没有实现常量池技术
+-   比较两包装类值是否相等,建议使用equals方法
+
+</div>
 
 ### 参考链接
 

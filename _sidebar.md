@@ -4,14 +4,20 @@
   * [数组](docs/javaBase/array)
   * [面向对象](docs/javaBase/object)
   * [异常处理](docs/javaBase/exception)
+  * [常用类](docs/javaBase/commonClass)
 * java高级
-  * [多线程](docs/javaSenior/thread)
-  * [常用类](docs/javaSenior/commonClass)
-  * [集合](docs/javaSenior/collection)
+  * 集合
+    * [知识总结](docs/javaSenior/collection/basis)
+    * [源码学习](docs/javaSenior/collection/source)
+  * 多线程
+    * [知识总结](docs/javaSenior/concurrence/thread)
+    * [线程池学习](docs/javaSenior/concurrence/threadPool)
   * [IO流](docs/javaSenior/ioStream)
+  * [JDK8](docs/javaSenior/JDK8)
+  * JVM
+    * [Java内存区域](docs/javaSenior/JVM/memoryArea)
   * [网络](docs/javaSenior/network)
   * [反射](docs/javaSenior/reflection)
-  * [JDK8新特性](docs/javaSenior/JDK8)
 * javaEE
   * [jsp]()
   * [mybatis]()

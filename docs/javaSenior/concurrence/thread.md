@@ -12,13 +12,40 @@
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191231192832930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
-小结：
+小结：<div style="color:red;">
 
-- **程序(program)是为完成指定任务,用某种语言编写的一组指令集合.指一段静态的代码**
-- **进程(process)是正在运行的一个程序.是一个动态的过程**
-- **线程(thread)是一个程序内部的一条执行路径**
+- 程序(program)是为完成指定任务,用某种语言编写的一组指令集合.指一段静态的代码
+- 进程(process)是正在运行的一个程序.是一个动态的过程
+- 线程(thread)是一个程序内部的一条执行路径
+
+</div>
 
 #### 2.线程与进程的关系与区别
+
+一个进程中可以有多个线程，多个线程共享进程的**堆**和**方法区 (JDK1.8 之后的元空间)**资源，但是每个线程有自己的**程序计数器**、**虚拟机栈** 和 **本地方法栈**。
+
+线程 是 进程 划分成的更小的运行单位。线程和进程最大的不同在于基本上各进程是独立的，而各线程则不一定，因为同一进程中的线程极有可能会相互影响。线程执行开销小，但不利于资源的管理和保护；而进程正相反
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191231192124935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
+
+程序计数器:
+
+-   字节码解释器通过改变程序计数器来依次读取指令，实现代码流程控制
+-   多线程情况下，程序计数器用于记录当前线程执行的位置，知道线程切换回来运行到哪了
+-   只有执行的是java代码时程序计数器记录的才是下一条指令地址. 若是native方法,记录的是undefined地址
+
+程序计数器私有主要是为了**线程切换后能恢复到正确的执行位置**。
+
+虚拟机栈与本地方法栈:
+
+-   **虚拟机栈：** 每个 Java 方法在执行的同时会创建一个栈帧用于存储局部变量表、操作数栈、常量池引用等信息。从方法调用直至执行完成的过程，就对应着一个栈帧在 Java 虚拟机栈中入栈和出栈的过程。
+-   **本地方法栈：** 和虚拟机栈所发挥的作用非常相似，区别是： **虚拟机栈为虚拟机执行 Java 方法 （也就是字节码）服务，而本地方法栈则为虚拟机使用到的 Native 方法服务。** 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。
+
+为了**保证线程中的局部变量不被别的线程访问到**，虚拟机栈和本地方法栈是线程私有的。
+
+堆和方法区: 
+
+-   堆和方法区是所有线程共享的资源，其中**堆**是进程中最大的一块内存，主要用于**存放新创建的对象** (所有对象都在这里分配内存)，**方法区**主要用于存放**已被加载的类信息、常量、静态变量、即时编译器编译后的代码**等数据。
 
 #### 3.单核CPU,多核CPU的理解
 
@@ -26,49 +53,61 @@
 2.  多核CPU是多线程,每个核单独执行一个线程的任务.
 3.  一个java应用程序java.exe,至少有三个线程:**main()主线程,gc()垃圾回收线程,异常处理线程.**
 
-#### 4.并行与并发
+#### 4.并行与并发区别
 
-1.  **并行:多个CPU同时执行多个任务.(多个人同时做不同的事)**
-2.  **并发:一个CPU(采用时间片)同时执行多个任务.(多个人做同一件事)**
+1.  **并行:多个CPU同时执行多个任务.(多个人同时做不同的事)** ; 单位时间内，多个任务同时执行。
+2.  **并发:一个CPU(采用时间片)同时执行多个任务.(多个人做同一件事)** ; 同一时间段，多个任务都在执行 (单位时间内不一定同时执行)
 
-#### 5.多线程优点
+#### 5.使用多线程好处及可能带来的问题
 
-1.  提高应用程序的响应.
-2.  提高CPU的利用率
-3.  改善程序结构
+从总体上来说：
+
+-   **从计算机底层来说：** 线程可以比作是轻量级的进程，是程序执行的最小单位,线程间的切换和调度的成本远远小于进程。另外，多核 CPU 时代意味着多个线程可以同时运行，这减少了线程上下文切换的开销。
+-   **从当代互联网发展趋势来说：** 现在的系统动不动就要求百万级甚至千万级的并发量，而多线程并发编程正是开发高并发系统的基础，利用好多线程机制可以大大提高系统整体的并发能力以及性能。
+
+**提高应用程序的响应, 提高CPU的利用率, 改善程序结构**
+
+并发编程的目的就是为了能提高程序的执行效率提高程序运行速度，但是并发编程并不总是能提高程序运行速度的，而且并发编程可能会遇到很多问题，比如：**内存泄漏、上下文切换、死锁还有受限于硬件和软件的资源闲置问题**。
 
 #### 6.何时需要多线程
 
-1.  程序需要同时执行两个或多个任务.
-2.  程序需要实现一些需要等待的任务.
-3.  需要一些后台运行的程序时.
+-   程序需要同时执行两个或多个任务.
+-   程序需要实现一些需要等待的任务, 如用户输入、文件读写操作、网络操作、搜索等
+-   需要一些后台运行的程序时.
 
 ### 二:线程的创建和使用
 
-JVM允许程序运行多个线程,通过**java.lang.Thread**类体现.JDK1.5之前有两种方式创建线程: **继承Thread类 和 实现Runnable接口**.
+JVM允许程序运行多个线程,通过**java.lang.Thread**类体现.JDK1.5之前有两种方式创建线程: **继承Thread类 和 实现Runnable接口**. JDK5新增创建方式: **实现Callable接口 和 线程池**
 
 #### 1.继承Thread类
 
 1.  Thread类特性
 
-    1.  **每个线程都是通过某个特定Thread对象的run()方法完成操作的**,常把run()方法的主体称为**线程体**.
-    2.  **通过Thread对象的start()方法启动线程**,不是直接调用run()方法
+    -   **每个线程都是通过某个特定Thread对象的run()方法完成操作的**,常把run()方法的主体称为**线程体**.
+    -   **通过Thread对象的start()方法启动线程**,不是直接调用run()方法
 
 2.  Thread类构造器
 
-    1.  **Thread(): 创建Thread对象**
-    2.  Thread(String threadname): 创建线程并指定线程实例名
-    3.  **Thread(Runnable target): 创出线程的目标对象,它实现了Runnable接口的run()**
-    4.  Thread(Runnable target, String name): 创建新的Thread对象
+    -   `Thread()` : **创建Thread对象**
+    -   `Thread(String threadname)` : 创建线程并指定线程实例名
+    -   `Thread(Runnable target)` : **创出线程的目标对象,它实现了Runnable接口的run()**
+    -   `Thread(Runnable target, String name)` : 创建新的Thread对象
 
 3.  流程
 
-    1.  **继承Thread**
-    2.  **重写Thread中的run()**
-    3.  **创建线程对象**
-    4.  **调用对象的start(): 启动线程,调用run()**
+    -   **继承Thread**
+    -   **重写Thread中的run()**
+    -   **创建线程对象**
+    -   **调用对象的start(): 启动线程,调用run()**
 
-4.  示例
+4.  注意点
+
+    -   **对象调用run()方法,没有启动多线程模式**,
+    -   run()方法由JVM掉用,什么时候,执行过程都由CPU调度决定.
+    -   **启动多线程,必须调用start()方法**.
+    -   **一个线程对象不能重复调用start()方法,否则发生 "线程状态不符" 异常**
+
+5.  示例
 
     ```java
     //1. 创建一个继承于Thread类的子类
@@ -123,21 +162,14 @@ JVM允许程序运行多个线程,通过**java.lang.Thread**类体现.JDK1.5之�
     }
     ```
 
-5.  注意点
-
-    1.  **对象调用run()方法,没有启动多线程模式**,
-    2.  run()方法由JVM掉用,什么时候,执行过程都由CPU调度决定.
-    3.  **启动多线程,必须调用start()方法**.
-    4.  **一个线程对象不能重复调用start()方法,否则发生 "线程状态不符" 异常**
-
 #### 2.实现Runnable接口
 
 1.  流程
 
-    1.  **实现Runnable接口.**
-    2.  **重写Runnable接口中的run()方法.**
-    3.  **通过Thread(Runnable target)构造器创建线程对象.**
-    4.  **调用start()方法: 开启线程,调用Runnable子类接口的run()方法.**
+    -   **实现Runnable接口.**
+    -   **重写Runnable接口中的run()方法.**
+    -   **通过Thread(Runnable target)构造器创建线程对象.**
+    -   **调用start()方法: 开启线程,调用Runnable子类接口的run()方法.**
 
 2.  示例
 
@@ -183,94 +215,25 @@ JVM允许程序运行多个线程,通过**java.lang.Thread**类体现.JDK1.5之�
     1.  **避免了单继承的局限性**
     2.  **多个线程可以共享同一个接口实现类的对象,适合处理多个线程有共享数据的情况**
 
+#### 4.实现Callable接口
+
+#### 5.使用线程池
+
 ### 三:Thread类的相关方法
 
-1.  **void start(): 启动当前线程,并执行当前线程的run()方法**
-2.  **run(): 被CPU调度时执行的操作,将创建的线程要执行的操作声明在此方法中**
-3.  **String getName(): 返回线程的名称**
-4.  **void setName(String name): 设置线程的名称**
-5.  **static Thread currentThread(): 返回执行当前代码的线程. 在Thread子类中指this, 通常用于主线程和Runnable实现类.**
-6.  **static void yield(): 释放当前cpu的执行权**
-7.  **join(): 在线程a中调用线程b的join(),此时线程a就进入阻塞状态，直到线程b完全执行完以后，线程a才结束阻塞状态**
-8.  **static void sleep(long millitime): 让当前线程“睡眠”指定的millitime毫秒。在指定的millitime毫秒时间内，当前线程是阻塞状态**
-9.  **boolean isAlive(): 判断当前线程是否存活**
+| 方法                                    | 描述                                       |
+| ------------------------------------- | ---------------------------------------- |
+| **void start()**                      | 启动当前线程,并执行当前线程的run()方法                   |
+| **run()**                             | 被CPU调度时执行的操作,将创建的线程要执行的操作声明在此方法中         |
+| String getName()                      | 返回线程的名称                                  |
+| void setName(String name)             | 设置线程的名称                                  |
+| static Thread currentThread()         | 返回执行当前代码的线程. 在Thread子类中指this, 通常用于主线程和Runnable实现类 |
+| **static void yield()**               | 释放当前cpu的执行权                              |
+| **join()**                            | 在线程a中调用线程b的join(),此时线程a就进入阻塞状态，直到线程b完全执行完以后，线程a才结束阻塞状态 |
+| **static void sleep(long millitime)** | 让当前线程“睡眠”指定的millitime毫秒。在指定的millitime毫秒时间内，当前线程是阻塞状态 |
+| boolean isAlive()                     | 判断当前线程是否存活                               |
 
-### 四:线程的优先级及分类
-
-1.  调用策略: **时间片**(单元时间内做任务切换) 或 **抢占式**(高优先级的线程抢占CPU)
-2.  调度方法: 同优先级线程组成先进先出队列(先到先服务),使用时间片策略; 对高优先级,使用抢占式策略
-3.  线程优先级
-    1.  **MAX_PRIORITY: 10;  MIN_PRIORITY: 1;  NORM_PRIORITY: 5;(默认优先级)**
-    2.  **getPriority(): 返回线程等级值;  setPriority(int newPriority): 设置线程等级值**
-    3.  **说明: 线程创建时继承父线程的优先级; 低优先级只是获得调度的概率低,并不一定在高优先级线程之后才被调用**
-4.  线程分类
-    1.  分为**守护线程 和 用户线程**.
-    2.  守护线程是用来服务用户线程的,在**start()方法前调用thread.setDaemon(true)可以把一个用户线程变为一个守护线程.**
-    3.  java垃圾回收就是一个守护线程.**若JVM中都是守护线程,当前JVM将退出**.
-
-示例:
-
-```java
-class HelloThread extends Thread{
-    @Override
-    public void run() {
-        for (int i = 0; i < 100; i++) {
-            if(i % 2 == 0){
-
-//                try {
-//                    sleep(10);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-
-                System.out.println(Thread.currentThread().getName() + ":" + Thread.currentThread().getPriority() + ":" + i);
-            }
-
-//            if(i % 20 == 0){
-//                yield();
-//            }
-        }
-    }
-
-    public HelloThread(String name){
-        super(name);
-    }
-}
-
-
-public class ThreadMethodTest {
-    public static void main(String[] args) {
-        HelloThread h1 = new HelloThread("Thread：1");
-
-//        h1.setName("线程一");
-        //设置分线程的优先级
-        h1.setPriority(Thread.MAX_PRIORITY);
-        h1.start();
-
-        //给主线程命名
-        Thread.currentThread().setName("主线程");
-        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-
-        for (int i = 0; i < 100; i++) {
-            if(i % 2 == 0){
-                System.out.println(Thread.currentThread().getName() + ":" + Thread.currentThread().getPriority() + ":" + i);
-            }
-
-//            if(i == 20){
-//                try {
-//                    h1.join();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-        }
-
-//        System.out.println(h1.isAlive());
-    }
-}
-```
-
-### 五:示例
+应用:
 
 ```java
 /**
@@ -340,9 +303,82 @@ class MyThread3 extends Thread{
 }
 ```
 
+### 四:线程的优先级及分类
+
+1.  调用策略: **时间片**(单元时间内做任务切换) 或 **抢占式**(高优先级的线程抢占CPU)
+2.  调度方法: 同优先级线程组成先进先出队列(先到先服务),使用时间片策略; 对高优先级,使用抢占式策略
+3.  线程优先级
+    -   **MAX_PRIORITY: 10;  MIN_PRIORITY: 1;  NORM_PRIORITY: 5;(默认优先级)**
+    -   **getPriority(): 返回线程等级值;  setPriority(int newPriority): 设置线程等级值**
+    -   **说明: 线程创建时继承父线程的优先级; 低优先级只是获得调度的概率低,并不一定在高优先级线程之后才被调用**
+4.  线程分类
+    -   分为**守护线程 和 用户线程**.
+    -   守护线程是用来服务用户线程的,在**start()方法前调用thread.setDaemon(true)可以把一个用户线程变为一个守护线程.**
+    -   java垃圾回收就是一个守护线程.**若JVM中都是守护线程,当前JVM将退出**.
+
+示例:
+
+```java
+class HelloThread extends Thread{
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            if(i % 2 == 0){
+
+//                try {
+//                    sleep(10);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+
+                System.out.println(Thread.currentThread().getName() + ":" + Thread.currentThread().getPriority() + ":" + i);
+            }
+
+//            if(i % 20 == 0){
+//                yield();
+//            }
+        }
+    }
+
+    public HelloThread(String name){
+        super(name);
+    }
+}
 
 
-### 六:线程的生命周期
+public class ThreadMethodTest {
+    public static void main(String[] args) {
+        HelloThread h1 = new HelloThread("Thread：1");
+
+//        h1.setName("线程一");
+        //设置分线程的优先级
+        h1.setPriority(Thread.MAX_PRIORITY);
+        h1.start();
+
+        //给主线程命名
+        Thread.currentThread().setName("主线程");
+        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+
+        for (int i = 0; i < 100; i++) {
+            if(i % 2 == 0){
+                System.out.println(Thread.currentThread().getName() + ":" + Thread.currentThread().getPriority() + ":" + i);
+            }
+
+//            if(i == 20){
+//                try {
+//                    h1.join();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+        }
+
+//        System.out.println(h1.isAlive());
+    }
+}
+```
+
+### 五:线程的生命周期
 
 #### 1.Thread.State类
 
@@ -357,7 +393,17 @@ Thread.State类定义了线程的几种状态,在一个完整的生命周期中�
 #### 2.线程状态转换图
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191124165624626.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
-### 七:线程的同步
+#### 3.上下文切换
+
+多线程编程中一般线程的个数都大于 CPU 核心的个数，而一个 CPU 核心在任意时刻只能被一个线程使用，为了让这些线程都能得到有效执行，CPU 采取的策略是为每个线程分配时间片并轮转的形式。当一个线程的时间片用完的时候就会重新处于就绪状态让给其他线程使用，这个过程就属于一次上下文切换。
+
+概括来说就是：当前任务在执行完 CPU 时间片切换到另一个任务之前会先保存自己的状态，以便下次再切换回这个任务时，可以再加载这个任务的状态。**任务从保存到再加载的过程就是一次上下文切换**。
+
+上下文切换通常是计算密集型的。也就是说，它需要相当可观的处理器时间，在每秒几十上百次的切换中，每次切换都需要纳秒量级的时间。所以，上下文切换对系统来说意味着消耗大量的 CPU 时间，事实上，可能是操作系统中时间消耗最大的操作。
+
+Linux 相比与其他操作系统（包括其他类 Unix 系统）有很多的优点，其中有一项就是，其上下文切换和模式切换的时间消耗非常少。
+
+### 六:线程的同步
 
 #### 1.多线程的安全问题
 
@@ -622,7 +668,7 @@ public class LockTest {
 }
 ```
 
-### 九:线程的通信
+### 七:线程的通信
 
 #### 1.涉及到的三个方法
 

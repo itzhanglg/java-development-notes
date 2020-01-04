@@ -81,143 +81,306 @@ JVM允许程序运行多个线程,通过**java.lang.Thread**类体现.JDK1.5之�
 
 #### 1.继承Thread类
 
-1.  Thread类特性
+##### 1.1 Thread类特性
 
-    -   **每个线程都是通过某个特定Thread对象的run()方法完成操作的**,常把run()方法的主体称为**线程体**.
-    -   **通过Thread对象的start()方法启动线程**,不是直接调用run()方法
+-   **每个线程都是通过某个特定Thread对象的run()方法完成操作的**,常把run()方法的主体称为**线程体**.
+-   **通过Thread对象的start()方法启动线程**,不是直接调用run()方法
 
-2.  Thread类构造器
+##### 1.2 Thread类构造器
 
-    -   `Thread()` : **创建Thread对象**
-    -   `Thread(String threadname)` : 创建线程并指定线程实例名
-    -   `Thread(Runnable target)` : **创出线程的目标对象,它实现了Runnable接口的run()**
-    -   `Thread(Runnable target, String name)` : 创建新的Thread对象
+-   `Thread()` : **创建Thread对象**
+-   `Thread(String threadname)` : 创建线程并指定线程实例名
+-   `Thread(Runnable target)` : **创出线程的目标对象,它实现了Runnable接口的run()**
+-   `Thread(Runnable target, String name)` : 创建新的Thread对象
 
-3.  流程
+##### 1.3 流程
 
-    -   **继承Thread**
-    -   **重写Thread中的run()**
-    -   **创建线程对象**
-    -   **调用对象的start(): 启动线程,调用run()**
+-   **继承Thread**
+-   **重写Thread中的run()**
+-   **创建线程对象**
+-   **调用对象的start(): 启动线程,调用run()**
 
-4.  注意点
+##### 1.4 注意点
 
-    -   **对象调用run()方法,没有启动多线程模式**,
-    -   run()方法由JVM掉用,什么时候,执行过程都由CPU调度决定.
-    -   **启动多线程,必须调用start()方法**.
-    -   **一个线程对象不能重复调用start()方法,否则发生 "线程状态不符" 异常**
+-   **对象调用run()方法,没有启动多线程模式**,
+-   run()方法由JVM掉用,什么时候,执行过程都由CPU调度决定.
+-   **启动多线程,必须调用start()方法**.
+-   **一个线程对象不能重复调用start()方法,否则发生 "线程状态不符" 异常**
 
-5.  示例
+##### 1.5 示例
 
-    ```java
-    //1. 创建一个继承于Thread类的子类
-    class MyThread extends Thread {
-        public MyThread(){}
-        public MyThread(String name){ super(name); }
+```java
+//1. 创建一个继承于Thread类的子类
+class MyThread extends Thread {
+    public MyThread(){}
+    public MyThread(String name){ super(name); }
 
-        //2. 重写Thread类的run()
-        @Override
-        public void run() {
-            for (int i = 0; i < 100; i++) {
-                if (i % 2 == 0) {
-                    /*public Thread() {
-                        init(null, null, "Thread-" + nextThreadNum(), 0);
-                    }*/
-                    System.out.println(Thread.currentThread().getName() + ":" + i);
-                }
+    //2. 重写Thread类的run()
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                /*public Thread() {
+                    init(null, null, "Thread-" + nextThreadNum(), 0);
+                }*/
+                System.out.println(Thread.currentThread().getName() + ":" + i);
             }
         }
     }
+}
 
-    public class ThreadTest {
-        public static void main(String[] args) {
-            //3. 创建Thread类的子类的对象
-    //        MyThread t1 = new MyThread();
-            MyThread t1 = new MyThread("分线程");
-            //设置线程名称
-    //        t1.setName("线程一");
+public class ThreadTest {
+    public static void main(String[] args) {
+        //3. 创建Thread类的子类的对象
+//        MyThread t1 = new MyThread();
+        MyThread t1 = new MyThread("分线程");
+        //设置线程名称
+//        t1.setName("线程一");
 
-            //4.通过此对象调用start():①启动当前线程 ② 调用当前线程的run()
-            t1.start();
+        //4.通过此对象调用start():①启动当前线程 ② 调用当前线程的run()
+        t1.start();
 
-            //问题一：我们不能通过直接调用run()的方式启动线程。
-    //        t1.run();
-            //问题二：再启动一个线程，遍历100以内的偶数。不可以还让已经start()的线程去执行。
-            /*if (threadStatus != 0)
-                throw new IllegalThreadStateException();*/
-    //        t1.start();       // java.lang.IllegalThreadStateException
+        //问题一：我们不能通过直接调用run()的方式启动线程。
+//        t1.run();
+        //问题二：再启动一个线程，遍历100以内的偶数。不可以还让已经start()的线程去执行。
+        /*if (threadStatus != 0)
+            throw new IllegalThreadStateException();*/
+//        t1.start();       // java.lang.IllegalThreadStateException
 
-            //我们需要重新创建一个线程的对象
-            MyThread t2 = new MyThread();
-            t2.start();
-            Thread.currentThread().setName("主线程");
+        //我们需要重新创建一个线程的对象
+        MyThread t2 = new MyThread();
+        t2.start();
+        Thread.currentThread().setName("主线程");
 
-            //如下操作仍然是在main线程中执行的。
-            for (int i = 0; i < 100; i++) {
-                if (i % 2 == 0) {
-                    System.out.println(Thread.currentThread().getName() + ":" + i);
-                }
+        //如下操作仍然是在main线程中执行的。
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                System.out.println(Thread.currentThread().getName() + ":" + i);
             }
         }
     }
-    ```
-
+}
+```
 #### 2.实现Runnable接口
 
-1.  流程
+##### 2.1 流程
 
-    -   **实现Runnable接口.**
-    -   **重写Runnable接口中的run()方法.**
-    -   **通过Thread(Runnable target)构造器创建线程对象.**
-    -   **调用start()方法: 开启线程,调用Runnable子类接口的run()方法.**
+-   **实现Runnable接口.**
+-   **重写Runnable接口中的run()方法.**
+-   **通过Thread(Runnable target)构造器创建线程对象.**
+-   **调用start()方法: 开启线程,调用Runnable子类接口的run()方法.**
 
-2.  示例
+##### 2.2 示例
 
-    ```java
-    //1. 创建一个实现了Runnable接口的类
-    class MyThread2 implements Runnable{
-        //2. 实现类去实现Runnable中的抽象方法：run()
-        @Override
-        public void run() {
-            for (int i = 0; i <= 100 ; i++) {
-                if (i % 2 == 0){
-                    System.out.println(Thread.currentThread().getName()+":"+i);
-                }
+```java
+//1. 创建一个实现了Runnable接口的类
+class MyThread2 implements Runnable{
+    //2. 实现类去实现Runnable中的抽象方法：run()
+    @Override
+    public void run() {
+        for (int i = 0; i <= 100 ; i++) {
+            if (i % 2 == 0){
+                System.out.println(Thread.currentThread().getName()+":"+i);
             }
         }
     }
+}
 
-    public class ThreadTest2 {
-        public static void main(String[] args) {
-            //3. 创建实现类的对象
-            MyThread2 r1 = new MyThread2();
-            //4. 将此对象作为参数传递到Thread类的构造器中，创建Thread类的对象
-            Thread t1 = new Thread(r1);
-            t1.setName("线程1");
-            //5. 通过Thread类的对象调用start():① 启动线程 ②调用当前线程的run()
-            // -->调用了Runnable类型的target的run()
-            t1.start();
+public class ThreadTest2 {
+    public static void main(String[] args) {
+        //3. 创建实现类的对象
+        MyThread2 r1 = new MyThread2();
+        //4. 将此对象作为参数传递到Thread类的构造器中，创建Thread类的对象
+        Thread t1 = new Thread(r1);
+        t1.setName("线程1");
+        //5. 通过Thread类的对象调用start():① 启动线程 ②调用当前线程的run()
+        // -->调用了Runnable类型的target的run()
+        t1.start();
 
-            //再启动一个线程，遍历100以内的偶数
-            Thread t2 = new Thread(r1);
-            t2.setName("线程2");
-            t2.start();
-        }
+        //再启动一个线程，遍历100以内的偶数
+        Thread t2 = new Thread(r1);
+        t2.setName("线程2");
+        t2.start();
     }
-    ```
-
+}
+```
 #### 3.两种方式的联系与区别
 
-`public class Thread extends Object implements Runnable`
+`public class Thread extends Object implements Runnable{ ... }`
 
-1.  联系: **都需要重写run()方法,将线程要执行的逻辑都声明在run()中**
-2.  实现Runnable接口方式的好处
-    1.  **避免了单继承的局限性**
-    2.  **多个线程可以共享同一个接口实现类的对象,适合处理多个线程有共享数据的情况**
+联系: **都需要重写run()方法,将线程要执行的逻辑都声明在run()中**
+
+实现Runnable接口方式的好处
+-   **避免了单继承的局限性**
+-   **多个线程可以共享同一个接口实现类的对象,适合处理多个线程有共享数据的情况**
 
 #### 4.实现Callable接口
 
+##### 4.1 流程
+
+-   **创建一个实现Callable接口的实现类**
+-   **重写call方法**，将此线程需要执行的操作声明在call()中
+-   **创建Callable接口实现类的对象**
+-   将此Callable接口实现类的对象作为参数传递到FutureTask构造器中，**创建FutureTask的对象**
+-   将FutureTask的对象作为参数传递到Thread类的构造器中，**创建Thread对象**
+-   **调用start()** , 开启线程, 调用Callable实现类的call()方法
+
+##### 4.2 Callable接口相对于Runnable接口的优势
+
+-   call() 可以有**返回值**
+-   call() 可以**抛出异常**,被外面操作捕获,获取异常信息
+-   Callable **支持泛型**
+
+##### 4.3 说明
+
+```java
+public class FutureTask<V> implements RunnableFuture<V>{ ... }
+
+public interface RunnableFuture<V> extends Runnable, Future<V> {
+    /**
+     * Sets this Future to the result of its computation
+     * unless it has been cancelled.
+     */
+    void run();
+}
+```
+
+FutureTask是Future接口的唯一的实现类,**FutureTask 同时继承了Runnable, Future接口。它既可以作为**
+**Runnable被线程执行，又可以作为Future得到Callable的返回值**.
+
+##### 4.4 示例
+
+```java
+/**
+ * 实现Callable接口
+ *
+ * @author zlg
+ * @create 2019-11-16 15:21
+ */
+//1.创建一个实现Callable的实现类
+class NumThread implements Callable<Integer>{
+
+    //2.实现call方法，将此线程需要执行的操作声明在call()中
+    @Override
+    public Integer call() throws Exception {
+        int sum = 0;
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 == 0){
+                System.out.println(i);
+                sum += i;
+            }
+        }
+        return sum;
+    }
+}
+
+public class ImplementTest2 {
+    public static void main(String[] args) {
+        //3.创建Callable接口实现类的对象
+        NumThread numThread = new NumThread();
+        //4.将此Callable接口实现类的对象作为传递到FutureTask构造器中，创建FutureTask的对象
+        // public interface RunnableFuture<V> extends Runnable, Future<V>
+        FutureTask<Integer> integerFutureTask = new FutureTask<>(numThread);
+        //5.将FutureTask的对象作为参数传递到Thread类的构造器中，创建Thread对象，并调用start()
+        Thread thread = new Thread(integerFutureTask);
+        thread.start();
+        try {
+            //6.获取Callable中call方法的返回值
+            //get()返回值即为FutureTask构造器参数Callable实现类重写的call()的返回值。
+            Integer integer = integerFutureTask.get();
+            System.out.println("输出为: " + integer);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
 #### 5.使用线程池
+
+##### 5.1 概述
+
+提前创建好多个线程，放入线程池中，使用时直接获取，使用完放回池中。可以避免频繁创建销毁、实现重复利用。**线程池**提供了一种限制和管理资源（包括执行一个任务）。 每个**线程池**还维护一些基本统计信息，例如已完成任务的数量。
+
+使用线程池的好处:
+
+-   **提高响应速度**（当任务到达时，任务可以不需要的等到线程创建就能立即执行）
+-   **降低资源消耗**（通过重复利用已创建的线程降低线程创建和销毁造成的消耗）
+-   **便于线程管理**（线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控）
+    -   corePoolSize：核心池的大小
+    -   maximumPoolSize：最大线程数
+    -   keepAliveTime：线程没有任务时最多保持多长时间后会终止
+
+##### 5.2 相关API
+
+ExecutorService：真正的线程池接口。常见子类**ThreadPoolExecutor**
+
+-   `void execute(Runnable command)`  ：执行任务/命令，没有返回值，一般用来执行Runnable对象
+-   `<T> Future<T> submit(Callable<T> task)` ：执行任务，有返回值，一般又来执行Callable对象
+-   `void shutdown()`  ：关闭连接池
+
+Executors：工具类、线程池的工厂类，用于创建并返回不同类型的线程池
+
+-   `Executors.newFixedThreadPool(n) ` ： 创建一个可重用固定线程数的线程池
+-   `Executors.newSingleThreadExecutor()`  ：创建一个只有一个线程的线程池
+-   `Executors.newCachedThreadPool()` ：创建一个可根据需要创建新线程的线程池
+-   `Executors.newScheduledThreadPool(n)` ：创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。
+
+##### 5.3 示例
+
+```java
+/**
+ * 使用线程池
+ *
+ * @author zlg
+ * @create 2019-12-06 20:45
+ */
+class NumThread2 implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 != 0){
+                System.out.println(i);
+            }
+        }
+    }
+}
+class NumThread3 implements Callable<Integer>{
+    @Override
+    public Integer call() throws Exception {
+        int sum = 0;
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 == 0){
+                System.out.println(i);
+                sum += i;
+            }
+        }
+        return sum;
+    }
+}
+
+public class ThreadPoolTest {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        //1. 提供指定线程数量的线程池
+        ExecutorService executorService = Executors.newFixedThreadPool(16);
+        ThreadPoolExecutor service = (ThreadPoolExecutor) executorService;
+        //设置线程池的属性
+//        System.out.println(executorService.getClass());
+//        service.setCorePoolSize(15);
+//        service.setKeepAliveTime();
+
+        //2.执行指定的线程的操作。需要提供实现Runnable接口或Callable接口实现类的对象
+        executorService.execute(new NumThread2());  //适合适用于Runnable
+        Future<Integer> submit = executorService.submit(new NumThread3()); //适合使用于Callable
+        System.out.println(submit.get());   // 2550
+
+        //3.关闭连接池
+        executorService.shutdown();
+    }
+}
+```
 
 ### 三:Thread类的相关方法
 
@@ -232,6 +395,7 @@ JVM允许程序运行多个线程,通过**java.lang.Thread**类体现.JDK1.5之�
 | **join()**                            | 在线程a中调用线程b的join(),此时线程a就进入阻塞状态，直到线程b完全执行完以后，线程a才结束阻塞状态 |
 | **static void sleep(long millitime)** | 让当前线程“睡眠”指定的millitime毫秒。在指定的millitime毫秒时间内，当前线程是阻塞状态 |
 | boolean isAlive()                     | 判断当前线程是否存活                               |
+| stop()                                | 强制线程生命周期结束,不推荐使用                         |
 
 应用:
 
@@ -305,16 +469,19 @@ class MyThread3 extends Thread{
 
 ### 四:线程的优先级及分类
 
-1.  调用策略: **时间片**(单元时间内做任务切换) 或 **抢占式**(高优先级的线程抢占CPU)
-2.  调度方法: 同优先级线程组成先进先出队列(先到先服务),使用时间片策略; 对高优先级,使用抢占式策略
-3.  线程优先级
-    -   **MAX_PRIORITY: 10;  MIN_PRIORITY: 1;  NORM_PRIORITY: 5;(默认优先级)**
-    -   **getPriority(): 返回线程等级值;  setPriority(int newPriority): 设置线程等级值**
-    -   **说明: 线程创建时继承父线程的优先级; 低优先级只是获得调度的概率低,并不一定在高优先级线程之后才被调用**
-4.  线程分类
-    -   分为**守护线程 和 用户线程**.
-    -   守护线程是用来服务用户线程的,在**start()方法前调用thread.setDaemon(true)可以把一个用户线程变为一个守护线程.**
-    -   java垃圾回收就是一个守护线程.**若JVM中都是守护线程,当前JVM将退出**.
+调用策略: **时间片**(单元时间内做任务切换) 或 **抢占式**(高优先级的线程抢占CPU)
+
+调度方法: **同优先级**线程组成先进先出队列(先到先服务),使用时间片策略; 对**高优先级**,使用抢占式策略
+
+线程优先级:
+-   **MAX_PRIORITY: 10;  MIN_PRIORITY: 1;  NORM_PRIORITY: 5;(默认优先级)**
+-   **getPriority(): 返回线程等级值;  setPriority(int newPriority): 设置线程等级值**
+-   **说明: 线程创建时继承父线程的优先级; 低优先级只是获得调度的概率低,并不一定在高优先级线程之后才被调用**
+
+线程分类:
+-   分为**守护线程 和 用户线程**.
+-   守护线程是用来服务用户线程的,在**start()方法前调用thread.setDaemon(true)可以把一个用户线程变为一个守护线程.**
+-   java垃圾回收就是一个守护线程.**若JVM中都是守护线程,当前JVM将退出**.
 
 示例:
 
@@ -380,9 +547,59 @@ public class ThreadMethodTest {
 
 ### 五:线程的生命周期
 
-#### 1.Thread.State类
+#### 1.Thread.State类及生命周期
 
-Thread.State类定义了线程的几种状态,在一个完整的生命周期中通常要经历五种状态:
+Java 线程在运行的生命周期中的指定时刻只可能处于下面 6 种不同状态的其中一个状态,Thread.State类定义了线程的几种状态:
+
+```java
+public class Thread implements Runnable {
+  
+	public enum State {
+      	/**
+         * 初始状态,线程被构建,但是还没有调用start()方法
+         */
+        NEW,
+
+        /**
+         * 运行状态,Java线程将操作系统中的就绪和运行两种状态笼统称作"运行中"
+         * 就绪 -> 运行: Thread.start()方法后,将进入线程队列等待CPU时间片
+         * 运行 -> 就绪: yield()方法
+         */
+        RUNNABLE,
+
+        /**
+         * 阻塞状态,表示线程阻塞于锁
+         * 阻塞: 被人为挂起或执行输入输出操作时,让出CPU并临时终止自己的执行,进入阻塞状态
+         * 等待进入synchronized方法,等待进入synchronized块
+         * 获取到锁
+         */
+        BLOCKED,
+
+        /**
+         * 等待状态,表示线程进入等待状态,表示当前线程需要等待其它线程做出一些特点动作(通知或中断)
+         * Object.wait(),Object.join(),LockSupport.park()
+         * Object.notify(),Ojbect.notifyAll(),LockSupport.unpark(Thread)
+         */
+        WAITING,
+
+        /**
+         * 超时等待状态,该状态不同于 WAITING,它是可以在指定的时间自行返回
+         * Thread.sleep(long),Object.wait(long),Thread.join(long),LockSupport.parkNanos(),LockSupport.parkUntil()
+         * Object.notify(),Ojbect.notifyAll(),LockSupport.unpark(Thread)
+         */
+        TIMED_WAITING,
+
+        /**
+         * 终止状态,表示当前线程已经执行完毕(执行完run()方法)
+         * 死亡: 线程完成全部工作或被提前强制性终止或出现异常导致结束
+         */
+        TERMINATED;
+    }
+  
+}
+```
+
+在一个完整的生命周期中通常要经历五种状态:
 
 1.  **新建**: 当一个Thread类或其子类的对象被声明并创建时
 2.  **就绪**: start()方法后,将进入线程队列等待CPU时间片
@@ -390,12 +607,47 @@ Thread.State类定义了线程的几种状态,在一个完整的生命周期中�
 4.  **阻塞**: 被人为挂起或执行输入输出操作时,让出CPU并临时终止自己的执行,进入阻塞状态
 5.  **死亡**: 线程完成全部工作或被提前强制性终止或出现异常导致结束
 
-#### 2.线程状态转换图
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191124165624626.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
-#### 3.上下文切换
+图示中把等待(waiting),超时等待(timed_waiting)和阻塞(blocked)都放在了阻塞这一块,方便理解生命周期.
 
-多线程编程中一般线程的个数都大于 CPU 核心的个数，而一个 CPU 核心在任意时刻只能被一个线程使用，为了让这些线程都能得到有效执行，CPU 采取的策略是为每个线程分配时间片并轮转的形式。当一个线程的时间片用完的时候就会重新处于就绪状态让给其他线程使用，这个过程就属于一次上下文切换。
+#### 2.线程状态转换图
+
+![](../../../media/pictures/018.png)
+
+-   NEW --> READY --> RUNNING:
+
+    线程创建之后它将处于 **NEW（新建）** 状态，调用 `start()` 方法后开始运行，线程这时候处于 **READY（可运行）** 状态。可运行状态的线程获得了 CPU 时间片（timeslice）后就处于 **RUNNING（运行）** 状态。Java线程将操作系统中的就绪和运行两种状态笼统称作**RUNNABLE(运行中)** .
+
+-   RUNNING --> READY:
+
+    当线程调用 `yield()` 方法或失去CPU执行权后,会进入可运行状态.
+
+-   RUNNING --> WAITING --> READY:
+
+    当线程执行 `wait()`方法之后，线程进入 **WAITING（等待）** 状态。进入等待状态的线程需要依靠其他线程的**通知**才能够返回到运行状态.
+
+-   RUNNING  --> TIME_WAITING --> READY:
+
+    而 **TIME_WAITING(超时等待)** 状态相当于在等待状态的基础上增加了超时限制，比如通过 `sleep（long millis）`方法或 `wait（long millis）`方法可以将 Java 线程置于 TIMED_WAITING 状态。当超时**时间到达后** Java 线程将会返回到 RUNNABLE 状态。
+
+-   RUNNING --> BLOCKED --> READY:
+
+    当线程调用同步方法时，在**没有获取到锁**的情况下，线程将会进入到 **BLOCKED（阻塞）** 状态。
+
+-   RUNNING --> TERMINATED:
+
+    线程在执行 Runnable 的`run()`方法之后将会进入到 **TERMINATED（终止）** 状态。
+
+#### 3.启动线程为什么不能直接调用run()方法
+
+new 一个 Thread，线程进入了新建状态;调用 start() 方法，会启动一个线程并使线程进入了就绪状态，当分配到时间片后就可以开始运行了。 start() 会执行线程的相应准备工作，然后自动执行 run() 方法的内容，这是真正的多线程工作。 而直接执行 run() 方法，会把 run 方法当成一个 main 线程下的普通方法去执行，并不会在某个线程中执行它，所以这并不是多线程工作。
+
+**总结：** <span style="color:red;">调用 start 方法方可启动线程并使线程进入就绪状态，而 run 方法只是 thread 的一个普通方法调用，还是在主线程里执行。</span>
+
+#### 4.上下文切换
+
+多线程编程中一般线程的个数都大于 CPU 核心的个数，而一个 CPU 核心在任意时刻只能被一个线程使用，为了让这些线程都能得到有效执行，CPU 采取的策略是**为每个线程分配时间片并轮转的形式。当一个线程的时间片用完的时候就会重新处于就绪状态让给其他线程使用，这个过程就属于一次上下文切换。**
 
 概括来说就是：当前任务在执行完 CPU 时间片切换到另一个任务之前会先保存自己的状态，以便下次再切换回这个任务时，可以再加载这个任务的状态。**任务从保存到再加载的过程就是一次上下文切换**。
 
@@ -405,14 +657,26 @@ Linux 相比与其他操作系统（包括其他类 Unix 系统）有很多的�
 
 ### 六:线程的同步
 
-#### 1.多线程的安全问题
+多线程的安全问题
 
-1.  问题原有: 当多条语句在操作同一个线程共享数据时,一个线程对多条语句只执行了一部分,另一个线程就参与进来执行,导致共享数据的错误.
-2.  解决办法: 对多条操作共享数据的语句,只能让一个线程都执行完,在执行过程中,其他线程不可以参与执行.
+-   问题原有: 当多条语句在操作同一个线程共享数据时,一个线程对多条语句只执行了一部分,另一个线程就参与进来执行,导致共享数据的错误.
+-   解决办法: 对多条操作共享数据的语句,只能让一个线程都执行完,在执行过程中,其他线程不可以参与执行.
 
-#### 2.三种解决方法
+#### 1.synchronized
 
-##### 2.1.同步代码块
+##### 1.1 synchronized关键字概述
+
+<span style="color:red;">synchronized关键字解决的是多个线程之间访问资源的同步性，synchronized关键字可以保证被它修饰的方法或者代码块在任意时刻只能有一个线程执行。</span>
+
+synchronized关键字最主要的三种使用方式：
+
+-   **修饰实例方法:** 作用于当前对象实例加锁，进入同步代码前要获得<span style="color:red;">当前对象</span>实例的锁
+-   **修饰静态方法:** 也就是给当前类加锁，会作用于类的<span style="color:red;">所有对象</span>实例，因为静态成员不属于任何一个实例对象，是类成员（ static 表明这是该类的一个静态资源，不管new了多少个对象，只有一份）。所以如果一个线程A调用一个实例对象的非静态 synchronized 方法，而线程B需要调用这个实例对象所属类的静态 synchronized 方法，是允许的，不会发生互斥现象，**因为访问静态 synchronized 方法占用的锁是当前类的锁，而访问非静态 synchronized 方法占用的锁是当前实例对象锁**。
+-   **修饰代码块:** 指定加锁对象，对<span style="color:red;">给定对象</span>加锁，进入同步代码库前要获得给定对象的锁。
+
+**总结：** <span style="color:red;">synchronized 关键字加到 static 静态方法和 synchronized(class)代码块上都是是给 Class 类上锁。synchronized 关键字加到实例方法上是给对象实例上锁。尽量不要使用 synchronized(String a) 因为JVM中，字符串常量池具有缓存功能！</span>
+
+##### 1.2 同步代码块
 
 ```java
 synchronized(对象){
@@ -421,44 +685,27 @@ synchronized(对象){
 ```
 
 说明：
-1. 操作共享数据的代码，即为需要被同步的代码。  -->不能包含代码多了，也不能包含代码少了。
-2. 共享数据：多个线程共同操作的变量。比如：ticket就是共享数据。
-3. 同步监视器，俗称：锁。任何一个类的对象，都可以充当锁。
-         	要求：多个线程必须要共用同一把锁。
-     ​    	
-     补充：
+-   操作共享数据的代码，即为需要被同步的代码。  -->不能包含代码多了，也不能包含代码少了。
+-   共享数据：多个线程共同操作的变量。比如：ticket就是共享数据。
+-   同步监视器，俗称：锁。任何一个类的对象，都可以充当锁。
+
+要求：多个线程必须要共用同一把锁。
+
+补充：
+
 - 在继承Thread类创建多线程的方式中，慎用this充当同步监视器，考虑使用当前类充当同步监视器。
 - 在实现Runnable接口创建多线程的方式中，我们可以考虑使用this充当同步监视器。
 
 
-
-##### 2.2.同步方法
-
-```java
-public synchronized void add (String id){
-  ......
-}
-```
-
-如果操作共享数据的代码完整的声明在一个方法中，我们不妨将此方法声明同步的。
-1. 同步方法仍然涉及到同步监视器，只是不需要我们显式的声明。
-2. 非静态的同步方法，同步监视器是：this
-         静态的同步方法，同步监视器是：当前类本身
-
-同步的方式，解决了线程的安全问题。---好处
-操作同步代码时，只能有一个线程参与，其他线程等待。相当于是一个单线程的过程，效率低。 ---局限性
-
-##### 2.3.示例
-
 ```java
 /**
- * 示例:创建三个窗口卖票，总票数为100张.采用继承方式
+ * 应用:创建三个窗口卖票，总票数为100张
  * 1.问题：卖票过程中，出现了重票、错票 -->出现了线程的安全问题
  * 2.问题出现的原因：当某个线程操作车票的过程中，尚未操作完成时，其他线程参与进来，也操作车票。
  * 3.如何解决：当一个线程a在操作ticket的时候，其他线程不能参与进来。直到线程a操作完ticket时，其他
  *            线程才可以开始操作ticket。这种情况即使线程a出现了阻塞，也不能被改变。
  */
- 
+
 //方式一:采用继承类的方式
 class Window1 extends Thread{
     // 共享资源需要加上static
@@ -531,8 +778,36 @@ public class ExtendsTest {
         w3.start();
     }
 }
+```
 
 
+##### 1.3 同步方法
+
+```java
+public synchronized void add (String id){
+  ......
+}
+```
+
+如果操作共享数据的代码完整的声明在一个方法中，我们不妨将此方法声明同步的。
+1. 同步方法仍然涉及到同步监视器，只是不需要我们显式的声明。
+2. 非静态的同步方法，同步监视器是：this
+         静态的同步方法，同步监视器是：当前类本身
+
+同步的方式，解决了线程的安全问题。---好处
+操作同步代码时，只能有一个线程参与，其他线程等待。相当于是一个单线程的过程，效率低。 ---局限性
+
+应用:
+
+```java
+/**
+ * 应用:创建三个窗口卖票，总票数为100张
+ * 1.问题：卖票过程中，出现了重票、错票 -->出现了线程的安全问题
+ * 2.问题出现的原因：当某个线程操作车票的过程中，尚未操作完成时，其他线程参与进来，也操作车票。
+ * 3.如何解决：当一个线程a在操作ticket的时候，其他线程不能参与进来。直到线程a操作完ticket时，其他
+ *            线程才可以开始操作ticket。这种情况即使线程a出现了阻塞，也不能被改变。
+ */
+ 
 //方式二:采用实现接口的方式
 class Window2 implements Runnable{
     // 不需要加static
@@ -601,7 +876,9 @@ public class ImplementTest {
 }
 ```
 
-##### 2.4.lock
+#### 2.线程死锁
+
+#### 3.lock
 
 1.  synchronized 与 Lock的异同？
 
@@ -684,11 +961,14 @@ public class LockTest {
 
 #### 3.sleep() 和 wait()的异同？
 
-1.  相同点：一旦执行方法，都可以使得当前的线程进入阻塞状态。
-2.  不同点：
-    1.  两个方法声明的位置不同：Thread类中声明sleep() , Object类中声明wait()
-    2.  调用的要求不同：sleep()可以在任何需要的场景下调用。 wait()必须使用在同步代码块或同步方法中
-    3.  关于是否释放同步监视器：如果两个方法都使用在同步代码块或同步方法中，sleep()不会释放锁，wait()会释放锁
+相同点：一旦执行方法，都可以使得当前的线程进入阻塞状态。
+
+不同点：
+-   两个方法声明的位置不同：Thread类中声明sleep() , Object类中声明wait()
+-   调用的要求不同：sleep()可以在任何需要的场景下调用。 wait()必须使用在同步代码块或同步方法中
+-   关于是否释放同步监视器：如果两个方法都使用在同步代码块或同步方法中，**sleep()不会释放锁，wait()会释放锁**
+-   Wait 通常被用于线程间交互/通信，sleep 通常被用于暂停执行
+-   wait() 方法被调用后，线程不会自动苏醒，需要别的线程调用同一个对象上的 notify() 或者 notifyAll() 方法。sleep() 方法执行完成后，线程会自动苏醒。使用 wait(long timeout)超时后线程也会自动苏醒
 
 #### 4.示例
 

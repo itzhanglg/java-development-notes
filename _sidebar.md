@@ -19,6 +19,7 @@
   * [网络](docs/javaSenior/network)
   * [反射](docs/javaSenior/reflection)
 * javaEE
+  * [elasticsearch](docs/javaEE/elasticsearch/elasticsearch)
   * [jsp]()
   * [mybatis]()
   * [spring]()

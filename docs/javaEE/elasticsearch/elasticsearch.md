@@ -186,7 +186,7 @@ elasticsearch，基于lucene，隐藏复杂性，提供简单易用的restful ap
 
 ![ES的基础分布式架构](../../../media/pictures/ES的基础分布式架构.png)
 
-##### 3.1 复杂分布式机制的透明隐藏特性
+##### 2.1 复杂分布式机制的透明隐藏特性
 
 Elasticsearch是一套分布式的系统，分布式是为了应对大数据量.
 
@@ -197,7 +197,7 @@ Elasticsearch是一套分布式的系统，分布式是为了应对大数据量.
 -   shard负载均衡（举例，假设现在有3个节点，总共有25个shard要分配到3个节点上去，es会自动进行均匀分配，以保持每个节点的均衡的读写负载请求）
 -   shard副本，请求路由，集群扩容，shard重分配
 
-##### 3.2 垂直扩容与水平扩容
+##### 2.2 垂直扩容与水平扩容
 
 垂直扩容：采购更强大的服务器，成本非常高昂，而且会有瓶颈，假设世界上最强大的服务器容量就是10T，但是当你的总数据量达到5000T的时候，你要采购多少台最强大的服务器啊
 
@@ -205,16 +205,16 @@ Elasticsearch是一套分布式的系统，分布式是为了应对大数据量.
 
 扩容对应用程序的透明性
 
-##### 3.3 增减或减少节点时的数据rebalance
+##### 2.3 增减或减少节点时的数据rebalance
 
 保持负载均衡
 
-##### 3.4 master节点
+##### 2.4 master节点
 
 - 创建或删除索引
 - 增加或删除节点
 
-##### 3.5 节点对等的分布式架构
+##### 2.5 节点对等的分布式架构
 
 -   节点对等，每个节点都能接收所有的请求
 -   自动请求路由
@@ -319,8 +319,286 @@ PUT /test_index
 
 ##### 1.3 _id元数据
 
--   **代表document的唯一标识，与index和type一起，可以唯一标识和定位一个document**
--   我们可以**手动指定document的id**（put /index/type/id），也可以不指定，由**es自动为我们创建一个id**
+**代表document的唯一标识，与index和type一起，可以唯一标识和定位一个document**, 我们可以**手动指定document的id**（put /index/type/id），也可以不指定，由**es自动为我们创建一个id**.
+
+###### 1.3.1 手动指定document id: `PUT /index/type/id`
+
+```java
+PUT /test_index/test_type/1
+{
+  "test_content": "my test"
+}
+```
+
+一般来说，是从某些其他的系统中，导入一些数据到es时，会采取这种方式，就是**使用系统中已有数据的唯一标识，作为es中document的id**。举个例子，比如说，我们现在在开发一个电商网站，做搜索功能，或者是OA系统，做员工检索功能。这个时候，数据首先会在网站系统或者IT系统内部的数据库中，会先有一份，此时就肯定会有**一个数据库的primary key（自增长，UUID，或者是业务编号）**。**如果将数据导入到es中，此时就比较适合采用数据在数据库中已有的primary key。**
+
+如果说，我们是在做一个系统，这个系统主要的数据存储就是es一种，也就是说，数据产生出来以后，可能就没有id，直接就放es一个存储，那么这个时候，可能就不太适合说手动指定document id的形式了，因为你也不知道id应该是什么，此时可以采取让es自动生成id的方式。
+
+###### 1.3.2 自动生成document id: `POST /index/type`
+
+![GUID不冲突解释](../../../media/pictures/GUID不冲突解释.png)
+
+自动生成的id，长度为20个字符，URL安全，base64编码，GUID，分布式系统并行生成时不可能会发生冲突
+
+```java
+POST /test_index/test_type
+{
+  "test_content": "test"
+}
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "AXAOt4I2nI5hry7h_-7X",
+  "_version": 1,
+  "result": "created",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": true
+}
+```
+
+##### 1.4 _source元数据
+
+创建一个document的时候，使用的那个放在request body中的json串，默认情况下，在get的时候，会原封不动的给我们返回回来。
+
+示例:
+
+```java
+PUT /test_index/test_type/1
+{
+  "test_field1": "test field1",
+  "test_field2": "test field2"
+}
+
+GET /test_index/test_type/1
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "1",
+  "_version": 2,
+  "found": true,
+  "_source": {
+    "test_field1": "test_field1",
+    "test_field2": "test_field2"
+  }
+}
+```
+
+**定制返回的结果，在_source中指定需要返回的field:**
+
+```java
+// 多个field用逗号隔开
+GET /test_index/test_type/1?_source=test_field1,test_field2
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "1",
+  "_version": 2,
+  "found": true,
+  "_source": {
+    "test_field1": "test_field1",
+    "test_field2": "test_field2"
+  }
+}
+```
+
+##### 1.5 _version元数据
+
+**第一次创建一个document的时候，它的 _version 内部版本号就是1；以后，每次对这个document执行修改或者删除操作，都会对这个 _version版本号自动加1**；哪怕是删除，也会对这条数据的版本号加1.
+
+```java
+{
+  "found": true,
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "6",
+  "_version": 2,
+  "result": "deleted",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  }
+}
+```
+
+在删除一个document之后，可以从一个侧面证明，它不是**立即物理删除掉的，因为它的一些版本号等信息还是保留着的**。先删除一条document，再重新创建这条document，其实会在delete version基础之上，再把version号加1.
+
+#### 2.document全量替换与删除
+
+![document删除的原理](../../../media/pictures/document删除的原理.png)
+
+##### 2.1 document的全量替换
+
+**语法与创建文档是一样的，如果document id不存在，那么就是创建；如果document id已经存在，那么就是全量替换操作，替换document的json串内容.**
+
+**document是不可变的**，如果要修改document的内容，第一种方式就是全量替换，直接对document重新建立索引，替换里面所有的内容.
+
+**es会将老的document标记为deleted，然后新增我们给定的一个document，当我们创建越来越多的document的时候，es会在适当的时机在后台自动删除标记为deleted的document.**
+
+##### 2.2 document的强制创建
+
+创建文档与全量替换的语法是一样的，有时我们只是想新建文档，不想替换文档，如果强制进行创建呢？
+
+`PUT /index/type/id?op_type=create`  或 `PUT /index/type/id/_create` (常用)
+
+##### 2.3 document的删除
+
+`DELETE /index/type/id` 
+
+**不会理解物理删除，只会将其标记为deleted，当数据越来越多的时候，在后台自动删除.**
+
+#### 3.elasticsearch并发冲突问题
+
+##### 3.1 elasticsearch并发冲突问题
+
+![Elasticsearch并发冲突问题](../../../media/pictures/Elasticsearch并发冲突问题.png)
+
+正常情况下,线程A将库存-1,设置为99件;然后线程B接着将库存-1,设置为98件. 图示就是ES中的并发冲突问题,会导致数据不准确.
+
+-   有些场景下,其实是无所谓的,不care这个数据不正确的事情,比如说,我们如果就只是简单的将数据写入ES ,无论数据是什么样的,都可以;还有些情况下,即使是算错了,也可以
+-   当并发操作ES的线程越多,或者并发请求越多;或者是读取一份数据,供用户查阅和操作的时间越长,因为这段时间里很可能数据在ES中已经被修改了,那么我们拿到的就是旧数据,基于旧数据去操作,后面结果肯定就错了
+
+##### 3.2 悲观锁与乐观锁两种并发控制方案
+
+![悲观锁与乐观锁](../../../media/pictures/悲观锁与乐观锁.png)
+
+悲观锁与乐观锁:
+
+-   悲观锁的优点是: 方便,**直接加锁**,对应用程序来说,透明,不需要做额外的操作; 缺点,**并发能力很低,同一时间只能有一条线程操作数据**
+-   乐观锁的优点是: **并发能力很高,不给数据加锁,大量线程并发操作**；缺点,麻烦,**每次更新的时候,都要先比对版本号,然后可能需要重新加载数据,再次修改,再写**;这个过程,可能要重复好几次
+
+##### 3.3 es基于_version进行乐观锁并发控制
+
+![es基于_version进行乐观锁并发控制](../../../media/pictures/es基于_version进行乐观锁并发控制.png)
+
+**es的后台,很多的这种类似于replica同步请求,都是多线程异步的,也就是说,多个修改请求之间,是乱序的,没有顺序的,可能后修改的先到,先修改的后到.**
+
+**es内部的多线程异步并发修改时,是基于自己的_version版本号进行乐观锁并发控制的.** 若在后修改先到时,那么field=test3,version=2. 先修改后到时,此时会比较一下version号是否相等,若不相等,就直接将field=test2这条数据丢掉.这样结果就会保持一个正确的状态. 若先修改先到时,version=2,后修改的因为内部机制version会同步为2,这样就可以修改数据,field=test3,version=3.
+
+**基于_version进行乐观锁并发控制示例:**
+
+```java
+// 1.先构造一条数据出来
+PUT /test_index/test_type/6
+{
+  "test_field": "test test"
+}
+
+// 2.模拟两个客户端，都获取到了同一条数据
+GET test_index/test_type/6
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "7",
+  "_version": 1,
+  "found": true,
+  "_source": {
+    "test_field": "test test"
+  }
+}
+
+// 3.其中一个客户端,先更新了一下这个数据,同时带上数据的版本号(只有版本好与es中数据版本号相同才能修改)
+PUT /test_index/test_type/6?version=1 
+{
+  "test_field": "test client 1"
+}
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "6",
+  "_version": 2,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": false
+}
+
+// 4.另外一个客户端，尝试基于version=1的数据去进行修改，进行乐观锁的并发控制, 结果会报错
+PUT /test_index/test_type/6?version=1 
+{
+  "test_field": "test client 2"
+}
+// 结果
+"reason": "[test_type][7]: version conflict, 
+  current version [2] is different than the one provided [1]"
+
+// 5.在乐观锁成功阻止并发问题之后，尝试正确的完成更新
+// 基于最新的数据和版本号进行修改，可能这个步骤会需要反复执行好几次才能成功，
+// 特别是在多线程并发更新同一条数据很频繁的情况下
+PUT /test_index/test_type/6?version=2 
+{
+  "test_field": "test client 2"
+}
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "6",
+  "_version": 3,
+  "result": "updated",
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "created": false
+}
+```
+
+##### 3.4 es基于external version进行乐观锁并发控制
+
+**es提供了一个feature，可以不用它提供的内部 _version 版本号来进行并发控制，可以基于自己维护的一个版本号来进行并发控制。**举个列子，加入你的数据在mysql里也有一份，然后你的应用系统本身就维护了一个版本号，无论是自己生成的，还是程序控制的, 这个时候，你进行乐观锁并发控制，可能并不是想要用es内部的 _version 来进行控制，而是用自己维护的那个version来进行控制。
+
+-   `?version=1` : 提供的version与es中的_version一模一样的时候，才可以进行修改
+-   `?version=1&version_type=external` : 只有当你提供的version比es中的_version大的时候，才能进行修改
+
+如:
+
+-   es，_version=1，`?version=1` ，才能更新成功
+-   es，_version=1，`?version>1&version_type=external` ,才能更新成功. 如: `version=2&version_type=external` 
+
+示例:
+
+```java
+// 添加一条数据
+PUT /test_index/test_type/8
+{
+  "test_field": "test"
+}
+// 两个客户端同时查询这条数据
+GET /test_index/test_type/8
+  
+// 第一个先修改,此时客户端程序是在自己的数据库中获取到了这条数据的最新版本号，比如说是2
+PUT /test_index/test_type/8?version=2&version_type=external
+{
+  "test_field": "test client 1"
+}
+// 模拟第二个客户端，同时拿到了自己数据库中维护的那个版本号，也是2
+PUT /test_index/test_type/8?version=2&version_type=external
+{
+  "test_field": "test client 2"
+}
+// 结果会报错
+"reason": "[test_type][8]: version conflict, 
+  current version [2] is higher or equal to the one provided [2]"
+// 在并发控制成功后，重新基于最新的版本号发起更新
+PUT /test_index/test_type/8?version=3&version_type=external
+{
+  "test_field": "test client 2"
+}
+```
 
 
 

@@ -287,6 +287,20 @@ PUT /test_index
 
 ### 三.分布式文档系统概述
 
+Elasticsearch在跑起来以后，其实起到的第一个最核心的功能，就是一个分布式的文档数据存储系统。ES是分布式的,文档数据存储系统。
+
+-   文档数据：es可以存储和操作json文档类型的数据，而且这也是es的核心数据结构。
+-   存储系统：es可以对json文档类型的数据进行存储，查询，创建，更新，删除，等等操作。其实ES满足了这些功能，就可以说已经是一个NoSQL的存储系统了。
+
+什么类型的应用程序呢？
+
+-   数据量较大，es的分布式本质，可以帮助你快速进行扩容，承载大量数据
+-   数据结构灵活多变，随时可能会变化，而且数据结构之间的关系，非常复杂，如果我们用传统数据库，那是不是很坑，因为要面临大量的表
+-   对数据的相关操作，较为简单，比如就是一些简单的增删改查，用我们之前讲解的那些document操作就可以搞定
+-   NoSQL数据库，适用的也是类似于上面的这种场景
+
+比如说像一些网站系统，或者普通的电商系统，博客系统，面向对象概念比较复杂，但是作为终端网站来说，没什么太复杂的功能，就是一些简单的CRUD操作，而且数据量可能还比较大。这个时候选用ES这种NoSQL型的数据存储比传统的复杂的功能支持SQL的关系型数据库更加合适一些。无论是性能，还是吞吐量，可能都会更好。
+
 #### 1.document核心元数据
 
 ![index如何创建的反例分析](../../../media/pictures/index如何创建的反例分析.png)
@@ -452,7 +466,7 @@ GET /test_index/test_type/1?_source=test_field1,test_field2
 
 `DELETE /index/type/id` 
 
-**不会理解物理删除，只会将其标记为deleted，当数据越来越多的时候，在后台自动删除.**
+**不会在物理删除上删除，只会将其标记为deleted，当数据越来越多的时候，在后台自动删除.**
 
 #### 3.elasticsearch并发冲突问题
 
@@ -559,7 +573,7 @@ PUT /test_index/test_type/6?version=2
 
 ##### 3.4 es基于external version进行乐观锁并发控制
 
-**es提供了一个feature，可以不用它提供的内部 _version 版本号来进行并发控制，可以基于自己维护的一个版本号来进行并发控制。**举个列子，加入你的数据在mysql里也有一份，然后你的应用系统本身就维护了一个版本号，无论是自己生成的，还是程序控制的, 这个时候，你进行乐观锁并发控制，可能并不是想要用es内部的 _version 来进行控制，而是用自己维护的那个version来进行控制。
+**es提供了一个feature，可以不用它提供的内部 _version 版本号来进行并发控制，可以基于自己维护的一个版本号来进行并发控制**。举个列子，加入你的数据在mysql里也有一份，然后你的应用系统本身就维护了一个版本号，无论是自己生成的，还是程序控制的, 这个时候，你进行乐观锁并发控制，可能并不是想要用es内部的 _version 来进行控制，而是用自己维护的那个version来进行控制。
 
 -   `?version=1` : 提供的version与es中的_version一模一样的时候，才可以进行修改
 -   `?version=1&version_type=external` : 只有当你提供的version比es中的_version大的时候，才能进行修改
@@ -599,6 +613,340 @@ PUT /test_index/test_type/8?version=3&version_type=external
   "test_field": "test client 2"
 }
 ```
+
+#### 4.document的partial update
+
+##### 4.1 什么是partial update
+
+**再复习一下全量替换:**
+
+`PUT /index/type/id` ，创建文档&替换文档，就是一样的语法
+
+一般对应到应用程序中，每次的执行流程基本是这样的:
+
+- 应用程序先发起一个get请求，获取到document，展示到前台界面，供用户查看和修改
+- 用户在前台界面修改数据，发送到后台
+- 后台代码，会将用户修改的数据在内存中进行执行，然后封装好修改后的全量数据
+- 然后发送PUT请求，到es中，进行全量替换
+- es将老的document标记为deleted，然后重新创建一个新的document
+
+**partial update:**
+
+语法:
+
+```java
+post /index/type/id/_update 
+{
+   "doc": {
+  		"要修改的少数几个field即可，不需要全量的数据"
+   }
+}
+```
+
+**相对于全量替换, 每次就传递少数几个发生修改的field即可，不需要将全量的document数据发送过去**
+
+**示例:**
+
+```java
+// 添加一条数据
+PUT /test_index/test_type/10
+{
+  "test_field1": "test1",
+  "test_field2": "test2"
+}
+// 更新添加的数据
+POST /test_index/test_type/10/_update
+{
+  "doc": {
+    "test_field2": "updated test2"
+  }
+}
+```
+
+##### 4.2 partial update实现原理以及其优点
+
+![update实现原理](../../../media/pictures/update实现原理.png)
+
+其实es内部对partial update的实际执行,跟传统的全量替换方式,是几乎一样的:
+
+1. 内部先获取document
+2. 将传过来的field更新到document的json中
+3. 将老的document标记为deleted
+4. 将修改后的新的document创建出来
+
+partial update相较于全量替换的优点:
+
+- 所有的查询、修改和写回操作,都发生在es中的一个shard内部,避免了所有的网络数据传输的开销(减少2次网络请求) ,大大提升了性能
+- 减少了查询和修改中的时间间隔,可以有效减少并发冲突的情况
+
+##### 4.3 基于groovy脚本执行partial update
+
+es其实是有个内置的脚本支持的，可以基于groovy脚本实现各种各样的复杂操作.
+
+```java
+// 先添加一条数据
+PUT /test_index/test_type/2
+{
+  "num": 0,
+  "tags": []
+}
+```
+
+内置脚本:
+
+```java
+// 内置脚本修改该条数据
+POST /test_index/test_type/2/_update
+{
+  "script": "ctx._source.num+=1"
+}
+GET /test_index/test_type/2
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "2",
+  "_version": 3,
+  "found": true,
+  "_source": {
+    "num": 1,
+    "tags": []
+  }
+}
+```
+
+如果指定的document不存在，就执行upsert中的初始化操作；如果指定的document存在，就执行doc或者script指定的partial update操作:
+
+```java
+POST /test_index/test_type/2/_update
+{
+   "script" : "ctx._source.num+=1",
+   "upsert": {
+       "num": 0,
+       "tags": []
+   }
+}
+```
+
+外部脚本:
+
+```java
+// 脚本存放在: elasticsearch-5.2.0\config\scripts文件夹下
+ctx._source.tags+=new_tag
+// 使用外部脚本修改数据
+POST /test_index/test_type/2/_update
+{
+  "script": {
+    "lang": "groovy",	// 文件后缀
+    "file": "test-add-tags",	// 文件名
+    "params": {
+      "new_tag": "tag1"
+    }
+  }
+}
+// 结果
+{
+  "_index": "test_index",
+  "_type": "test_type",
+  "_id": "2",
+  "_version": 4,
+  "found": true,
+  "_source": {
+    "num": 2,
+    "tags": [
+      "tag1"
+    ]
+  }
+}
+```
+
+用脚本删除文档:
+
+```java
+// 脚本
+ctx.op = ctx._source.num = count ? 'delete' : 'none'
+// 删除数据
+POST /test_index/test_type/2/_update
+{
+  "script": {
+    "lang": "groovy",
+    "file": "test-delete-document",
+    "params": {
+      "count": 2
+    }
+  }
+}
+```
+
+#### 5.partial update内置乐观锁并发控制
+
+![partialupdate](../../../media/pictures/partialupdate.png)
+
+`POST /index/type/id/_update?retry_on_conflict=5&version=6`
+
+#### 6.document批量增删改查及内部原理
+
+##### 6.1 mget批量查询api
+
+如果一条一条的查询数据，比如说要查询100条数据，那么就要发送100次网络请求，这个开销还是很大的
+如果进行批量查询的话，查询100条数据，就只要发送1次网络请求，网络请求的性能开销缩减100倍.
+
+```java
+GET /_mget
+{
+  "docs": [
+    {
+      "_index": "test_index",
+      "_type": "test_type",
+      "_id": 1
+    },
+    {
+      "_index": "test_index",
+      "_type": "test_type",
+      "_id": 2
+    }
+  ]
+}
+```
+
+如果查询的document是一个index下的不同type种的话:
+
+```java
+GET /test_index/_mget
+{
+   "docs" : [
+      {
+         "_type" : "test_type",
+         "_id" : 1
+      },
+      {
+         "_type" : "test_type",
+         "_id" : 2
+      }
+   ]
+}
+```
+
+如果查询的数据都在同一个index下的同一个type下:
+
+```java
+GET /test_index/test_type/_mget
+{
+   "ids": [1, 2]
+}
+```
+
+一般来说，在进行查询的时候，如果一次性要查询多条数据的话，那么一定要用batch批量操作的api
+尽可能减少网络开销次数，可能可以将性能提升数倍，甚至数十倍.
+
+##### 6.2 bulk批量增删改api
+
+有下列操作可以执行:
+
+- delete：删除一个文档，只要1个json串就可以了
+- create：PUT /index/type/id/_create，强制创建
+- index：普通的put操作，可以是创建文档，也可以是全量替换文档
+- update：执行的partial update操作
+
+
+每一个操作要两个json串，语法如下：
+
+```java
+{"action": {"metadata"}}
+{"data"}
+```
+
+比如要创建一个文档放bulk里面：
+
+```java
+{"index": {"_index": "test_index", "_type": "test_type", "_id": "1"}}
+{"test_field1": "test1", "test_field2": "test2"}
+```
+
+**bulk api对json的语法，有严格的要求，每个json串不能换行，只能放一行，同时一个json串和一个json串之间，必须有一个换行.**
+
+示例:
+
+```java
+POST /_bulk
+{ "delete": { "_index": "test_index", "_type": "test_type", "_id": "4" }} 
+{ "create": { "_index": "test_index", "_type": "test_type", "_id": "5" }}
+{ "test_field": "test5" }
+{ "index":  { "_index": "test_index", "_type": "test_type", "_id": "3" }}
+{ "test_field": "replaced test3" }
+{ "update": { "_index": "test_index", "_type": "test_type", "_id": "1", "_retry_on_conflict" : 3} }
+{ "doc" : {"test_field2" : "bulk test1"} }
+```
+
+bulk操作中，任意一个操作失败，是不会影响其他的操作的，但是在返回结果里，会告诉你异常日志.若index相同,可写 `POST /test_index/_bulk` ,index可省略. 若index与type都相同,可写 `POST /test_index/test_type/_bulk `, index与type都可省略.
+
+bulk request会加载到内存里，如果太大的话，性能反而会下降，因此需要反复尝试一个最佳的bulk size。**一般从1000 ~ 5000条数据开始，尝试逐渐增加。另外，如果看大小的话，最好是在5~15MB之间。**
+
+**bulk api奇特的json格式:**
+
+1.  bulk中的每个操作都可能要转发到不同的node的shard去执行
+
+2.  如果采用比较良好的json数组格式
+
+    -   将json数组解析为JSONArray对象，整个数据会在内存中出现一份一模一样的拷贝，一份数据是json文本，一份数据是JSONArray对象
+    -   解析json数组里的每个json，对每个请求中的document进行路由
+    -   为路由到同一个shard上的多个请求，创建一个请求数组
+    -   将这个请求数组序列化
+    -   将序列化后的请求数组发送到对应的节点上去
+
+    耗费更多内存，更多的jvm gc开销. 占用更多的内存可能就会积压其他请求的内存使用量，比如说最重要的搜索请求，分析请求，此时可能会导致其他请求的性能急速下降. 占用内存更多会导致java虚拟机的垃圾回收次数更多，耗费的时间更多.
+
+3.  现在的奇特格式
+
+    -   不用将其转换为json对象，不会出现内存中的相同数据的拷贝，直接按照换行符切割json
+    -   对每两个一组的json，读取meta，进行document路由
+    -   直接将对应的json发送到node上去
+
+    不需要将json数组解析为一个JSONArray对象，形成一份大数据的拷贝，浪费内存空间，尽可能地保证性能.
+
+##### 6.3 document数据路由原理
+
+![document路由原理](../../../media/pictures/document路由原理.png)
+
+一个index的数据会被分为多片,每片在一个shard中。所以说,一个document,只能存在于一个shard中.当客户端创建document的时候, es此时就需要决定这个document是放在这个index的哪个shard上, 这个过程就称为document routing**数据路由**。
+
+**路由算法：shard = hash(routing) % number_of_primary_shards.**
+
+每次增删改查一个document的时候，都会带过来一个routing number，默认是document的 id （可能是手动指定，也可能是自动生成）routing = id，假设 _id=1. 再根据hash函数算出routing的hash值, 如hash(routing) = 21,然后对primary shard的数量求余，若有3个primary shard,则21 % 3 = 0,这个document就放在P0上。
+
+默认的routing就是_id,也可以手动指定一个routing value，比如`put /index/type/id?routing=user_id` ,手动指定routing value是很有用的，可以保证某一类document一定被路由到一个shard上去，那么在后续进行应用级别的负载均衡，以提升批量读取的性能.
+
+**primary shard一旦index建立, 是不允许修改的。但是replica shard可以随时修改。**
+
+##### 6.4 document增删改内部原理
+
+![es增删改原理](../../../media/pictures/es增删改原理.png)
+
+1.  客户端选择一个node发送请求过去，这个node就是coordinating node（协调节点）
+2.  coordinating node，对document进行路由，将请求转发给对应的node（有primary shard）
+3.  实际的node上的primary shard处理请求，然后将数据同步到replica node
+4.  coordinating node，如果发现primary node和所有replica node都搞定之后，就返回响应结果给客户端
+
+
+在发送任何一个增删改操作的时候，比如说`put /index/type/id` ，都可以带上一个consistency参数，指明我们想要的写一致性是什么. `put /index/type/id?consistency=quorum`
+
+-   one：要求我们这个写操作，只要有一个primary shard是active活跃可用的，就可以执行
+-   all：要求我们这个写操作，必须所有的primary shard和replica shard都是活跃的，才可以执行这个写操作
+-   quorum：默认的值，要求所有的shard中，必须是大部分的shard都是活跃的，可用的，才可以执行这个写操作
+    -   quorum值时需确保大多数shard都可用，`int( (primary + number_of_replicas) / 2 ) + 1`，当`number_of_replicas>1`时才生效(至少要备份一次),如3个primary shard，number_of_replicas=1,则`quorum = int( (3 + 1) / 2 ) + 1 = 3` ,即要求6个shard中至少有3个shard是active状态的，才可以执行这个写操作
+    -   如果节点数少于quorum数量，可能导致quorum不齐全，进而导致无法执行任何写操作.可以在写操作的时候，加一个timeout参数，如`put /index/type/id?timeout=30` ，设定quorum不齐全时es的timeout时长，可以缩短也可以增长.
+
+
+##### 6.5 document查询内部原理
+
+![es查询原理](../../../media/pictures/es查询原理.png)
+
+1.  客户端发送请求到任意一个node，成为coordinate node
+2.  coordinate node对document进行路由，将请求转发到对应的node，此时会使用round-robin随机轮询算法，在primary shard以及其所有replica中随机选择一个，让读请求负载均衡
+3.  接收请求的node返回document给coordinate node
+4.  coordinate node返回document给客户端
+5.  特殊情况：document若还在建立索引过程中,可能只在primaryshard上存在,此时replica shard上没有。但是协调节点可能会将请求转发给replica shard ,此时就会找不到这个document. 但是当这个document完成了建立素引的过程之后, primary shard和replica shard就都有数据了。
+
 
 
 

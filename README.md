@@ -30,8 +30,8 @@
     - [网络](docs/javaSenior/network.md)
     - [反射](docs/javaSenior/reflection.md)
 - [javaEE](#javaEE)
-    - [elasticsearch](docs/javaEE/elasticsearch/elasticsearch.md)
-    - [jsp](#jsp)
+    - [jsp](docs/javaEE/jsp.md)
+    - [hibernate](#hibernate)
     - [mybatis](#mybatis)
     - [spring](#spring)
     - [springmvc](#springmvc)
@@ -39,8 +39,11 @@
     - [shiro](#shiro)
     - [httpclient](#httpclient)
     - [activemq](#activemq)
+    - [elasticsearch](docs/javaEE/elasticsearch/elasticsearch.md)
 - [微服务](#微服务)
-  - [springboot](#springboot)
+  - [springboot]()
+    - [springboot基础](docs/microService/springboot/springboot.md)
+    - [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf.md)
   - [springcloud](#springcloud)
 - [数据库](#数据库)
   - [mysql](#mysql)
@@ -63,14 +66,15 @@
 - [数据结构与算法](#数据结构与算法)
   - [数据结构](#数据结构)
   - [算法](#算法)
-- [资源](#资源)
-  - [推荐资源](#推荐资源)
+- [资源]()
+  - [推荐资源]()
+    - [Github上重要的几个搜索技巧](docs/GithubSkill.md)
 
 
 ### 待办
-- [x] Java 高级(---正在进行中---)
+- [x] springboot(---正在进行中---)
 - [ ] JavaEE
-- [ ] springboot
+- [ ] mysql
 
 
 ### 描述

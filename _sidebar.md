@@ -19,8 +19,8 @@
   * [网络](docs/javaSenior/network)
   * [反射](docs/javaSenior/reflection)
 * javaEE
-  * [elasticsearch](docs/javaEE/elasticsearch/elasticsearch)
-  * [jsp]()
+  * [jsp](docs/javaEE/jsp)
+  * [hibernate]()
   * [mybatis]()
   * [spring]()
   * [springmvc]()
@@ -28,8 +28,11 @@
   * [shiro]()
   * [httpclient]()
   * [activemq]()
+  * [elasticsearch](docs/javaEE/elasticsearch/elasticsearch)
 * 微服务
-  * [springboot]()
+  * springboot
+    * [springboot基础](docs/microService/springboot/springboot)
+    * [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf)
   * [springcloud]()
 * 数据库
   * [mysql]()
@@ -53,4 +56,5 @@
   * [数据结构]()
   * [算法]()
 * 资源
-  * [推荐资源]()
+  * 推荐资源
+    * [Github上重要的几个搜索技巧](docs/GithubSkill)

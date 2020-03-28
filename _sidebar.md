@@ -1,4 +1,5 @@
 * [说明]()
+
 * java基础
   * [基础语法](docs/javaBase/grammar)
   * [数组](docs/javaBase/array)
@@ -12,47 +13,70 @@
   * 多线程
     * [并发总结](docs/javaSenior/concurrence/thread)
     * [线程池学习](docs/javaSenior/concurrence/threadPool)
+  * JVM
+    * [Java内存区域](docs/javaSenior/JVM/memoryArea)  
   * [IO流](docs/javaSenior/ioStream)
   * [JDK8](docs/javaSenior/JDK8)
-  * JVM
-    * [Java内存区域](docs/javaSenior/JVM/memoryArea)
   * [网络](docs/javaSenior/network)
   * [反射](docs/javaSenior/reflection)
-* javaEE
-  * [jsp](docs/javaEE/jsp)
-  * [hibernate]()
-  * [mybatis]()
-  * [spring]()
-  * [springmvc]()
-  * [maven]()
-  * [shiro]()
-  * [httpclient]()
-  * [activemq]()
-  * [elasticsearch](docs/javaEE/elasticsearch/elasticsearch)
-* 微服务
-  * springboot
-    * [springboot基础](docs/microService/springboot/springboot)
-    * [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf)
-  * [springcloud]()
 * 数据库
   * mysql
     * [sqlserver基础](docs/database/mysql/sqlserveBase)
     * [mysql相关日期处理](docs/database/mysql/mysqlDateHandle)
     * [mysql行列转换](docs/database/mysql/mysqlUnpivot)
-  * [redis]()
-* 开发工具
-  * [svn]()
-  * [git]()
-  * [nginx]()
-  * [docker]()
+    * [书写高质量SQL的30条建议](docs/database/mysql/sqlAdvise)  
+  * [redis]()  
+
+* 常用框架
+  * [jsp基础](docs/javaEE/jsp)
+  * [spring]()
+  * [springmvc]()
+  * [hibernate]()
+  * [mybatis]()
+* 微服务
+  * springboot
+    * [springboot基础](docs/microService/springboot/springboot)
+    * [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf)
+  * [springcloud]()
 * 操作系统
-  * [linux]()
+  * linux
+    * [linux概述及常用命令](docs/operatingSystem/linuxBasic)
+
+* 认证授权
+  * [Cookie/Session/Token基础知识]()
+  * [JWT基础知识]()
+  * [SpringSecurity]()
+  * [Shiro]()
+  * [SSO单点登录]()
+* 分布式
+  * 消息队列
+    * [RabbitMQ]()
+    * [RocketMQ]()
+    * [Kafka]()
+    * [ActiveMQ](#activemq)
+  * HTTP请求
+    * [RestTemplate](#RestTemplate)
+    * [HttpClient](#httpclient)
+  * 分布式搜索引擎
+    * [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+
+* 必备工具
+  * [svn]()
+  * git
+    * [GitHub简单使用](docs/tools/git/github)
+    * [Git入门使用](docs/tools/git/gitBasic)
+  * [nginx]()
+  * docker
+    * [docker入门使用](docs/tools/docker/dockerBasic)
+
 * 前端
-  * [html/css]()
-  * [javascript]()
-  * [jquery]()
-  * [bootstrap]()
+  * [html/css基础](docs/frontEnd/htmlCssBasic)
+  * [javascript入门]()
+  * jQuery
+    * [jQuery基础](docs/frontEnd/jqueryBasic)
+    * [jQuery中Ajax](docs/frontEnd/jqueryAjax)
   * [vue]()
+  * [bootstrap]()
   * [element]()
   * [echarts]()
 * 数据结构与算法

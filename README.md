@@ -1,75 +1,127 @@
 <p align="center">
-<a href="https://github.com/itzhanglg/java-knowledge-system" target="_blank">
+<a href="http://itzlg.gitee.io/java-knowledge-system" target="_blank">
     <svg class="svgIcon" aria-hidden="true">
         <use xlink:href="#icon-huabanfuben"></use>
     </svg>
 </a>
 </p>
 
-推荐使用  http://zhangligong.xyz/java-knowledge-system 在线阅读，在线阅读内容本仓库同步一致。这种方式阅读的优势在于：阅读体验会更好。
+推荐使用  http://itzlg.gitee.io/java-knowledge-system 在线阅读，在线阅读内容本仓库同步一致。这种方式阅读的优势在于：阅读体验会更好。
 
 
 ### 目录
-- [java基础]()
-    - [基础语法](docs/javaBase/grammar.md)
-    - [数组](docs/javaBase/array.md)
-    - [面向对象](docs/javaBase/object.md)
-    - [异常处理](docs/javaBase/exception.md)
-    - [常用类](docs/javaBase/commonClass.md)
-- [java高级]()
-    - [集合]()
-        - [集合总结](docs/javaSenior/collection/basis.md)
-        - [源码学习](docs/javaSenior/collection/source.md)
-    - [多线程]()
-        - [并发总结](docs/javaSenior/concurrence/thread.md)
-        - [线程池学习](docs/javaSenior/concurrence/threadPool.md)
-    - [IO流](docs/javaSenior/ioStream.md)
-    - [JDK8](docs/javaSenior/JDK8.md)
-    - [JVM]()
-        - [Java内存区域](docs/javaSenior/JVM/memoryArea.md)
-    - [网络](docs/javaSenior/network.md)
-    - [反射](docs/javaSenior/reflection.md)
-- [javaEE](#javaEE)
-    - [jsp](docs/javaEE/jsp.md)
-    - [hibernate](#hibernate)
-    - [mybatis](#mybatis)
-    - [spring](#spring)
-    - [springmvc](#springmvc)
-    - [maven](#maven)
-    - [shiro](#shiro)
-    - [httpclient](#httpclient)
-    - [activemq](#activemq)
-    - [elasticsearch](docs/javaEE/elasticsearch/elasticsearch.md)
-- [微服务](#微服务)
-  - [springboot]()
-    - [springboot基础](docs/microService/springboot/springboot.md)
-    - [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf.md)
-  - [springcloud](#springcloud)
-- [数据库](#数据库)
-  - [mysql]()
-    - [sqlserver基础](docs/database/mysql/sqlserveBase.md)
-    - [mysql相关日期处理](docs/database/mysql/mysqlDateHandle.md)
-    - [mysql行列转换](docs/database/mysql/mysqlUnpivot.md)
-  - [redis](#redis)
-- [开发工具](#开发工具)
-  - [svn](#svn)
-  - [git](#git)
-  - [nginx](#nginx)
-  - [docker](#docker)
-- [操作系统](#操作系统)
-  - [linux](#linux)
-- [前端](#前端)
-  - [html/css](#htmlAndCss)
-  - [javascript](#javascript)
-  - [jquery](#jquery)
-  - [bootstrap](#bootstrap)
-  - [vue](#vue)
-  - [element](#element)
-  - [echarts](#echarts)
-- [数据结构与算法](#数据结构与算法)
+  - [Java基础知识](#Java基础知识)
+  - [Java高级知识](#Java高级知识)
+  - [数据库](#数据库)
+  - [常用框架](#常用框架)
+  - [微服务](#微服务)
+  - [操作系统](#操作系统)
+  - [认证授权](#认证授权)
+  - [分布式](#分布式)
+  - [必备工具](#必备工具)
+  - [前端](#前端)
+  - [数据结构与算法](#数据结构与算法)
+  - [资源](#资源)
+
+
+
+##### Java基础知识
+  - [基础语法](docs/javaBase/grammar.md) &nbsp;
+    [数组](docs/javaBase/array.md) &nbsp;
+    [面向对象](docs/javaBase/object.md) &nbsp;
+    [异常处理](docs/javaBase/exception.md) &nbsp;
+  - [字符串,日期,比较器,BigDecimal等常用类学习](docs/javaBase/commonClass.md)
+
+##### Java高级知识
+  - 容器
+    - [容器知识点总结](docs/javaSenior/collection/basis.md)
+    - [ArrayList/LinkedList/HashMap源码学习](docs/javaSenior/collection/source.md)
+  - 并发
+    - [并发知识点总结](docs/javaSenior/concurrence/thread.md) &nbsp;
+      [线程池学习](docs/javaSenior/concurrence/threadPool.md)
+  - JVM
+    - [Java内存区域](docs/javaSenior/JVM/memoryArea.md)
+  - 其它         
+    - [IO流](docs/javaSenior/ioStream.md) &nbsp;
+      [JDK8](docs/javaSenior/JDK8.md) &nbsp;
+      [网络](docs/javaSenior/network.md) &nbsp;
+      [反射](docs/javaSenior/reflection.md)
+
+##### 数据库
+  - Mysql
+    - [SqlServer基础](docs/database/mysql/sqlserveBase.md) &nbsp;
+      [Mysql相关日期处理](docs/database/mysql/mysqlDateHandle.md) &nbsp;
+      [Mysql行列转换](docs/database/mysql/mysqlUnpivot.md) &nbsp;
+    - [书写高质量SQL的30条建议](docs/database/mysql/sqlAdvise.md)  
+  - [Redis](#redis)
+
+
+
+##### 常用框架
+  - [Jsp基础](docs/javaEE/jsp.md)
+  - [Spring](#spring) &nbsp;
+    [SpringMVC](#springmvc)
+  - [Mybatis](#mybatis) &nbsp;
+    [Hibernate](#hibernate)
+
+##### 微服务
+  - SpringBoot
+    - [SpringBoot基础](docs/microService/springboot/springboot.md)
+    - [SpringBoot整合Thymeleaf](docs/microService/springboot/springboot_thymeleaf.md)
+  - [SpringCloud](#springcloud)
+
+##### 操作系统
+  - Linux
+    - [Linux概述及常用命令](docs/operatingSystem/linuxBasic.md)
+
+
+
+##### 认证授权
+  - [Cookie/Session/Token基础知识](#)
+  - [JWT基础知识](#)
+  - [SpringSecurity](#)
+  - [Shiro](#shiro)
+  - [SSO单点登录](#)
+
+##### 分布式
+  - 消息队列
+    - [RabbitMQ](#) &nbsp;
+      [RocketMQ](#) &nbsp;
+      [Kafka](#) &nbsp;
+      [ActiveMQ](#activemq)
+  - HTTP请求
+    - [RestTemplate](#RestTemplate)
+    - [HttpClient](#httpclient)
+  - 分布式搜索引擎
+    - [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+
+##### 必备工具
+  - [SVN](#svn)
+  - GIT
+    - [GitHub简单使用](docs/tools/git/github.md) &nbsp;
+      [Git入门使用](docs/tools/git/gitBasic.md)
+  - [Nginx](#nginx)
+  - Docker
+    - [Docker入门使用](docs/tools/docker/dockerBasic.md)
+
+
+
+##### 前端
+  - [HTML/CSS基础](docs/frontEnd/htmlCssBasic.md)
+  - [JavaScript入门](#javascript)
+  - jQuery
+    - [jQuery基础](docs/frontEnd/jqueryBasic.md) &nbsp;
+      [jQuery中Ajax](docs/frontEnd/jqueryAjax.md)
+  - [Vue](#vue)
+  - [Bootstrap](#bootstrap)
+  - [Element](#element)
+  - [Echarts](#echarts)
+
+##### 数据结构与算法
   - [数据结构](#数据结构)
   - [算法](#算法)
-- [资源]()
+
+##### 资源
   - [推荐资源]()
     - [Github上重要的几个搜索技巧](docs/GithubSkill.md)
 

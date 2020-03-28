@@ -8,7 +8,7 @@
 
 
 [GitHub](https://github.com/itzhanglg)
-[开始阅读](http://zhangligong.xyz/java-knowledge-system/#/README)
+[开始阅读](http://itzlg.gitee.io/java-knowledge-system/#/README)
 
 <!-- 背景图片 -->
 

@@ -19,13 +19,15 @@
   * [JDK8](docs/javaSenior/JDK8)
   * [网络](docs/javaSenior/network)
   * [反射](docs/javaSenior/reflection)
+  * 编程规范
+    * [Java编程规范学习](docs/javaSenior/codingStyle/codingStyle.md)
 * 数据库
   * mysql
     * [sqlserver基础](docs/database/mysql/sqlserveBase)
     * [mysql相关日期处理](docs/database/mysql/mysqlDateHandle)
     * [mysql行列转换](docs/database/mysql/mysqlUnpivot)
-    * [书写高质量SQL的30条建议](docs/database/mysql/sqlAdvise)  
-  * [redis]()  
+    * [Mysql索引及高质量Sql建议](docs/database/mysql/sqlAdvise)
+  * [redis]()
 
 * 常用框架
   * [jsp基础](docs/javaEE/jsp)
@@ -41,6 +43,8 @@
 * 操作系统
   * linux
     * [linux概述及常用命令](docs/operatingSystem/linuxBasic)
+  * operating system  
+    * [写给大忙人看的操作系统](docs/operatingSystem/os)
 
 * 认证授权
   * [Cookie/Session/Token基础知识]()
@@ -63,8 +67,9 @@
 * 必备工具
   * [svn]()
   * git
-    * [GitHub简单使用](docs/tools/git/github)
     * [Git入门使用](docs/tools/git/gitBasic)
+    * [通俗易懂|用好Git和SVN,轻松驾驭版本管理](docs/tools/git/gitAndSvn.md)
+    * [GitHub简单使用](docs/tools/git/github)
   * [nginx]()
   * docker
     * [docker入门使用](docs/tools/docker/dockerBasic)
@@ -85,3 +90,4 @@
 * 资源
   * 推荐资源
     * [Github上重要的几个搜索技巧](docs/GithubSkill)
+    * [超实用网址,GitHub项目和常见面试题](docs/resource)

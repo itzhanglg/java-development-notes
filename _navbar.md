@@ -1,4 +1,4 @@
 * 快链
-  * [博客园](https://www.cnblogs.com/itzlg/)
-  * [Java面试题](http://itzlg.gitee.io/java-interview)
+  * [FishLeap](http://106.15.57.77)
+  * [Java-interview](http://itzlg.gitee.io/java-interview)
 

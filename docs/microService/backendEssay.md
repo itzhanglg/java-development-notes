@@ -1,0 +1,6 @@
+springboot好文:
+
+- [看完这篇，别人的开源项目结构应该能看懂了](https://mp.weixin.qq.com/s?__biz=MzU4ODI1MjA3NQ==&mid=2247485409&idx=1&sn=453877c11ead49e90937885b5ac7d2f2&chksm=fdded125caa958333490c0a1f7b2ca76bdc84334a8cc87adc230bb19230eac674b4f6eb0d9aa&scene=21#wechat_redirect)
+- [谁要是再敢用Map传参，我过去就是一JIO](https://mp.weixin.qq.com/s?__biz=MzU4ODI1MjA3NQ==&mid=2247485468&idx=1&sn=01cc9db0b9f3a4c650fa95aadacf7cd8&chksm=fddeded8caa957ce7314498c7da2d5eda637ec9a55784c8f6a26f6cff4b8aaff538843177bca&scene=126&sessionid=0&key=d20864ce5ca42a5a649b0ef85266a7204b35c68006019a134bd75763903f569dd56d24248ad5502dfea8aba90f16d5749048705010036b86906c154d01cc43665defd3a40283d6cdf8be2820211ed3bd&ascene=1&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=AStCcJfRz7qMkHRQPr4zM9g%3D&pass_ticket=%2FYE6JO3AjbloTBOaYPhDidPfq7fteoVFlNx6Z6mHZvjyiH%2FWrhvW1ot8aZfo%2F%2FJf)
+- [啥？听说你还在手写复杂的参数校验？](https://mp.weixin.qq.com/s?__biz=MzU4ODI1MjA3NQ==&mid=2247484955&idx=1&sn=29b0f228415abd8542d07c898e6398ba&chksm=fdded0dfcaa959c9d9fc9d04130409c392460561bdce53996261fe8973b81f4811a8ebe5c357&scene=21#wechat_redirect)
+- 

@@ -1,3 +1,20 @@
+
+
+> 原文链接: [后端程序员必备的 Linux 基础知识](https://zhuanlan.zhihu.com/p/39157806)
+>
+> 推荐资源: 
+>
+> - [Linux命令大全](https://man.linuxde.net/)
+> - [Linux Tools Quick Tutorial](https://linuxtools-rst.readthedocs.io/zh_CN/latest/base/index.html)
+> - [Linux-Tutorial](https://github.com/judasn/Linux-Tutorial)
+>
+> 推荐博客:
+>
+> - [鸟哥的Linux私房菜](http://linux.vbird.org/)
+> - [Vamei](https://www.cnblogs.com/vamei/tag/Linux/default.html?page=1)
+> - [Linux大棚](http://roclinux.cn/)
+> - [fudan_abc: linux开发者](https://blog.csdn.net/fudan_abc)
+
 ### 一.操作系统及linux概述
 
 #### 1.操作系统简介
@@ -194,22 +211,4 @@ passwd命令用于设置用户的认证信息，包括用户密码、密码过�
 - reboot：重开机。`reboot -w`：做个重开机的模拟(只有记录并不会真的重开机)。
 
 
-
-
-### 转载链接和推荐资源
-
-转载链接: [后端程序员必备的 Linux 基础知识](https://zhuanlan.zhihu.com/p/39157806)
-
-推荐资源: 
-
--   [Linux命令大全](https://man.linuxde.net/)
--   [Linux Tools Quick Tutorial](https://linuxtools-rst.readthedocs.io/zh_CN/latest/base/index.html)
--   [Linux-Tutorial](https://github.com/judasn/Linux-Tutorial)
-
-推荐博客:
-
--   [鸟哥的Linux私房菜](http://linux.vbird.org/)
--   [Vamei](https://www.cnblogs.com/vamei/tag/Linux/default.html?page=1)
--   [Linux大棚](http://roclinux.cn/)
--   [fudan_abc: linux开发者](https://blog.csdn.net/fudan_abc)
 

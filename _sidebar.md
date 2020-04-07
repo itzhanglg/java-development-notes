@@ -1,93 +1,102 @@
 * [说明]()
 
-* java基础
-  * [基础语法](docs/javaBase/grammar)
-  * [数组](docs/javaBase/array)
-  * [面向对象](docs/javaBase/object)
-  * [异常处理](docs/javaBase/exception)
-  * [常用类](docs/javaBase/commonClass)
-* java高级
-  * 集合
-    * [集合总结](docs/javaSenior/collection/basis)
-    * [源码学习](docs/javaSenior/collection/source)
-  * 多线程
-    * [并发总结](docs/javaSenior/concurrence/thread)
-    * [线程池学习](docs/javaSenior/concurrence/threadPool)
-  * JVM
-    * [Java内存区域](docs/javaSenior/JVM/memoryArea)  
-  * [IO流](docs/javaSenior/ioStream)
-  * [JDK8](docs/javaSenior/JDK8)
-  * [网络](docs/javaSenior/network)
-  * [反射](docs/javaSenior/reflection)
-  * 编程规范
-    * [Java编程规范学习](docs/javaSenior/codingStyle/codingStyle.md)
-* 数据库
-  * mysql
-    * [sqlserver基础](docs/database/mysql/sqlserveBase)
-    * [mysql相关日期处理](docs/database/mysql/mysqlDateHandle)
-    * [mysql行列转换](docs/database/mysql/mysqlUnpivot)
-    * [Mysql索引及高质量Sql建议](docs/database/mysql/sqlAdvise)
-  * [redis]()
+* 一.Java基础
+* [基础语法](docs/javaBase/grammar)
+* [数组](docs/javaBase/array)
+* [面向对象](docs/javaBase/object)
+* [异常处理](docs/javaBase/exception)
+* [常用类](docs/javaBase/commonClass)
 
-* 常用框架
-  * [jsp基础](docs/javaEE/jsp)
-  * [spring]()
-  * [springmvc]()
-  * [hibernate]()
-  * [mybatis]()
-* 微服务
-  * springboot
-    * [springboot基础](docs/microService/springboot/springboot)
-    * [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf)
-  * [springcloud]()
-* 操作系统
-  * linux
-    * [linux概述及常用命令](docs/operatingSystem/linuxBasic)
-  * operating system  
-    * [写给大忙人看的操作系统](docs/operatingSystem/os)
+* 二.Java高级
+* 1.集合
+* [集合总结](docs/javaSenior/collection/basis)
+* [源码学习](docs/javaSenior/collection/source)
+* 2.多线程
+* [并发知识点长篇总结](docs/javaSenior/concurrence/thread)
+* [并发编程基础篇](docs/javaSenior/concurrence/concurrenceStudy01)
+* [并发编程原理篇](docs/javaSenior/concurrence/concurrenceStudy02)
+* [线程池学习](docs/javaSenior/concurrence/threadPool)
+* 3.JVM
+* [Java内存区域](docs/javaSenior/JVM/memoryArea)
+* 4.其它
+* [IO流](docs/javaSenior/ioStream)
+* [JDK8](docs/javaSenior/JDK8)
+* [网络](docs/javaSenior/network)
+* [反射](docs/javaSenior/reflection)
+* 5.编程规范
+* [Java编程规范学习](docs/javaSenior/codingStyle/codingStyle.md)
 
-* 认证授权
-  * [Cookie/Session/Token基础知识]()
-  * [JWT基础知识]()
-  * [SpringSecurity]()
-  * [Shiro]()
-  * [SSO单点登录]()
-* 分布式
-  * 消息队列
-    * [RabbitMQ]()
-    * [RocketMQ]()
-    * [Kafka]()
-    * [ActiveMQ](#activemq)
-  * HTTP请求
-    * [RestTemplate](#RestTemplate)
-    * [HttpClient](#httpclient)
-  * 分布式搜索引擎
-    * [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+* 三.数据库
+* 1.mysql
+* [sqlserver基础](docs/database/mysql/sqlserveBase)
+* [mysql相关日期处理](docs/database/mysql/mysqlDateHandle)
+* [mysql行列转换](docs/database/mysql/mysqlUnpivot)
+* [Mysql索引及高质量Sql建议](docs/database/mysql/sqlAdvise)
+* [redis]()
 
-* 必备工具
-  * [svn]()
-  * git
-    * [Git入门使用](docs/tools/git/gitBasic)
-    * [通俗易懂|用好Git和SVN,轻松驾驭版本管理](docs/tools/git/gitAndSvn.md)
-    * [GitHub简单使用](docs/tools/git/github)
-  * [nginx]()
-  * docker
-    * [docker入门使用](docs/tools/docker/dockerBasic)
+* 四.常用框架
+* [jsp基础](docs/javaEE/jsp)
+* [spring]()
+* [springmvc]()
+* [hibernate]()
+* [mybatis]()
 
-* 前端
-  * [html/css基础](docs/frontEnd/htmlCssBasic)
-  * [javascript入门]()
-  * jQuery
-    * [jQuery基础](docs/frontEnd/jqueryBasic)
-    * [jQuery中Ajax](docs/frontEnd/jqueryAjax)
-  * [vue]()
-  * [bootstrap]()
-  * [element]()
-  * [echarts]()
-* 数据结构与算法
-  * [数据结构]()
-  * [算法]()
-* 资源
-  * 推荐资源
-    * [Github上重要的几个搜索技巧](docs/GithubSkill)
-    * [超实用网址,GitHub项目和常见面试题](docs/resource)
+* 五.微服务
+* springboot
+* [springboot基础](docs/microService/springboot/springboot)
+* [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf)
+* [springcloud]()
+
+* 六.操作系统
+* 1.linux
+* [linux概述及常用命令](docs/operatingSystem/linuxBasic)
+* 2.operating system  
+* [写给大忙人看的操作系统](docs/operatingSystem/os)
+
+* 七.认证授权
+* [Cookie/Session/Token基础知识]()
+* [JWT基础知识]()
+* [SpringSecurity]()
+* [Shiro]()
+* [SSO单点登录]()
+
+* 八.分布式
+* 1.消息队列
+* [RabbitMQ]()
+* [RocketMQ]()
+* [Kafka]()
+* [ActiveMQ](#activemq)
+* 2.HTTP请求
+* [RestTemplate](#RestTemplate)
+* [HttpClient](#httpclient)
+* 3.分布式搜索引擎
+* [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+
+* 九.必备工具
+* [svn]()
+* git
+* [Git入门使用](docs/tools/git/gitBasic)
+* [通俗易懂|用好Git和SVN,轻松驾驭版本管理](docs/tools/git/gitAndSvn.md)
+* [GitHub简单使用](docs/tools/git/github)
+* [nginx]()
+* docker
+* [docker入门使用](docs/tools/docker/dockerBasic)
+
+* 十.前端
+* [html/css基础](docs/frontEnd/htmlCssBasic)
+* [javascript入门]()
+* jQuery
+* [jQuery基础](docs/frontEnd/jqueryBasic)
+* [jQuery中Ajax](docs/frontEnd/jqueryAjax)
+* [vue]()
+* [bootstrap]()
+* [element]()
+* [echarts]()
+
+* 十一.数据结构与算法
+* [数据结构]()
+* [算法]()
+
+* 十二.推荐资源
+* [Github上重要的几个搜索技巧](docs/GithubSkill)
+* [超实用网址,GitHub项目和常见面试题](docs/resource)

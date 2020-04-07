@@ -2,13 +2,31 @@
 
 #### 1.内置日期函数
 
--   now(): 返回当前的日期和时间
--   unix_timestamp(): 返回自`1970-01-01 00:00:00`到当前时间的秒数差(时间戳)
--   unix_timestamp(指定时间): 返回自`1970-01-01 00:00:00`到指定时间的秒数差(时间戳)
--   from_unixtim(时间字段): 将unix(时间戳)转为datetime日期
--   date_format(时间字段, format): 以不同的格式显示日期或时间数据
+-   `now()`: 返回当前的日期和时间
+-   `unix_timestamp()`: 返回自`1970-01-01 00:00:00`到当前时间的秒数差(时间戳)
+-   `unix_timestamp(指定时间)`: 返回自`1970-01-01 00:00:00`到指定时间的秒数差(时间戳)
+-   `from_unixtime(时间字段)`: 将十位unix(时间戳)转为datetime日期
+-   `from_unixtime(round(时间字段 / 1000,0)))`: 将十三位unix(时间戳)转为datetime日期
+-   `from_unixtime(时间字段, "%Y年%m月%d日 %H:%i:%s")`: 指定显示的格式
+-   `date_format(时间字段, format)`: 以不同的格式显示日期或时间数据
 
-补充: 字符串截取函数
+补充:
+
+类型转换函数:
+
+- cast(源数据 as 类型): `print '我的总成绩是：'+cast(200 as char(30))`
+- convert(源数据, 类型): 类型可以为以下值其中一个
+    - 整数 : SIGNED
+    - 无符号整数 : UNSIGNED
+    - 二进制,同带binary前缀的效果 : BINARY
+    - 字符型,可带参数 : CHAR()
+    - 日期 : DATE
+    - 时间: TIME
+    - 日期时间型 : DATETIME
+    - 浮点数 : DECIMAL
+- concat()函数: 连接字符串,如sql模糊查询` name like concat(#{param.name},'%')` 或将int转为varchar.如`concat(8,'0') 得到字符串 '80' `
+
+字符串截取函数:
 
 -   left('example.com', 3): `exa`, 从最左边开始截取
 -   right('example.com', 3): `com`, 从最右边开始截取
@@ -62,6 +80,10 @@ select count(*),MONTH(时间字段名) from 表名 where YEAR(时间字段名)='
 
 ```sql
 select count(*) from 表名 where MONTH(时间字段名)=MONTH(CURDATE()) and YEAR(时间字段名) = YEAR(CURDATE())
+-- 或
+select * from 表名 where date_format(时间字段名,'%Y%m') = date_format(curdate(), '%Y%m')
+-- 查询上一月的记录
+select * from 表名 where period_diff( date_format(now(), '%Y%m'), date_format(时间字段名, '%Y%m') )=1
 ```
 
 查询2019年每季度有多少条记录:
@@ -94,6 +116,8 @@ select * from 表名 where to_days(时间字段) = to_days(now())
 
 ```sql
 select * from 表名 where to_days(now()) - to_days(时间字段名) <= n
+-- 查询昨天的所有记录
+select * from 表名 where to_days(now()) - to_days(时间字段名) <= 1
 ```
 
 查询一周内的所有记录:
@@ -156,4 +180,5 @@ select * from 表名 where date_format(时间字段名,'%m-%d') >= '08-06' and d
 -   [MySQL中按周,月,季,年分组统计](https://blog.csdn.net/xie8409959/article/details/82663899)
 -   [mysql按日,周,月,年统计sql整理,实现报表统计可视化](https://blog.csdn.net/u010543785/article/details/52354957)
 -   [MySQL按天,周,月,时间端统计](https://blog.csdn.net/qq_28056641/article/details/78306870)
+-   [MySQL 时间戳与日期互相转换](https://www.cnblogs.com/cyfblogs/p/10069404.html)
 

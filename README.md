@@ -37,8 +37,13 @@
     - [容器知识点总结](docs/javaSenior/collection/basis.md)
     - [ArrayList/LinkedList/HashMap源码学习](docs/javaSenior/collection/source.md)
   - 并发
-    - [并发知识点总结](docs/javaSenior/concurrence/thread.md) &nbsp;
-      [线程池学习](docs/javaSenior/concurrence/threadPool.md)
+    - [并发知识点长篇总结](docs/javaSenior/concurrence/thread.md) &nbsp;
+    - 并发编程学习
+      - [并发编程基础篇](docs/javaSenior/concurrence/concurrenceStudy01.md) &nbsp;
+        [并发编程原理篇](docs/javaSenior/concurrence/concurrenceStudy02.md)
+    - 线程池学习
+      - [线程池原理]() &nbsp;
+        [线程池学习](docs/javaSenior/concurrence/threadPool.md)
   - JVM
     - [Java内存区域](docs/javaSenior/JVM/memoryArea.md)
   - 其它         

@@ -1,12 +1,12 @@
 <p align="center">
-<a href="http://itzlg.gitee.io/java-knowledge-system" target="_blank">
+<a href="http://itzlg.gitee.io/java-development-notes" target="_blank">
     <svg class="svgIcon" aria-hidden="true">
         <use xlink:href="#icon-huabanfuben"></use>
     </svg>
 </a>
 </p>
 
-推荐使用  http://itzlg.gitee.io/java-knowledge-system 在线阅读，在线阅读内容本仓库同步一致。这种方式阅读的优势在于：阅读体验会更好。
+推荐使用  http://itzlg.gitee.io/java-development-notes 在线阅读，在线阅读内容本仓库同步一致。这种方式阅读的优势在于：阅读体验会更好。
 
 
 ### 目录
@@ -146,9 +146,9 @@
 
 
 ### 描述
-<span style="font-size:20px;">**java-knowledge-system介绍**</span>
+<span style="font-size:20px;">**java-development-notes介绍**</span>
 
-本文档倾向于提供 java 基础理念知识，让你对于Java整体的知识体系有一个初步认识。
+本文档倾向于提供 java 开发相关基础理念知识，用来记录自己学习 java 开发过程中的相关笔记。
 
 <span style="font-size:20px;">**关于转载**</span>
 
@@ -160,6 +160,6 @@
 2. 很多知识点可能没有涉及到，可以对其他知识点进行补充。
 3. 现有的知识点难免存在不完善或者错误，可以对已有知识点进行修改/补充。
 
-<span style="font-size:20px;">**为什么要做这个开源文档？**</span>
+<!-- <span style="font-size:20px;">**为什么要做这个开源文档？**</span>
 
-初始想法源于自己一段比较迷茫的经历。想抽时间整理自己的一个 java 知识体系。主要目的是为了加强自己的基本功, 同时也希望能帮助正在学习 java 的小伙伴。
+初始想法源于自己一段比较迷茫的经历。想抽时间整理自己的一个 java 知识体系。主要目的是为了加强自己的基本功, 同时也希望能帮助正在学习 java 的小伙伴。 -->

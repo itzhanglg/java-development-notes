@@ -1,13 +1,13 @@
 <h1 align="center">Java 知识体系学习</h1>
 <p align="center">
-<a href="http://itzlg.gitee.io/java-knowledge-system" target="_blank">
+<a href="http://itzlg.gitee.io/java-development-notes" target="_blank">
     <svg class="svgIcon" aria-hidden="true">
         <use xlink:href="#icon-huabanfuben"></use>
     </svg>
 </a>
 </p>
 
-推荐使用  http://itzlg.gitee.io/java-knowledge-system 在线阅读，在线阅读内容本仓库同步一致。这种方式阅读的优势在于：阅读体验会更好。
+推荐使用  http://itzlg.gitee.io/java-development-notes 在线阅读，在线阅读内容本仓库同步一致。这种方式阅读的优势在于：阅读体验会更好。
 
 
 ### 目录
@@ -68,7 +68,7 @@
 
 
 ### 描述
-<span style="font-size:20px;">**java-knowledge-system介绍**</span>
+<span style="font-size:20px;">**java-development-notes介绍**</span>
 
 本文档倾向于提供 java 基础理念知识，让你对于Java整体的知识体系有一个初步认识。
 

@@ -259,10 +259,10 @@ select * from Employee t1, Title t2 where t1.titleId=t2.titleId;	--内连接
 
 3.  内连接实现的查询可以使用where来实现  --第五点的说明
 
-4.  where子句替换having子句的情况：当实现相同功能时可以替换:having中使用组列进行筛选时可以用where替换，使用聚合函数筛选时不可以用where替换
+4. where子句替换having子句的情况：当实现相同功能时可以替换:having中使用组列进行筛选时可以用where替换，使用聚合函数筛选时不可以用where替换
 
     -   `where StuNo = 6` ;   筛选源数据中StuNo为6的行(相当于StuNo为6的组)  --这种查询更快，毕竟比下面少一条语句
-      -   `group by StuNo having StuNo = 6`;将StuNo分组，再筛选StuNo为6的组
+    -   `group by StuNo having StuNo = 6`;将StuNo分组，再筛选StuNo为6的组
 
     5.  `from 结果集1 ... join 结果集2 ... join ... on 连接条件`--on 不能使用where替换，会出现语法错误
 

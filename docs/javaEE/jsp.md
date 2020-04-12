@@ -211,14 +211,14 @@ Servlet运行原理:
 HttpServletRequest接口:
 
 -   `String getParameter(String name)` 	//获取指定名称的参数值
-  -   `String[] getParameterValues(String name)`//获取相同名称参数的数组值
+-   `String[] getParameterValues(String name)`//获取相同名称参数的数组值
 
-HttpServletResponse接口
+HttpServletResponse接口:
 
 -   `PrintWriter getWriter()`	//获取打印流对象
-  -   `void sendRedirect(String path)`//将请求重定向到指定位置
-  -   `void setCharacterEncoding(String enc)`//设置响应编码
-  -   `void addCookie()`//向响应中添加cookie对象
+-   `void sendRedirect(String path)`//将请求重定向到指定位置
+-   `void setCharacterEncoding(String enc)`//设置响应编码
+-   `void addCookie()`//向响应中添加cookie对象
 
 ServletConfig接口:类似局部变量，某一个servlet所私有的
 
@@ -251,8 +251,8 @@ ServletContext接口:类似全局变量，整个web应用所共享的
 请求对象中存储对象的常用方法:
 
 -   `void setAttribute(String name,Object obj)` 	//将对象存储到请求对象中
-  -   `Object getAttribute(String name)` //获取存储在请求对象中的对象
-  -   `void removeAttribute(String name)` //从请求对象中删除指定名称的属性
+-   `Object getAttribute(String name)` //获取存储在请求对象中的对象
+-   `void removeAttribute(String name)` //从请求对象中删除指定名称的属性
 
 存储在请求实例中的数据称为请求域属性,处于同一请求过程的多个处理模块之间,可以通过请求域属性来传递对象数据.
 
@@ -262,7 +262,7 @@ ServletContext接口:类似全局变量，整个web应用所共享的
 请求对象接口分为两个空间,一个存储页面提交的数据,一个存储setAttribute的数据
 
 -   `String getParameter(String name)` 	//获取页面提交的请求参数值
-  -   `Object getAttribute(String name)` //获取存储再在请求对象中的对象
+-   `Object getAttribute(String name)` //获取存储再在请求对象中的对象
 
 ### 四.Cookie的概念和使用
 

@@ -10,6 +10,7 @@
 
 - [Github比较热门的Java开源项目](https://mp.weixin.qq.com/s?__biz=MzI3NjU2ODA5Mg==&mid=2247485152&idx=1&sn=f649373a43dd0706752c3a3a96493b42&chksm=eb72c793dc054e859cb9aa97757b7aec7015209004d7b707b662fe124d1c208d32f4d332d4cf&scene=0&xtrack=1&key=d20864ce5ca42a5a90019ee69ff4f140985ac2f1fc267782413876bcbd2b860495011720f0df985860d2c611ecd16d54507d0682cca6941b4e79b9c7ab2c0bad2fbf832b5858e77ab3232ea4c84c178b&ascene=14&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=AWeqBD3ijipZnX8sM%2F09yOE%3D&pass_ticket=lNQIKpOrHbUrIl4dAPX5VvLUI%2BF8xEVFtV4CKL1gLpiadqSq6r97ArXzpryNl%2F%2Bk)
 - [GitHub上 7 个Spring Boot 优质开源项目！【附源码】](https://mp.weixin.qq.com/s?__biz=MzIwNTk5NjEzNw==&mid=2247489771&idx=1&sn=1cd800057eba13d5d365fa699c800e24&chksm=972931eda05eb8fbc724775e4c46a8c82df8a291eefeee43d97e5a9e2dfeb7dc7f2613f68ce4&mpshare=1&scene=1&srcid=&sharer_sharetime=1585542455282&sharer_shareid=97882d908ba6498447727c27e86f5d0e&key=d20864ce5ca42a5aeac275cbdbe66bab8a86bbc4b895a353569c48e573f689afc87f1b329de05ad157958fcf4fa998c8da954dbace30833173c90a1ef65365720a5d92363dad14fcb9c42d1865e82433&ascene=1&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=Aed8DRBKbM6h6g1IDegp6gY%3D&pass_ticket=lNQIKpOrHbUrIl4dAPX5VvLUI%2BF8xEVFtV4CKL1gLpiadqSq6r97ArXzpryNl%2F%2Bk)
+- [IntelliJ IDEA资源一网打尽](https://github.com/eacdy/awesome-idea)
 - 
 
 

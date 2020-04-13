@@ -33,16 +33,18 @@
   - [字符串,日期,比较器,BigDecimal等常用类学习](docs/javaBase/commonClass.md)
 
 ##### Java高级知识
+  [Java底层知识点学习目录](docs/javaSenior/study.md)
+
   - 容器
     - [容器知识点总结](docs/javaSenior/collection/basis.md)
     - [ArrayList/LinkedList/HashMap源码学习](docs/javaSenior/collection/source.md)
   - 并发
     - [并发知识点长篇总结](docs/javaSenior/concurrence/thread.md) &nbsp;
     - 并发编程学习
-      - [并发编程基础篇](docs/javaSenior/concurrence/concurrenceStudy01.md) &nbsp;
-        [并发编程原理篇](docs/javaSenior/concurrence/concurrenceStudy02.md)
+      - [基础: 线程的实现方式,生命周期,重要API,通信](docs/javaSenior/concurrence/concurrenceStudy01.md) &nbsp;
+      - [原理: 并发的三大特性,Java内存模型,死锁,Atomic相关类与CAS,Volatile,Synchronized,ThreadLocal解析](docs/javaSenior/concurrence/concurrenceStudy02.md)
     - 线程池学习
-      - [线程池原理]() &nbsp;
+      - [线程池原理](docs/javaSenior/concurrence/threadPoolStudy.md) &nbsp;
         [线程池学习](docs/javaSenior/concurrence/threadPool.md)
   - JVM
     - [Java内存区域](docs/javaSenior/JVM/memoryArea.md)

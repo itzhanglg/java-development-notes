@@ -8,6 +8,7 @@
 * [常用类](docs/javaBase/commonClass)
 
 * 二.Java高级
+* [Java底层知识点学习目录](docs/javaSenior/study)
 * 1.集合
 * [集合总结](docs/javaSenior/collection/basis)
 * [源码学习](docs/javaSenior/collection/source)
@@ -15,6 +16,7 @@
 * [并发知识点长篇总结](docs/javaSenior/concurrence/thread)
 * [并发编程基础篇](docs/javaSenior/concurrence/concurrenceStudy01)
 * [并发编程原理篇](docs/javaSenior/concurrence/concurrenceStudy02)
+* [线程池原理](docs/javaSenior/concurrence/threadPoolStudy)
 * [线程池学习](docs/javaSenior/concurrence/threadPool)
 * 3.JVM
 * [Java内存区域](docs/javaSenior/JVM/memoryArea)

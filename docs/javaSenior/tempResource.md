@@ -1,0 +1,5 @@
+java底层知识好文:
+
+- [硬核图解！新手也能看懂的Java 垃圾回收！](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247486518&idx=3&sn=788359ffe095114711992f9947479131&chksm=cea243fdf9d5caebbb894dccecaee617aed8e4b3b8de44cf3ba9da3f7bba78fd7031de35e551&scene=126&sessionid=1586276292&key=d1ea58609fa1095834509b67902205524a9ae2fdc486dc24c3f95495a6754d05fe74c2c6a3ba46d4ebc040b4e3e55f59cc91693b0ab44750398d12efd4659b006da852bb066e68e97c9f745f89e11247&ascene=1&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=Adc0yuHa9zTz1UlSocmUmuc%3D&pass_ticket=KP9c7U%2BQNcbOw3riEee%2BIc4k3P%2FOrgV9zKgIRrh7ivIUlOVOT3byIvnl17PbKiU%2F)
+- [使用 ThreadLocal 一次解决老大难问题](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247486133&idx=2&sn=1f2edc3f21c85de49a5dafd0f7b99e8c&key=d1ea58609fa109582a8cf4b0070afa9a8ddbf222767aad323d703ae994108b04c3a99659172f3c9bc71dc05cb7545fc8f5cc6d1f196a983a17906592e032bc283942e400ee02bae43a36382525bbd76d&ascene=1&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=AQjLk01M5ULAywsPLch8Loc%3D&pass_ticket=ZhP%2FwzkqBxrP%2FvKMUuw5cjJtMXSgB1e%2FsQXZ4yuR5kwHLHkwQ4WQRj7fk7zPUSNL)
+- 

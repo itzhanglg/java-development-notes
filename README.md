@@ -26,26 +26,35 @@
 
 
 ##### Java基础知识
-  - [基础语法](docs/javaBase/grammar.md) &nbsp;
-    [数组](docs/javaBase/array.md) &nbsp;
-    [面向对象](docs/javaBase/object.md) &nbsp;
-    [异常处理](docs/javaBase/exception.md) &nbsp;
-  - [字符串,日期,比较器,BigDecimal等常用类学习](docs/javaBase/commonClass.md)
+  - [Java概述,变量与运算符,流程控制](docs/javaBase/grammar.md) &nbsp;
+  - [一维数组,二维数组及Arrays工具类使用](docs/javaBase/array.md) &nbsp;
+  - [类与对象,类的成员及OOP特征](docs/javaBase/object01.md) &nbsp;
+  - [this,super,static,final,package,import关键字及常见问题](docs/javaBase/object02.md) &nbsp;
+  - [异常体系概述,try,catch,finally,throw及throws关键字](docs/javaBase/exception.md) &nbsp;
+  - [String,StringBuffer与StringBuilder详解](docs/javaBase/commonClass01.md) &nbsp;
+  - [JDK8之前与JDK8日期时间API详解](docs/javaBase/commonClass02.md) &nbsp;
+  - [Comparable与Comparator接口,System,Math,BigDecimal类详解](docs/javaBase/commonClass03.md)
 
 ##### Java高级知识
   [Java底层知识点学习目录](docs/javaSenior/study.md)
 
   - 容器
-    - [容器知识点总结](docs/javaSenior/collection/basis.md)
+    - [Collection,List,Set,Map集合及Collections工具类详解](docs/javaSenior/collection/basis.md)
     - [ArrayList/LinkedList/HashMap源码学习](docs/javaSenior/collection/source.md)
   - 并发
-    - [并发知识点长篇总结](docs/javaSenior/concurrence/thread.md) &nbsp;
-    - 并发编程学习
-      - [基础: 线程的实现方式,生命周期,重要API,通信](docs/javaSenior/concurrence/concurrenceStudy01.md) &nbsp;
-      - [原理: 并发的三大特性,Java内存模型,死锁,Atomic相关类与CAS,Volatile,Synchronized,ThreadLocal解析](docs/javaSenior/concurrence/concurrenceStudy02.md)
-    - 线程池学习
+    - 基础
+      - [并发知识点长篇总结](docs/javaSenior/concurrence/conBasic01.md) &nbsp;
+      - [线程的实现方式,生命周期,重要API,通信](docs/javaSenior/concurrence/conBasic02.md) &nbsp;
+    - 原理
+      - [并发的三大特性,Java内存模型,死锁](docs/javaSenior/concurrence/conPrinciple01.md)
+      - [Atomic相关类与CAS,Volatile,Synchronized详解](docs/javaSenior/concurrence/conPrinciple02.md)
+      - [深入解析ThreadLocal](docs/javaSenior/concurrence/threadLocalAndAQS01.md)
+      - [AQS解析](docs/javaSenior/concurrence/threadLocalAndAQS02.md)
+    - 线程池
       - [线程池原理](docs/javaSenior/concurrence/threadPoolStudy.md) &nbsp;
         [线程池学习](docs/javaSenior/concurrence/threadPool.md)
+    - 工具类
+      - [深入解析Lock]()
   - JVM
     - [Java内存区域](docs/javaSenior/JVM/memoryArea.md)
   - 其它         

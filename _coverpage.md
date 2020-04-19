@@ -1,6 +1,6 @@
 ![logo](media/icon/java.svg)
 ## java-development-notes
-> Java 开发相关知识点学习记录, 方便以后复习及巩固, 持续更新...
+> Java 开发相关知识点学习记录, 方便以后复习及巩固...
 ## 勿浅尝辄止
 
 

@@ -469,45 +469,250 @@ class MethodInvokeDemo2{
 }
 ```
 
-### 五.反射其它相关API和应用
+### 五.获取泛型信息
 
-#### 1.其它相关API
+获取到`java.lang.reflect.Method`对象，就有可能获取到某个方法的泛型返回信息。
 
-Class类中:
+#### 1.泛型方法返回类型
 
--   `int getModifiers()` :获得修饰符
--   `String getName()` :返回类的全限定名
--   `String getSimpleName()`:获得类的简单名字
--   `Package getPackage()` :获得该类的包
--   `Class getSuperclass()` :获得该类的父类
--   `boolean isArray()` :判断该Class实例是否是数组
--   `boolean isEnum() `:判断该Class实例是否是枚举
--   Constructor,Method,Filed的信息: 去查阅相应类的API即可
-
-示例:
+下面的类中定义了一个返回值中有泛型的方法：
 
 ```java
-abstract class OtherApiDemo{
-	public static void main(String[] args){
-		Class clz = OtherApiDemo.class;
-		//获取类的修饰符
-		int m = clz.getModifiers();
-		System.out.println(Modifier.toString(m));
-		//获取类的全限定名称: 包名.类名
-		System.out.println(clz.getName());	
-		//获取类的简单名称: 类名
-		System.out.println(clz.getSimpleName());
-		//获取包名
-		System.out.println(clz.getPackage().getName());
-		//获取父类名称
-		System.out.println(clz.getSuperclass().getName());
-		//获取所有的字段名称
-		System.out.println(clz.getDeclaredFields());
-	}
+public class MyClass {
+
+  protected List<String> stringList = ...;
+
+  public List<String> getStringList(){
+    return this.stringList;
+  }
 }
 ```
 
-#### 2.自写System类中数组拷贝方法
+下面的代码使用反射检测`getStringList()`方法返回的是`List`而不是`List`:
+
+```java
+// 获取getStringList方法对象
+Method method = MyClass.class.getMethod("getStringList", null);
+// 获取返回值类型
+Type returnType = method.getGenericReturnType();
+// 判断返回值类型是否泛型化
+if(returnType instanceof ParameterizedType){
+    // 转化为泛型化
+    ParameterizedType type = (ParameterizedType) returnType;
+    // 获取泛型类型
+    Type[] typeArguments = type.getActualTypeArguments();
+    for(Type typeArgument : typeArguments){
+        Class typeArgClass = (Class) typeArgument;
+        System.out.println("typeArgClass = " + typeArgClass);
+    }
+}
+```
+
+上面这段代码会打印：`typeArgClass = java.lang.String`
+
+#### 2.泛型方法参数类型
+
+下面的类定义了一个有泛型参数的方法setStringList():
+
+```java
+public class MyClass {
+  protected List<String> stringList = ...;
+
+  public void setStringList(List<String> list){
+    this.stringList = list;
+  }
+}
+```
+
+Method类提供了`getGenericParameterTypes()`方法获取方法的泛型参数:
+
+```java
+// 获取指定的方法
+method = Myclass.class.getMethod("setStringList", List.class);
+// 获取参数类型
+Type[] genericParameterTypes = method.getGenericParameterTypes();
+// 遍历
+for(Type genericParameterType : genericParameterTypes){
+    // 受否泛型化
+    if(genericParameterType instanceof ParameterizedType){
+        ParameterizedType aType = (ParameterizedType) genericParameterType;
+        Type[] parameterArgTypes = aType.getActualTypeArguments();
+        for(Type parameterArgType : parameterArgTypes){
+            Class parameterArgClass = (Class) parameterArgType;
+            System.out.println("parameterArgClass = " + parameterArgClass);
+        }
+    }
+}
+```
+
+上面的代码会打印出`parameterArgType = java.lang.String`
+
+#### 3.泛型变量类型
+
+通过反射也可以获取到类的成员泛型变量信息——静态变量或实例变量。下面的类定义了一个泛型变量：
+
+```java
+public class MyClass {
+  public List<String> stringList = ...;
+}
+```
+
+通过反射的Filed对象获取到泛型变量的类型信息：
+
+```java
+// 获取stringList字段对象
+Field field = MyClass.class.getField("stringList");
+// 获取字段的类型
+Type genericFieldType = field.getGenericType();
+// 是否泛型化
+if(genericFieldType instanceof ParameterizedType){
+    ParameterizedType aType = (ParameterizedType) genericFieldType;
+    Type[] fieldArgTypes = aType.getActualTypeArguments();
+    for(Type fieldArgType : fieldArgTypes){
+        Class fieldArgClass = (Class) fieldArgType;
+        System.out.println("fieldArgClass = " + fieldArgClass);
+    }
+}
+```
+
+Field对象提供了`getGenericType()`方法获取到泛型变量。 上面的代码会打印出：`fieldArgClass = java.lang.String`.
+
+### 六.反射相关API总结和应用场景
+
+#### 1.Class对象常用API
+
+```java
+// 1.获取类名
+String getName() // 返回类的全限定名
+String getSimpleName() // 获得类的简单名字
+// 2.获取类的修饰符
+int getModifiers() // 获得修饰符
+Modifier.isPublic(int modifiers) // 结合Modifier提供的方法确认修饰符的类型
+// 3.获取包信息
+Package getPackage() // 获得该类的包信息: package com.fishleap
+// 4.获取父类的Class对象
+Class getSuperclass() // 获得父类的Class对象
+// 5.获取接口信息,只返回指定类实现的接口,不会返回父类实现的接口    
+Class[] getInterfaces() // 获取接口的Class对象 
+// 6.获取用public修饰的构造函数Constructor    
+Constructor[] getConstructors() // 所有用public修饰的构造函数 
+Constructor getConstructor(Class[] parameterTypes) // 获取指定的构造函数
+// 7.获取类声明的成员Methods方法信息,不能获取到父类的方法
+Method[] getMethods() // 获取所有的public修饰的方法
+Method[] getDeclaredMethods() // 所有的成员方法,与修饰符无关
+Method getMethod("eat", new Class[]{int.class}) // 提供 方法名,方法名的参数Class对象
+Method getDeclaredMethod(String name, Class[] parameterTypes)
+// 8.获取成员变量    
+Field[] getFields() // 获取所有public修饰的成员变量
+Field[] getDeclaredFields() // 获取所有修饰的成员变量
+Field getFields("name") // 获取public成员变量name的对象
+Field getDeclaredFields("name")  
+   
+boolean isArray() // 判断该Class实例是否是数组
+boolean isEnum() // 判断该Class实例是否是枚举    
+```
+
+类修饰符有public、private等类型，getModifiers()可以获取一个类的修饰符，但是返回的结果是int，结合Modifier提供的方法，就可以确认修饰符的类型。
+
+```java
+Modifier.isAbstract(int modifiers)
+Modifier.isFinal(int modifiers)
+Modifier.isInterface(int modifiers)
+Modifier.isNative(int modifiers)
+Modifier.isPrivate(int modifiers)
+Modifier.isProtected(int modifiers)
+Modifier.isPublic(int modifiers)
+Modifier.isStatic(int modifiers)
+Modifier.isStrict(int modifiers)
+Modifier.isSynchronized(int modifiers)
+Modifier.isTransient(int modifiers)
+Modifier.isVolatile(int modifiers)
+```
+
+#### 2.Constructor对象常用API
+
+```java
+// 1.获取构造函数的参数
+Class[] getParameterTypes() // 获取构造函数的参数
+// 2.初始化对象
+Object newInstance([Object... params])
+```
+
+#### 3.Method对象常用API
+
+```java
+Class[] getParameterTypes() // 获取成员方法参数的Class对象
+Class getReturnType() // 获取成员方法返回类型的Class对象
+Type[] getGenericParameterTypes() // 获取成员方法参数的类型
+Type getGenericReturnType() // 获取成员方法返回值类型
+String getName() // 获取该方法的名称
+// 第一个参数:调用方法的对象,第二个参数:调用方法要传入的值;若是static方法,第一个参数用null代替    
+Object invoke(Ojbect obj, Object... args) // 调用指定对象的某个方法
+```
+
+使用反射可以在运行时检查和调用类声明的成员方法，可以用来检测某个类是否有getter和setter方法。getter和setter是java bean必须有的方法。 getter和setter方法有下面的一些规律： getter方法以get为前缀，无参，有返回值 setter方法以set为前缀，有一个参数，返回值可有可无， 下面的代码提供了检测一个类是否有getter和setter方法：
+
+```java
+public static void printGettersSetters(Class aClass){
+  Method[] methods = aClass.getMethods();
+
+  for(Method method : methods){
+    if(isGetter(method)) System.out.println("getter: " + method);
+    if(isSetter(method)) System.out.println("setter: " + method);
+  }
+}
+
+public static boolean isGetter(Method method){
+  if(!method.getName().startsWith("get"))      return false;
+  if(method.getParameterTypes().length != 0)   return false;  
+  if(void.class.equals(method.getReturnType()) return false;
+  return true;
+}
+
+public static boolean isSetter(Method method){
+  if(!method.getName().startsWith("set")) return false;
+  if(method.getParameterTypes().length != 1) return false;
+  return true;
+}
+```
+
+#### 4.Field对象常用API
+
+```java
+Class getType() // 获取声明类型的Class对象
+Type getGenericType() // 获取声明类型    
+Object get(Object obj) // 获取指定对象上所表示的字段的值
+void set(Object obj, Object value) // 将指定对象上Field表示的字段设置为指定的新值 
+```
+
+#### 5.反射的应用场景
+
+例如模块化的开发，通过反射去调用对应的字节码；动态代理设计模式也采用了反射机制，还有我们日常使用的 Spring／Hibernate 等框架，也是利用CGLIB 反射机制才得以实现，下面就举例最常见的两个例子，来说明反射机制的强大之处：
+
+##### JDBC的数据库连接
+
+在JDBC 的操作中，如果要想进行数据库的连接，则必须按照以上的几步完成
+
+1. 通过Class.forName()加载数据库的驱动程序 （通过反射加载，前提是引入相关了Jar包）
+2. 通过 DriverManager 类进行数据库的连接，连接的时候要输入数据库的连接地址、用户名、密码
+3. 通过Connection 接口接收连接
+
+##### Spring框架的使用
+
+反射机制是Java框架的基石. Spring 通过 XML 配置模式装载 Bean 的过程：
+
+1. 将程序内所有 XML 或 Properties 配置文件加载入内存中
+2. Java类里面解析xml或properties里面的内容，得到对应实体类的字节码字符串以及相关的属性信息
+3. 使用反射机制，根据这个字符串获得某个类的Class实例
+4. 动态配置实例的属性
+
+Spring这样做的好处是：
+
+- 不用每一次都要在代码里面去new或者做其他的事情
+- 以后要改的话直接改配置文件，代码维护起来就很方便了
+- 有时为了适应某些需求，Java类里面不一定能直接调用另外的方法，可以通过反射机制来实现
+
+#### 6.自写System类中数组拷贝方法
 
 System类中arraycopy方法：
 
@@ -573,7 +778,7 @@ class ArrayCopyDemo{
 }
 ```
 
-### 六.反射API使用总结
+### 七.反射API使用总结
 
 1.  **获取构造器或方法所在类的Class对象**  `Class<T> clz = 类名.class;` 或Object的`getClass();` 或`Class.forName(全限定类名);` **获取构造器或方法**都需要import java.lang.reflect.constructor/method、声明异常
 2.  **获取构造器:**  `getConstructor(参数的Class类型); `多个`getConstructors(参数的Class类型);` **创建对象:** `newInstance(实参);` 当私有时，获取时要加Declared，调用时要`setAccessible(true);`
@@ -592,5 +797,10 @@ class ArrayCopyDemo{
 
 
 
+### 参考链接
 
+- [Java反射使用总结](https://zhuanlan.zhihu.com/p/80519709)
+- [Reflection: Java反射机制的应用场景](https://segmentfault.com/a/1190000010162647)
+- [Java基础之一反射(非常重要)](https://blog.csdn.net/sinat_38259539/article/details/71799078)
+- [什么是反射机制?反射机制的应用场景有哪些?](https://snailclimb.gitee.io/javaguide/#/docs/java/basic/reflection)
 

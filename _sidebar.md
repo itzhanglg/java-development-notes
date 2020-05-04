@@ -6,6 +6,8 @@
 * [面向对象](docs/javaBase/object)
 * [异常处理](docs/javaBase/exception)
 * [常用类](docs/javaBase/commonClass)
+* [反射](docs/javaSenior/reflection)
+* [动态代理](docs/javaSenior/dynamicProxy.md)
 
 * 二.Java高级
 * [Java底层知识点学习目录](docs/javaSenior/study)
@@ -25,7 +27,7 @@
 * [IO流](docs/javaSenior/ioStream)
 * [JDK8](docs/javaSenior/JDK8)
 * [网络](docs/javaSenior/network)
-* [反射](docs/javaSenior/reflection)
+
 * 5.编程规范
 * [Java编程规范学习](docs/javaSenior/codingStyle/codingStyle.md)
 
@@ -46,7 +48,8 @@
 * [Mybatis架构,执行流程和设计模式](docs/framework/mybatis/mybatis03)
 * [Mybatis源码分析](docs/framework/mybatis/mybatis04)
 * 2.spring
-* [spring]()
+* [IOC,AOP概述及自定义解决思路](docs/framework/spring/spring00)
+* 3.springmvc
 * [springmvc]()
 * [hibernate]()
 

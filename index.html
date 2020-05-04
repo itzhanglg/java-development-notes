@@ -29,25 +29,37 @@
       loadSidebar: true,// 设置多文档侧边栏,_sidebar.md
       subMaxLevel: 4,   // 设置章节目录显示
       coverpage: true,  // 设置封面,_coverpage.md
-      loadNavbar: true, // 定义导航栏,_navbar.md
+      loadNavbar: false, // 定义导航栏,_navbar.md
       onlyCover: false,  // 把封面作为首页
       auto2top: true, // 切换页面后是否自动跳转到页面顶部
       // logo: '' ,
       search: { // 添加搜索功能
         // maxAge: 86400000, // 过期时间，单位毫秒，默认一天
-        noData: 'No Results!',// 搜索不到结果时显示
+        noData: '哎呀，没有找到呀！ ',// 搜索不到结果时显示
         paths: 'auto',// 自动
-        placeholder: 'Type to search',// 搜索框提示
+        placeholder: '🔍 搜索 ',// 搜索框提示
         depth: 3, // 搜索标题的最大程级, 1 - 6
       },
       plugins: [  // edit on github
         EditOnGithubPlugin.create('https://github.com/itzhanglg/java-development-notes/blob/master/')
       ],
+      copyCode: {
+          buttonText : '复制',
+          errorText  : 'Error',
+          successText: 'OK!'
+      },
+      pagination: {
+          previousText: '上一章',
+          nextText: '下一章',
+      },
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <!-- Java代码高亮 -->
   <script src="//unpkg.com/prismjs/components/prism-java.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <!--分页插件-->
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
   <!-- java代码复制按钮 -->
   <script src="//unpkg.com/docsify-copy-code"></script>
   <!--全文搜索,直接用官方提供的无法生效-->
@@ -58,34 +70,12 @@
   <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
   <!-- 字数统计 -->
   <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+  <!--统计访问量插件-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <!--谷歌统计
   <script src="//unpkg.com/docsify" data-ga="UA-138586553-1"></script>
   <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
   -->
 
-  <!-- 评论系统 
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
-  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  <script>
-    const gitalk = new Gitalk({
-      clientID: 'bd8935064f151b06c701',
-      clientSecret: '8165de68d49c5cd2b4bc4edb3127a66b7e0059bd',
-      repo: 'java-knowledge-system',
-      owner: 'itzhanglg',
-      admin: ['itzhanglg'],
-      distractionFreeMode: false,
-      title: location.hash.match(/#(.*?)([?]|$)/)[1],
-      id: location.hash.match(/#(.*?)([?]|$)/)[1],
-    });
-    // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
-    window.onhashchange = function(event){
-      if(event.newURL.split('?')[0] !== event.oldURL .split('?')[0]) {
-        location.reload()
-      }
-    };
-    // 由于docsify/lib/plugins/gitalk.min.js文件中已经有下面代码了，所以不需要在写一次了
-    // gitalk.render('gitalk-container')
-  -->
-  </script>
 </body>
 </html>

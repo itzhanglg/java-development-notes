@@ -1,11 +1,3 @@
-﻿### 摘要
-
-- <span style="color:red;">世界上最遥远的距离，是我在if 里你在else里，似乎一直相伴又永远分离；</span>
-- <span style="color:red;">世界上最痴心的等待，是我当case你是switch，或许永远都选不上自己；</span>
-- <span style="color:red;">世界上最真情的相依，是你在try我在catch，无论你发神马脾气，我都默默承受，静静处理。到那时，再来期待我们的finally。</span>
-
-哈哈，开心一笑也笑了，异常体系更完java基础板块就正式结束啦，下面是正文。
-
 ### 一.异常概述与异常体系结构
 
 异常：在Java语言中，将程序执行中发生的不正常情况称为“异常”。(开发过程中的语法错误和逻辑错误不是异常)。
@@ -110,7 +102,57 @@ catch( ExceptionName2 e ){
   - 多个catch块时候，最多**只会匹配其中一个异常类且只会执行该catch块代码**，而不会再执行其它的catch块，且匹配catch语句的顺序为从上到下，也可能所有的catch都没执行
   - **先Catch子类异常再Catch父类异常**
 
-### 三.throws
+### 三.try-with-resources
+
+JDK1.7之后，引入了try-with-resources，使得关闭资源操作无需层层嵌套在finally中，代码简洁不少，本质是一个语法糖，能够使用try-with-resources关闭资源的类，必须实现**java.lang.AutoCloseable**接口。
+
+try-with-resources 可以自动关闭资源。非常方便。try 语句里面可以声明一个或者多个资源。资源指的是对象，必须在程序执行完后关闭，比如IO流 执行完后要关闭流。
+
+Java中类似于InputStream,OutputStream,Scanner,PrintWriter等资源都需要手动调用close方法来关闭,以前一般通过try-catch-finally语句实现:
+
+```java
+public static void main(String[] args) throws IOException {
+    FileInputStream in = null;
+    FileOutputStream out = null;
+
+    try {
+        in = new FileInputStream("hello.txt");
+        out = new FileOutputStream("hello2.txt");
+        int c;
+
+        while ((c = in.read()) != -1) {
+            out.write(c);
+        }
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        if (in != null) {
+            in.close();
+        }
+    }
+}
+```
+
+使用Java7之后的try-with-resources改造上面代码:
+
+```java
+public static void main(String []args)throws Exception{
+    //在try语句里面声明资源  会自动关闭资源
+    try(FileInputStream is=new FileInputStream("hello.txt");
+        FileOutputStream os=new FileOutputStream("hello2.txt");
+       ){
+        int i;
+        while ((i=is.read())!=-1){
+            os.write((byte)i);
+        }
+    }
+}
+```
+
+当多个资源需要关闭时,通过使用封号分隔,可以在try-with-resources块中声明多个资源.语句执行完后会自动关闭流,**资源的close方法调用顺序和资源创建顺序相反**.
+
+### 四.throws
 
 throws关键字用于方法体外部的**方法声明部分**，用来声明方法可能会抛出**某些异常类型，也可以是它的父类**。仅当抛出了检查异常，该方法的调用者才必须处理或者重新抛出该异常。当方法的调用者无力处理该异常的时候，应该继续抛出。
 
@@ -156,7 +198,7 @@ public class B2 extends A {
 }
 ```
 
-### 四.throw
+### 五.throw
 
 throw关键字是用于**方法体内部**，用来抛出一个Throwable类型或其子类的异常。
 
@@ -173,10 +215,10 @@ public static void test() throws Exception
 
 - 写法上 : throw 在**方法体**内使用，throws **函数名后或者参数列表后**方法体前 
 - 意义 ： throw 强调**动作**，而throws 表示**一种倾向、可能但不一定实际发生** 
-- throws 后面跟的是**异常类**，可以一个，可以多个，多个用逗号隔开。throw 后跟的是**异常对象**，或者异常对象的引用。 
+- throws 后面跟的是**异常类**，可以一个，可以多个，多个用逗号隔开。throw 后跟的是**异常对象**，或者异常对象的引用
 - **throws** 用户抛出异常，在当前方法中抛出异常后，**当前方法执行结束**（throws 后，如果有finally语句的话，会执行到finally语句后再结束。）。可以理解成return一样
 
-### 五.自定义异常类
+### 六.自定义异常类
 
  一般地，用户自定义异常类都是RuntimeException的子类。
 
@@ -243,3 +285,13 @@ public class CustomException extends Exception {
 - throws：异常的处理方式：声明方法可能要抛出的各种异常类
 
 
+
+参考链接: [使用try-with-resources优雅关闭资源](https://www.cnblogs.com/youtang/p/11441959.html)
+
+
+
+﻿### 开心一笑
+
+- <span style="color:red;">世界上最遥远的距离，是我在if 里你在else里，似乎一直相伴又永远分离；</span>
+- <span style="color:red;">世界上最痴心的等待，是我当case你是switch，或许永远都选不上自己；</span>
+- <span style="color:red;">世界上最真情的相依，是你在try我在catch，无论你发神马脾气，我都默默承受，静静处理。到那时，再来期待我们的finally。</span>

@@ -1,3 +1,5 @@
+> 参考: [Collections工具类和Arrays工具类常见方法](https://gitee.com/SnailClimb/JavaGuide/blob/master/docs/java/basic/Arrays,CollectionsCommonMethods.md)
+
 ### 一.概述
 
 -   数组(Array)，是多个**相同类型数据**按**一定顺序排列**的集合，并使用**一个名字命名**，并通过**编号**的方式对这些数据进行统一管理
@@ -235,19 +237,21 @@ for(int i=0; i<a.length-1; i++){	//轮数
 }
 ```
 
-### 五.其它使用
+### 五.Arrays工具类的使用
 
-#### 1.Arrays工具类的使用
+java.util.Arrays类即为操作数组的工具类，包含了用来操作数组（比如排序和搜索）的各种方法;
 
-java.util.Arrays类即为操作数组的工具类，包含了用来操作数组（比如排序和搜索）的各种方法
+[Collections工具类和Arrays工具类常见方法](https://gitee.com/SnailClimb/JavaGuide/blob/master/docs/java/basic/Arrays,CollectionsCommonMethods.md)
 
-| 方法                                | 描述                 |
-| --------------------------------- | ------------------ |
-| boolean equals(int[] a,int[] b)   | 判断两个数组是否相等         |
-| String toString(int[] a)          | 输出数组信息             |
-| void fill(int[] a,int val)        | 将指定值填充到数组之中        |
-| void sort(int[] a)                | 对数组进行排序            |
+| 方法                              | 描述                                 |
+| --------------------------------- | ------------------------------------ |
+| boolean equals(int[] a,int[] b)   | 判断两个数组是否相等                 |
+| String toString(int[] a)          | 输出数组信息                         |
+| void fill(int[] a,int val)        | 将指定值填充到数组之中               |
+| void sort(int[] a)                | 对数组进行排序                       |
 | int binarySearch(int[] a,int key) | 对排序后的数组进行二分法检索指定的值 |
+| List<T> asList(T... a)            | 将数组转为列表                       |
+| copyof(E[] a, int len)            | 实现数组的复制,a为数组,len为长度     |
 
 示例:
 
@@ -265,7 +269,7 @@ public class SortTest {
 }
 ```
 
-#### 2.数组使用中的常见异常
+### 六.数组使用中的常见异常
 
 1.  **数组脚标越界**异常(ArrayIndexOutOfBoundsException)
 
@@ -283,7 +287,7 @@ public class SortTest {
     System.out.println(arr[0]);
     ```
 
-    ​
+    
 
 
 

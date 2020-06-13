@@ -29,29 +29,30 @@
   - [Java概述,变量与运算符,流程控制](docs/javaBase/grammar.md) &nbsp;
   - [一维数组,二维数组及Arrays工具类使用](docs/javaBase/array.md) &nbsp;
   - [类与对象,类的成员及OOP特征](docs/javaBase/object01.md) &nbsp;
-  - [this,super,static,final,package,import关键字及常见问题](docs/javaBase/object02.md) &nbsp;
+  - [this,super,static,final,package,import关键字及其它重要知识点](docs/javaBase/object02.md) &nbsp;
   - [异常体系概述,try,catch,finally,throw及throws关键字](docs/javaBase/exception.md) &nbsp;
   - [String,StringBuffer与StringBuilder详解](docs/javaBase/commonClass01.md) &nbsp;
   - [JDK8之前与JDK8日期时间API详解](docs/javaBase/commonClass02.md) &nbsp;
   - [Comparable与Comparator接口,System,Math,BigDecimal类详解](docs/javaBase/commonClass03.md)
   - [使用反射获取类的Class,Constructor,Method,Filed对象及泛型相关API信息](docs/javaSenior/reflection.md)
   - [静态代理与动态代理介绍及相关案例](docs/javaSenior/dynamicProxy.md)
+  - [枚举概述及使用](docs/javaBase/enum.md)
 
 ##### Java高级知识
   [Java底层知识点学习目录](docs/javaSenior/study.md)
 
   - 容器
-    - [Collection,List,Set,Map集合及Collections工具类详解](docs/javaSenior/collection/basis.md)
+    - [Collection,List,Set,Map集合及Collections工具类使用](docs/javaSenior/collection/basis.md)
     - [ArrayList/LinkedList/HashMap源码学习](docs/javaSenior/collection/source.md)
   - 并发
     - 基础
-      - [并发知识点长篇总结](docs/javaSenior/concurrence/conBasic01.md) &nbsp;
-      - [线程的实现方式,生命周期,重要API,通信](docs/javaSenior/concurrence/conBasic02.md) &nbsp;
+      - [并发知识点长篇总结](docs/javaSenior/concurrence/conBasic01.md) &nbsp;&nbsp;
+        [线程的实现方式,生命周期,重要API,通信](docs/javaSenior/concurrence/conBasic02.md) &nbsp;
     - 原理
       - [并发的三大特性,Java内存模型,死锁](docs/javaSenior/concurrence/conPrinciple01.md)
       - [Atomic相关类与CAS,Volatile,Synchronized详解](docs/javaSenior/concurrence/conPrinciple02.md)
-      - [深入解析ThreadLocal](docs/javaSenior/concurrence/threadLocalAndAQS01.md)
-      - [AQS解析](docs/javaSenior/concurrence/threadLocalAndAQS02.md)
+      - [深入解析ThreadLocal](docs/javaSenior/concurrence/threadLocalAndAQS01.md) &nbsp;
+        [AQS解析](docs/javaSenior/concurrence/threadLocalAndAQS02.md)
     - 线程池
       - [线程池原理](docs/javaSenior/concurrence/threadPoolStudy.md) &nbsp;
         [线程池学习](docs/javaSenior/concurrence/threadPool.md)
@@ -101,22 +102,13 @@
     - [SpringBoot整合Thymeleaf](docs/microService/springboot/springboot_thymeleaf.md)
   - [SpringCloud](#springcloud)
 
-##### 操作系统
-  - Linux
-    - [Linux概述及常用命令](docs/operatingSystem/linuxBasic.md)
-  - operating system  
-    - [写给大忙人看的操作系统](docs/operatingSystem/os.md)
 
-
-
-##### 认证授权
-  - [Cookie/Session/Token基础知识](#)
-  - [JWT基础知识](#)
-  - [SpringSecurity](#)
-  - [Shiro](#shiro)
-  - [SSO单点登录](#)
 
 ##### 分布式
+  - 分布式架构
+    - [集群架构场景化解决方案:一致性hash算法,集群时钟同步,分布式ID,分布式调度及Session共享问题]()
+    - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议及一致性算法](docs/javaEE/distribution.md)
+    - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC]()  
   - 消息队列
     - [RabbitMQ](#) &nbsp;
       [RocketMQ](#) &nbsp;
@@ -127,6 +119,13 @@
     - [HttpClient](#httpclient)
   - 分布式搜索引擎
     - [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+
+##### 认证授权
+  - [Cookie/Session/Token基础知识](#)
+  - [JWT基础知识](#)
+  - [SpringSecurity](#)
+  - [Shiro](#shiro)
+  - [SSO单点登录](#)
 
 ##### 必备工具
   - [SVN](#svn)
@@ -150,6 +149,12 @@
   - [Bootstrap](#bootstrap)
   - [Element](#element)
   - [Echarts](#echarts)
+
+##### 操作系统
+  - Linux
+    - [Linux概述及常用命令](docs/operatingSystem/linuxBasic.md)
+  - operating system  
+    - [写给大忙人看的操作系统](docs/operatingSystem/os.md)  
 
 ##### 数据结构与算法
   - [数据结构](#数据结构)

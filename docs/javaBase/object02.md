@@ -1,3 +1,5 @@
+>  参考: [final,static,this,super关键字总结](https://gitee.com/SnailClimb/JavaGuide/blob/master/docs/java/basic/final,static,this,super.md)
+
 ### 1.关键字
 
 #### 1.this
@@ -723,10 +725,6 @@ class Man implements Filial, Spoony {
 - 自反性：x.equals(x) -> true
 - 传递性：x.equals(y) -> true；y.equals(z) -> true；z.equals(x) -> true
 - 一致性：x.equals(y) -> true；只要内容不变，不管重复x.equals(y)多少次，返回都是"true"
-
-
-
-
 
 
 

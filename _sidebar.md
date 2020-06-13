@@ -8,6 +8,7 @@
 * [常用类](docs/javaBase/commonClass)
 * [反射](docs/javaSenior/reflection)
 * [动态代理](docs/javaSenior/dynamicProxy.md)
+* [枚举](docs/javaBase/enum.md)
 
 * 二.Java高级
 * [Java底层知识点学习目录](docs/javaSenior/study)
@@ -59,11 +60,20 @@
 * [springboot整合thymeleaf](docs/microService/springboot/springboot_thymeleaf)
 * [springcloud]()
 
-* 六.操作系统
-* 1.linux
-* [linux概述及常用命令](docs/operatingSystem/linuxBasic)
-* 2.operating system  
-* [写给大忙人看的操作系统](docs/operatingSystem/os)
+* 六.分布式
+* 1.分布式架构
+* [集群架构场景化解决方案]()
+* [分布式理论和网络通信](docs/javaEE/distribution)
+* 2.消息队列
+* [RabbitMQ]()
+* [RocketMQ]()
+* [Kafka]()
+* [ActiveMQ](#activemq)
+* 3.HTTP请求
+* [RestTemplate](#RestTemplate)
+* [HttpClient](#httpclient)
+* 4.分布式搜索引擎
+* [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
 
 * 七.认证授权
 * [Cookie/Session/Token基础知识]()
@@ -72,19 +82,7 @@
 * [Shiro]()
 * [SSO单点登录]()
 
-* 八.分布式
-* 1.消息队列
-* [RabbitMQ]()
-* [RocketMQ]()
-* [Kafka]()
-* [ActiveMQ](#activemq)
-* 2.HTTP请求
-* [RestTemplate](#RestTemplate)
-* [HttpClient](#httpclient)
-* 3.分布式搜索引擎
-* [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
-
-* 九.必备工具
+* 八.必备工具
 * [svn]()
 * git
 * [Git入门使用](docs/tools/git/gitBasic)
@@ -94,7 +92,7 @@
 * docker
 * [docker入门使用](docs/tools/docker/dockerBasic)
 
-* 十.前端
+* 九.前端
 * [html/css基础](docs/frontEnd/htmlCssBasic)
 * [javascript入门]()
 * jQuery
@@ -104,6 +102,12 @@
 * [bootstrap]()
 * [element]()
 * [echarts]()
+
+* 十.操作系统
+* 1.linux
+* [linux概述及常用命令](docs/operatingSystem/linuxBasic)
+* 2.operating system  
+* [写给大忙人看的操作系统](docs/operatingSystem/os)
 
 * 十一.数据结构与算法
 * [数据结构]()

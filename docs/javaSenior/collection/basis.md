@@ -11,8 +11,6 @@
 
 - 数组初始化以后，长度就不可变了，不便于扩展
 - 数组中提供的属性和方法少，不便于进行添加、删除、插入等操作，且效率不高。同时无法直接获取数组中实际元素的个数
-
-
 - 数组存储的数据是有序的、可以重复的。对于无序、不可重复的需求，不能满足。
 
 **3.Java集合分为Collection和Map两种关系：**
@@ -291,6 +289,11 @@ ArrayList 的JDK1.8 之前与之后的实现区别？
 -   JDK1.7：ArrayList像饿汉式，直接创建一个**初始容量为10的数组**
 -   JDK1.8：ArrayList像懒汉式，一开始创建一个长度为0的数组，当**添加第一个元素时再创建一个初始容量为10的数组**
 
+说一说ArrayList的扩容机制(1.8):
+
+- 构造方法: **以无参数构造方法创建 ArrayList 时，实际上初始化赋值的是一个空数组。当真正对数组进行添加元素操作时，才真正分配容量。即向数组中添加第一个元素时，数组容量扩为10**。
+- 扩容机制: **ArrayList 每次扩容之后容量都会变为原来的 1.5 倍左右(oldCapacity为偶数就是1.5倍，否则是1.5倍左右)**
+
 区分List中remove(int index)和remove(Object obj) ?
 
 ```java
@@ -309,7 +312,7 @@ private void updateList(List list) {
 }
 ```
 
-更多内容详看 : 源码学习 -- > ArrayList
+更多内容详看 : 源码学习 -- >  [ArrayList](http://itzlg.gitee.io/java-development-notes/#/docs/javaSenior/collection/source)
 
 ### 2.LinkedList
 
@@ -365,7 +368,7 @@ Vector 是一个古老的集合，JDK1.0就有了。大多数操作与ArrayList�
 
 区别:<div style="color:red;">
 
--   ArrayList: 底层使用**动态数组结构**; **线程不安全**,效率高; 默认创建**空列表**,添加第一个元素时,分配10个大小的空间,每次扩容为原来的**1.5倍**;对于**随机访问**get和set操作效率高于LinkedList
+-   ArrayList: 底层使用**动态数组结构**; **线程不安全**,效率高; 使用无参构造函数创建对象时,默认创建**空列表**,添加第一个元素时,分配10个大小的空间,每次扩容为原来的**1.5倍**;对于**随机访问**get和set操作效率高于LinkedList
 -   LinkedList: 底层使用**双向链表结构**; **线程不安全**; 对于频繁的**插入, 删除**操作效率比ArrayList高
 -   Vector: 底层使用**动态数组结构**; **线程安全**,效率低; 默认创建**10个大小**的数组,每次扩容为原来的**2倍**</div>
 
@@ -453,7 +456,25 @@ System.out.println(set);
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191225180620804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXhpbmd3dQ==,size_16,color_FFFFFF,t_70)
 
-#### 1.3 重写方法原则
+#### 1.3 HashSet如何检查重复
+
+当你把对象加入`HashSet`时，HashSet会先计算对象的`hashcode`值来判断对象加入的位置，同时也会与其他加入的对象的hashcode值作比较，如果没有相符的hashcode，HashSet会假设对象没有重复出现。但是如果发现有相同hashcode值的对象，这时会调用`equals（）`方法来检查hashcode相等的对象是否真的相同。如果两者相同，HashSet就不会让加入操作成功。
+
+**hashCode（）与equals（）的相关规定：**
+
+1. 如果两个对象相等，则hashcode一定也是相同的
+2. 两个对象相等,对两个equals方法返回true
+3. 两个对象有相同的hashcode值，它们也不一定是相等的
+4. 综上，equals方法被覆盖过，则hashCode方法也必须被覆盖
+5. hashCode()的默认行为是对堆上的对象产生独特值。如果没有重写hashCode()，则该class的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）。
+
+**==与equals的区别**
+
+1. ==是判断两个变量或实例是不是指向同一个内存空间 equals是判断两个变量或实例所指向的内存空间的值是不是相同
+2. ==是指对内存地址进行比较 equals()是对字符串的内容进行比较
+3. ==指引用是否相同 equals()指的是值是否相同
+
+#### 1.4 重写方法原则
 
 一般用idea自动生成的重写方法hashCode和equals方法就可以了，复写的hashCode方法有31这个数字。
 
@@ -469,7 +490,7 @@ System.out.println(set);
 - 相等的对象必须具有相等的散列码
 - 参与计算hashCode 的对象的属性也应该参与到equals() 中进行计算
 
-#### 1.4 示例
+#### 1.5 示例
 
 ```java
 Set set = new HashSet();
@@ -574,7 +595,7 @@ set.add(new User("Tom",12));
 set.add(new User("Tom",12));
 set.add(129);
 
-// 打印输出看似有序，是由于每个数据还维护了两个引用
+// 打印输出是按照元素添加的顺序，原因是由于每个数据还维护了两个引用
 // 存储位置是由hash值决定的
 Iterator iterator = set.iterator();
 while(iterator.hasNext()){
@@ -731,16 +752,71 @@ HashMap是Map接口的主要实现类。允许使用null键和null值。
 
 #### 1.3 底层实现
 
-JDK7：
+##### JDK8之前：
 
 - `new HashMap()`：创建了一个长度为**16的Entry[] table数组**
 - **数组+链表**(形成链表时：**新的元素指向旧的元素**)
 
-JDK8：
+JDK1.8 之前 `HashMap` 底层是 **数组和链表** 结合在一起使用也就是 **链表散列**。**HashMap 通过 key 的 hashCode 经过扰动函数处理过后得到 hash 值，然后通过 (n - 1) & hash 判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key 是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突**。
+
+**所谓扰动函数指的就是 HashMap 的 hash 方法。使用 hash 方法也就是扰动函数是为了防止一些实现比较差的 hashCode() 方法, 换句话说使用扰动函数之后可以减少碰撞**。
+
+JDK1.8的hash方法源码:
+
+```java
+static final int hash(Object key) {
+    int h;
+    // key.hashCode()：返回散列值也就是hashcode
+    // ^ ：按位异或
+    // >>>:无符号右移，忽略符号位，空位都以0补齐
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+```
+
+所谓 **“拉链法”** 就是：将链表和数组相结合。也就是说创建一个链表数组，数组中每一格就是一个链表。若遇到哈希冲突，则将冲突的值加到链表中即可。
+
+##### JDK8之后:
+
+推荐阅读:  [Java 8系列之重新认识HashMap](https://zhuanlan.zhihu.com/p/21673805)
+
+ JDK1.8之后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为8）时，将链表转化为红黑树，以减少搜索时间。TreeMap、TreeSet以及JDK1.8之后的HashMap底层都用到了红黑树。红黑树就是为了解决二叉查找树的缺陷，因为二叉查找树在某些情况下会退化成一个线性结构。
 
 - `new HashMap()`：**没有创建**一个长度为16的数组，首次**调用put()方法**，底层创建成都为**16的 Node[] 数组**
 - **数组+链表+红黑树**(形成链表时：**旧的元素指向新的元素**)
 - 当数组的某一个索引位置上的元素以**链表形式存在的数据个数(大于8) 且当前数组的长度(大于64)**时，此索引位置上的**所有数据改为使用红黑树存储**
+
+**创建时不指定容量大小,HashMap默认初始化为16,每次扩容为原来的2倍;创建时指定容量初始值,HashMap总是使用2的幂作为哈希表的大小,会将其扩充为2的幂次方大小(`tableSizeFor()`方法保证).**
+
+下面这个方法保证了 HashMap 总是使用2的幂作为哈希表的大小:
+
+```java
+/**
+  * Returns a power of two size for the given target capacity.
+  */
+static final int tableSizeFor(int cap) {
+    int n = cap - 1;
+    n |= n >>> 1;
+    n |= n >>> 2;
+    n |= n >>> 4;
+    n |= n >>> 8;
+    n |= n >>> 16;
+    return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+```
+
+##### HashMap的长度为什么是2的幂次方:
+
+为了能让 HashMap 存取高效，尽量较少碰撞，也就是要尽量把数据分配均匀。
+
+经过hash方法得到的散列码是不能直接拿来用的,一般要先对数组的长度取模,得到的余数用来存放的位置.数组的下标的计算方法是`(n-1)&hash`(n代表数组长度). **取余(%)操作中如果除数是2的幂次则等价于与其除数减一的与(&)操作（也就是说 hash%length==hash&(length-1)的前提是 length 是2的 n 次方；）。”** 并且 **采用二进制位操作 &，相对于%能够提高运算效率，这就解释了 HashMap 的长度为什么是2的幂次方**.
+
+补充:
+
+与运算(&),或运算(|),异或运算(^): 参加运算的两个对象,按二进制位进行运算.
+
+- &: 两个同时为1，结果为1，否则为0; (0&0=0；0&1=0；1&0=0；1&1=1;)
+- |: 参加运算的两个对象，一个为1，其值为1; (0|0=0； 0|1=1； 1|0=1；  1|1=1;)
+- ^: 参与运算的两个对象的二进制位值不同，则该位结果为1，否则为0; (0^0=0； 0^1=1； 1^0=1；  1^1=0;)
 
 #### 1.4 添加元素的过程(JDK7)
 
@@ -776,7 +852,18 @@ JDK8：
 - 负载因子越小，就越容易触发扩容，数据密度也越小，意味着发生碰撞的几率越小，数组中的链表也就越短，查询和插入时比较的次数也越小，性能会更高。但是会**浪费一定的内存空间**。而且经常扩容也会影响性能
 - 按照语言参考及研究经验，会将负载因子设置为 **0.7~0.75**，此时平均检索长度接近于常数
 
-#### 1.7 示例
+#### 1.7 HashMap与HashSet 的区别
+
+如果你看过 `HashSet` 源码的话就应该知道：HashSet 底层就是基于 HashMap 实现的。（HashSet 的源码非常非常少，因为除了 `clone()`、`writeObject()`、`readObject()`是 HashSet 自己不得不实现之外，其他方法都是直接调用 HashMap 中的方法。
+
+| HashMap                          | HashSet                                                      |
+| -------------------------------- | ------------------------------------------------------------ |
+| 实现了Map接口                    | 实现Set接口                                                  |
+| 存储键值对                       | 仅存储对象                                                   |
+| 调用 `put（）`向map中添加元素    | 调用 `add（）`方法向Set中添加元素                            |
+| HashMap使用键（Key）计算Hashcode | HashSet使用成员对象来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性， |
+
+#### 1.8 示例
 
 ```java
 Map map = new HashMap();
@@ -939,12 +1026,26 @@ for (User key : keys) {
 
 ### 4.Hashtable与Properties
 
+#### 4.1 HashMap与Hashtable的区别
+
 1.Hashtable比较古老了，JDK1.0就提供了。**Hashtable实现原理和HashMap相同**，功能相同。判断两个key或value值相等的标准也一致。
 
-HashMap与Hashtable区别：
+HashMap和Hashtable的区别:
 
-- **HashMap线程不安全，Hashtable线程安全**
+1. **线程是否安全：** HashMap 是非线程安全的，HashTable 是线程安全的；HashTable 内部的方法基本都经过`synchronized` 修饰。（如果你要保证线程安全的话就使用 ConcurrentHashMap 吧！）；
+2. **效率：** 因为线程安全的问题，HashMap 要比 HashTable 效率高一点。另外，HashTable 基本被淘汰，不要在代码中使用它；
+3. **对Null key 和Null value的支持：** HashMap 中，null 可以作为键，这样的键只有一个，可以有一个或多个键所对应的值为 null。。但是在 HashTable 中 put 进的键值只要有一个 null，直接抛出 NullPointerException。
+4. **初始容量大小和每次扩充容量大小的不同 ：** ①创建时如果不指定容量初始值，Hashtable 默认的初始大小为11，之后每次扩充，容量变为原来的2n+1。HashMap 默认的初始化大小为16。之后每次扩充，容量变为原来的2倍。②创建时如果给定了容量初始值，那么 Hashtable 会直接使用你给定的大小，而 HashMap 会将其扩充为2的幂次方大小（HashMap 中的`tableSizeFor()`方法保证，下面给出了源代码）。也就是说 HashMap 总是使用2的幂作为哈希表的大小,后面会介绍到为什么是2的幂次方。
+5. **底层数据结构：** JDK1.8 以后的 HashMap 在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为8）时，将链表转化为红黑树，以减少搜索时间。Hashtable 没有这样的机制。
+
+总结：
+
+- **HashMap线程不安全，Hashtable线程安全, HashMap要比HashTable效率要高一点**
 - **HashMap允许使用null作为key或value，Hashtable不允许**
+- **创建时不指定容量大小,HashMap默认初始化为16,每次扩容为原来的2倍,Hashtable默认初始化大小为11,每次扩容为原来的2n+1;创建时指定容量初始值,HashMap总是使用2的幂作为哈希表的大小,会将其扩充为2的幂次方大小(`tableSizeFor()`方法保证),Hashtable会直接使用给定的大小**
+- **JDK1.8以后的HashMap解决hash冲突时,当链表长度大于阈值8且数组长度大于64时,将当前索引位置的链表转为红黑树,Hashtable没有这样的机制**
+
+#### 4.2 Properties的使用
 
 2.Properties 类是 Hashtable 的子类，该对象用于**处理配置文件**。由于属性文件里的 key、value 都是字符串类型，所以 Properties 里的 **key和 value 都是字符串类型**。
 
@@ -964,7 +1065,9 @@ System.out.println("name = " + name);
 
 Collections 是一个操作 Collection 和 Map 等集合的工具类。Collections 中提供了一系列**静态的方法**对集合元素进行**排序、查询和替换**等操作，还提供了对集合对象设置不可变、对集合对象**实现同步控制**等方法。
 
-**1.排序操作**
+参考链接: [Collections工具类和Arrays工具类常见方法](https://gitee.com/SnailClimb/JavaGuide/blob/master/docs/java/basic/Arrays,CollectionsCommonMethods.md)
+
+### 1.排序操作
 
 | 方法                     | 描述                                    |
 | ---------------------- | ------------------------------------- |
@@ -1009,7 +1112,7 @@ default void sort(Comparator<? super E> c) {
 }
 ```
 
-**2.查找、替换操作**
+### 2.查找、替换操作
 
 | 方法                                       | 描述                               |
 | ---------------------------------------- | -------------------------------- |
@@ -1048,7 +1151,7 @@ public static <T> void copy(List<? super T> dest, List<? extends T> src) {
 }
 ```
 
-**3.同步控制操作**
+### 3.同步控制操作
 
 Collections 类中提供了多个 `synchronizedXxx()` 方法，该方法可使将**指定集合包装成线程同步的集合**，从而可以解决多线程并发访问集合时的线程安全问题。
 
@@ -1061,3 +1164,5 @@ List list2 = Collections.synchronizedList(list);
 ```
 
 
+
+参考链接: [JavaGuide--Java集合面试题总结](https://snailclimb.gitee.io/javaguide-interview/#/./docs/b-2Java%E9%9B%86%E5%90%88)

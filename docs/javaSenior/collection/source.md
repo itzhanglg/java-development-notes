@@ -1,3 +1,5 @@
+> 参考: [通过源码一步一步分析ArrayList扩容机制](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/ArrayList-Grow.md)
+
 ### 一.ArrayList
 
 ArrayList 底层是数组队列,相当于**动态数组**.与 Java 中的数组相比,它的容量能动态增长.线性表的顺序存储,插入删除元素的时间复杂度为**O（n）**,求表长以及增加元素,取第 i 元素的时间复杂度为**O（1）** .

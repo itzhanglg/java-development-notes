@@ -60,6 +60,12 @@
       - [深入解析Lock]()
   - JVM
     - [Java内存区域](docs/javaSenior/JVM/memoryArea.md)
+    - [JVM学习-06：JVM之堆空间](docs/javaSenior/JVM/JVMLearn06.md) &nbsp;&nbsp; 
+    - [JVM学习-05：JVM之本地方法与本地方法栈](docs/javaSenior/JVM/JVMLearn05.md)
+    - [JVM学习-04：JVM之Java虚拟机栈](docs/javaSenior/JVM/JVMLearn04.md) &nbsp;&nbsp; 
+    - [JVM学习-03：JVM之运行时数据区、PC寄存器](docs/javaSenior/JVM/JVMLearn03.md)
+    - [JVM学习-02：JVM之类加载过程，类加载器及双亲委派机制](docs/javaSenior/JVM/JVMLearn02.md) &nbsp;&nbsp; 
+    - [JVM学习-01：JVM之体系结构和发展历程](docs/javaSenior/JVM/JVMLearn01.md)
   - 其它         
     - [IO流](docs/javaSenior/ioStream.md) &nbsp;
       [JDK8](docs/javaSenior/JDK8.md) &nbsp;
@@ -107,8 +113,8 @@
 ##### 分布式
   - 分布式架构
     - [集群架构场景化解决方案:一致性hash算法,集群时钟同步,分布式ID,分布式调度及Session共享问题]()
-    - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议及一致性算法](docs/javaEE/distribution.md)
-    - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC]()  
+    - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议(2PC,3PC)及一致性算法(Paxos,Raft)](docs/distribution/distributionTheory.md)
+    - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC](docs/distribution/network.md)  
   - 消息队列
     - [RabbitMQ](#) &nbsp;
       [RocketMQ](#) &nbsp;

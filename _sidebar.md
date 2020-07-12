@@ -24,6 +24,12 @@
 * [线程池学习](docs/javaSenior/concurrence/threadPool)
 * 3.JVM
 * [Java内存区域](docs/javaSenior/JVM/memoryArea)
+- [体系结构和发展历程](docs/javaSenior/JVM/JVMLearn01.md)
+* [类加载过程，类加载器及双亲委派机制](docs/javaSenior/JVM/JVMLearn02.md)
+* [运行时数据区、PC寄存器](docs/javaSenior/JVM/JVMLearn03.md)
+* [Java虚拟机栈](docs/javaSenior/JVM/JVMLearn04.md)
+* [JVM之本地方法与本地方法栈](docs/javaSenior/JVM/JVMLearn05.md)
+* [堆空间](docs/javaSenior/JVM/JVMLearn06.md)
 * 4.其它
 * [IO流](docs/javaSenior/ioStream)
 * [JDK8](docs/javaSenior/JDK8)
@@ -63,7 +69,8 @@
 * 六.分布式
 * 1.分布式架构
 * [集群架构场景化解决方案]()
-* [分布式理论和网络通信](docs/javaEE/distribution)
+* [分布式理论](docs/distribution/distributionTheory)
+* [网络通信](docs/distribution/network)
 * 2.消息队列
 * [RabbitMQ]()
 * [RocketMQ]()

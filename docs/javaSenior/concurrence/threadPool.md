@@ -1,4 +1,4 @@
-该篇文章﻿转载于：[Java线程池学习总结](https://snailclimb.gitee.io/javaguide/#/./docs/java/Multithread/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93) ,个人正在学习中...
+该篇文章﻿转载于：[Java线程池学习总结](https://snailclimb.gitee.io/javaguide/#/./docs/java/Multithread/java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93) 
 
 ## 一 使用线程池的好处
 

@@ -20,7 +20,7 @@
 * [并发编程基础](docs/javaSenior/concurrence/conBasic02)
 * [并发编程原理](docs/javaSenior/concurrence/conPrinciple)
 * [ThreadLocal与AQS](docs/javaSenior/concurrence/threadLocalAndAQS)
-* [线程池原理](docs/javaSenior/concurrence/threadPoolStudy)
+* [线程池总结](docs/javaSenior/concurrence/threadPoolStudy)
 * [线程池学习](docs/javaSenior/concurrence/threadPool)
 * 3.JVM
 * [Java内存区域](docs/javaSenior/JVM/memoryArea)
@@ -90,7 +90,6 @@
 * [SSO单点登录]()
 
 * 八.必备工具
-* [svn]()
 * git
 * [Git入门使用](docs/tools/git/gitBasic)
 * [通俗易懂|用好Git和SVN,轻松驾驭版本管理](docs/tools/git/gitAndSvn.md)
@@ -98,6 +97,7 @@
 * [nginx]()
 * docker
 * [docker入门使用](docs/tools/docker/dockerBasic)
+* [docker推荐文章](docs/tools/docker/dockerResources)
 
 * 九.前端
 * [html/css基础](docs/frontEnd/htmlCssBasic)
@@ -110,11 +110,13 @@
 * [element]()
 * [echarts]()
 
-* 十.操作系统
+* 十.操作系统与网络
 * 1.linux
 * [linux概述及常用命令](docs/operatingSystem/linuxBasic)
 * 2.operating system  
 * [写给大忙人看的操作系统](docs/operatingSystem/os)
+* 3.计算机网络
+* [计算机网络基础知识总结](docs/operatingSystem/network) 
 
 * 十一.数据结构与算法
 * [数据结构]()
@@ -123,3 +125,5 @@
 * 十二.推荐资源
 * [Github上重要的几个搜索技巧](docs/GithubSkill)
 * [超实用网址,GitHub项目和常见面试题](docs/resource)
+* [architect-awesome开源资源](docs/resource2)
+* [my-resources-list](docs/resourcelist)

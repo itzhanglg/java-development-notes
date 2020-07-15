@@ -1,3 +1,5 @@
+> 推荐文章：[GitHub 尽然有这些骚操作，真是涨姿势](https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247490477&idx=1&sn=f5fcae86322ce8055f7932f66696780c&chksm=ebd75aacdca0d3bad57aec268ed475cc95f7748d7f48934bebd22105b8a35443c7b137527207&mpshare=1&srcid=0705PghpJYc9qZb1FD7RhX8g&sharer_sharetime=1593959632738&sharer_shareid=df44f03aa48521ee934afbf7b1b24db9&from=timeline&scene=2&subscene=1&clicktime=1593993891&enterid=1593993891&ascene=14&devicetype=Windows+10+x64&version=62090529&nettype=ctnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AQjBYvs1s%2FkvTZkiisOxa4A%3D&pass_ticket=URGrWH8UtZlIHYWjGlRn94S3mEiIjok7tOJwtfjQM%2FmerHoc0oQK0F25zLYy7Sa2&wx_header=1&key=e73a462697259ba2b570064040495f07d6de9615c4a7556ea4ab8c9977ddab3334da689a3925785d931e0751da920edb8599a6e8dd7e4189f557b1fd5968cc10f0cf155bb82ae98016a6ff9c27844671&uin=MTU0ODQ4ODg4MQ%3D%3D)
+
 GitHub 作为目前广大程序员最大的游乐场,怎么在Github上搜索优秀的项目就显得尤为重要.下面是在Github上快速找到自己需要的开源项目的几个搜索技巧:
 
 ### 一.搜热门
@@ -54,13 +56,9 @@ Awesome 几乎成为了不少 GitHub 用户命名项目的关键字之一,如要
 
 下面是 Github 颇受欢迎上的项目:
 
-[Awesome](https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md) :Windows上优质&精选的最佳应用程序及工具列表
-
-[free-programming-books](https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books-zh.md) :免费的编程相关书籍
-
-[chinese-independent-developer](https://github.com/1c7/chinese-independent-developer) :中国独立开发者项目列表
-
-[chinese-independent-blogs](https://github.com/timqian/chinese-independent-blogs) :中文独立博客列表
-
-[awesome-java-cn](https://github.com/jobbole/awesome-java-cn#ancients) :Java资源大全中文版
+- [Awesome](https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md) :Windows上优质&精选的最佳应用程序及工具列表
+- [free-programming-books](https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books-zh.md) :免费的编程相关书籍
+- [chinese-independent-developer](https://github.com/1c7/chinese-independent-developer) :中国独立开发者项目列表
+- [chinese-independent-blogs](https://github.com/timqian/chinese-independent-blogs) :中文独立博客列表
+- [awesome-java-cn](https://github.com/jobbole/awesome-java-cn#ancients) :Java资源大全中文版
 

@@ -54,7 +54,7 @@
       - [深入解析ThreadLocal](docs/javaSenior/concurrence/threadLocalAndAQS01.md) &nbsp;
         [AQS解析](docs/javaSenior/concurrence/threadLocalAndAQS02.md)
     - 线程池
-      - [线程池原理](docs/javaSenior/concurrence/threadPoolStudy.md) &nbsp;
+      - [线程池总结](docs/javaSenior/concurrence/threadPoolStudy.md) &nbsp;
         [线程池学习](docs/javaSenior/concurrence/threadPool.md)
     - 工具类
       - [深入解析Lock]()
@@ -134,14 +134,14 @@
   - [SSO单点登录](#)
 
 ##### 必备工具
-  - [SVN](#svn)
   - GIT
     - [Git入门使用](docs/tools/git/gitBasic.md) &nbsp;
       [GitHub简单使用](docs/tools/git/github.md)  
     - [通俗易懂|用好Git和SVN,轻松驾驭版本管理](docs/tools/git/gitAndSvn.md) &nbsp;
   - [Nginx](#nginx)
   - Docker
-    - [Docker入门使用](docs/tools/docker/dockerBasic.md)
+    - [Docker入门使用](docs/tools/docker/dockerBasic.md) &nbsp;&nbsp; 
+    - [Docker推荐文章](docs/tools/docker/dockerResources.md)
 
 
 
@@ -156,11 +156,13 @@
   - [Element](#element)
   - [Echarts](#echarts)
 
-##### 操作系统
+##### 操作系统与网络
   - Linux
     - [Linux概述及常用命令](docs/operatingSystem/linuxBasic.md)
   - operating system  
-    - [写给大忙人看的操作系统](docs/operatingSystem/os.md)  
+    - [写给大忙人看的操作系统](docs/operatingSystem/os.md)
+  - 计算机网络
+    - [计算机网络基础知识总结](docs/operatingSystem/network.md)    
 
 ##### 数据结构与算法
   - [数据结构](#数据结构)
@@ -170,6 +172,8 @@
   - [推荐资源]()
     - [Github上重要的几个搜索技巧](docs/GithubSkill.md)
     - [超实用网址,GitHub项目和常见面试题](docs/resource.md)
+    - [architect-awesome开源资源](docs/resource2.md)
+    - [推荐资源网址详细总结](docs/resourcelist.md)
 
 
 ### 待办

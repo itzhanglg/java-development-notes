@@ -3,6 +3,7 @@
 > 推荐资源:
 >
 > - [我和面试官之间关于操作系统的一场对弈！写了很久，希望对你有帮助！](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247486468&idx=1&sn=7189b610fbb300ed7f5d5b71e331c8f4&chksm=cea243cff9d5cad92819361ed40cabc8607f225e2f5c8f96b393cb95b5731086856349bdc517&mpshare=1&scene=1&srcid=&sharer_sharetime=1585491971656&sharer_shareid=97882d908ba6498447727c27e86f5d0e&key=2c4881e20dc9fe0f3407fe9aebff76804375c607f9f966ea2088cfca05ebc61ec1430a325b647680205f0a1a9fc060adbccc39af387149f0c6a2cebd218f5fddab84e94006ca171b7fad54f17e77cec4&ascene=1&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10&version=62080079&lang=zh_CN&exportkey=AcZOX0oxnGWZWAFbTpl%2F39k%3D&pass_ticket=lNQIKpOrHbUrIl4dAPX5VvLUI%2BF8xEVFtV4CKL1gLpiadqSq6r97ArXzpryNl%2F%2Bk)
+> - [我写了一份操作系统词典送给你！](https://mp.weixin.qq.com/s?__biz=MzAxMjEwMzQ5MA==&mid=2448891698&idx=2&sn=6df18fccace21d405535b54df36b71fe&chksm=8fb5451fb8c2cc097b65c738098617ddf06acf1eed2bd306f6f50ad46992c08737a043183f36&mpshare=1&scene=24&srcid=0715420wuAIXYncGQN4NjZVW&sharer_sharetime=1594793001047&sharer_shareid=97882d908ba6498447727c27e86f5d0e&key=512f5ec3dfd47d209806e360ada5156b5e03f6fa30972b257c7adfe11a3d3843321e424a3e8bc1a1b5dcca40a21a00ea3fd57ed9a144e9bc292075c4c2667770933073475daca0587d8543486e8888c6&ascene=14&uin=MTU0ODQ4ODg4MQ%3D%3D&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=AT2XmFhDzHO8pXvHDjZLreg%3D&pass_ticket=URGrWH8UtZlIHYWjGlRn94S3mEiIjok7tOJwtfjQM%2FmerHoc0oQK0F25zLYy7Sa2)
 
 文章主要结构图如下:
 

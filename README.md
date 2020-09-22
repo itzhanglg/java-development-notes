@@ -25,7 +25,7 @@
 
 
 
-##### Java基础知识
+#### Java基础知识
   - [Java概述,变量与运算符,流程控制](docs/javaBase/grammar.md) &nbsp;
   - [一维数组,二维数组及Arrays工具类使用](docs/javaBase/array.md) &nbsp;
   - [类与对象,类的成员及OOP特征](docs/javaBase/object01.md) &nbsp;
@@ -38,7 +38,7 @@
   - [静态代理与动态代理介绍及相关案例](docs/javaSenior/dynamicProxy.md)
   - [枚举概述及使用](docs/javaBase/enum.md)
 
-##### Java高级知识
+#### Java高级知识
   [Java底层知识点学习目录](docs/javaSenior/study.md)
 
   - 容器
@@ -75,7 +75,7 @@
       []() &nbsp;
       []() &nbsp;
 
-##### 数据库
+#### 数据库
   - Mysql
     - [SqlServer基础](docs/database/mysql/sqlserveBase.md) &nbsp;
       [Mysql相关日期处理](docs/database/mysql/mysqlDateHandle.md) &nbsp;
@@ -85,7 +85,7 @@
 
 
 
-##### 常用框架
+#### 常用框架
   - [Servlet,Cookie,Session,JSP,EL表达式,JSTL标签库,AJAX,Filter,Listener基础概念](docs/javaEE/jsp.md)
   - Mybatis
     - [自定义持久层框架简化版](docs/framework/mybatis/mybatis00.md) &nbsp;
@@ -102,7 +102,7 @@
   - [SpringMVC](#springmvc)
     [Hibernate](#hibernate)
 
-##### 微服务
+#### 微服务
   - SpringBoot
     - [SpringBoot基础](docs/microService/springboot/springboot.md)
     - [SpringBoot整合Thymeleaf](docs/microService/springboot/springboot_thymeleaf.md)
@@ -110,7 +110,7 @@
 
 
 
-##### 分布式
+#### 分布式
   - 分布式架构
     - [集群架构场景化解决方案:一致性hash算法,集群时钟同步,分布式ID,分布式调度及Session共享问题]()
     - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议(2PC,3PC)及一致性算法(Paxos,Raft)](docs/distribution/distributionTheory.md)
@@ -126,14 +126,14 @@
   - 分布式搜索引擎
     - [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
 
-##### 认证授权
+#### 认证授权
   - [Cookie/Session/Token基础知识](#)
   - [JWT基础知识](#)
   - [SpringSecurity](#)
   - [Shiro](#shiro)
   - [SSO单点登录](#)
 
-##### 必备工具
+#### 必备工具
   - GIT
     - [Git入门使用](docs/tools/git/gitBasic.md) &nbsp;
       [GitHub简单使用](docs/tools/git/github.md)  
@@ -145,7 +145,7 @@
 
 
 
-##### 前端
+#### 前端
   - [HTML/CSS基础](docs/frontEnd/htmlCssBasic.md)
   - [JavaScript入门](#javascript)
   - jQuery
@@ -156,7 +156,7 @@
   - [Element](#element)
   - [Echarts](#echarts)
 
-##### 操作系统与网络
+#### 操作系统与网络
   - Linux
     - [Linux概述及常用命令](docs/operatingSystem/linuxBasic.md)
   - operating system  
@@ -164,11 +164,11 @@
   - 计算机网络
     - [计算机网络基础知识总结](docs/operatingSystem/network.md)    
 
-##### 数据结构与算法
+#### 数据结构与算法
   - [数据结构](#数据结构)
   - [算法](#算法)
 
-##### 资源
+#### 资源
   - [推荐资源]()
     - [Github上重要的几个搜索技巧](docs/GithubSkill.md)
     - [超实用网址,GitHub项目和常见面试题](docs/resource.md)
@@ -190,12 +190,6 @@
 <span style="font-size:20px;">**关于转载**</span>
 
 如果你需要转载本仓库的一些文章到自己的博客的话，记得注明原文地址就可以了。
-
-<span style="font-size:20px;">**如何对该开源文档进行贡献**</span>
-
-1. 笔记内容难免会有笔误，可以帮我找错别字。
-2. 很多知识点可能没有涉及到，可以对其他知识点进行补充。
-3. 现有的知识点难免存在不完善或者错误，可以对已有知识点进行修改/补充。
 <br/>
 <br/>
 <br/>

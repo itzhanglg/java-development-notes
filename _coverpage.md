@@ -11,7 +11,7 @@
 * 评论中可以指出文中不正确的地方和自己的见解，一起学习进步
 
 
-[GitHub](https://github.com/itzhanglg)
+[GitHub](https://github.com/itzhanglg/java-development-notes)
 [开始阅读](http://itzlg.gitee.io/java-development-notes/#/README)
 
 <!-- 背景图片 -->

@@ -50,6 +50,10 @@
 * 4.OSS
 * 5.HDFS
 * 6.HBase
+* 7.Oracle
+    * [创建和管理表、其它数据库对象](docs/database/oracle/ddl.md)
+    * [DML语句相关语法、分析函数](docs/database/oracle/dml.md)
+    * [plsql基本语句、存储过程、触发器](docs/database/oracle/plsql.md)
 
 * 四.常用框架
     * [jsp基础](docs/javaEE/jsp)

@@ -217,138 +217,246 @@ public @ResponseBody User handle(@RequestBody User user) {
 
 #### 1.拦截器(Inteceptor)使用
 
+**监听器、过滤器和拦截器对比**
 
+**Servlet**：处理Request请求和Response响应。
 
+**过滤器**（Filter）：对Request请求起到过滤的作⽤，作⽤在Servlet之前，如果配置为/*可以对所有的资源访问（servlet、js/css静态资源等）进⾏过滤处理。
 
+**监听器**（Listener）：实现了javax.servlet.ServletContextListener 接⼝的服务器端组件，它随 Web应⽤的启动⽽启动，只初始化⼀次，然后会⼀直运⾏监视，随Web应⽤的停⽌⽽销毁。
 
-```
+- 作⽤⼀：做⼀些初始化⼯作，web应⽤中spring容器启动ContextLoaderListener。
+- 作⽤⼆：监听web中的特定事件，⽐如HttpSession,ServletRequest的创建和销毁；变量的创建、 销毁和修改等。可以在某些动作前后增加处理，实现监控，⽐如统计在线⼈数，利⽤ HttpSessionLisener等。
+
+**拦截器**（Interceptor）：是SpringMVC、Struts等表现层框架⾃⼰的，不会拦截 jsp/html/css/image的访问等，只会拦截访问的控制器⽅法（Handler）。 从配置的⻆度也能够总结发现：serlvet、filter、listener是配置在web.xml中的，⽽**interceptor是配置在表现层框架⾃⼰的配置⽂件中**的：
+
+- 在Handler业务逻辑执⾏之前拦截⼀次；
+- 在Handler逻辑执⾏完毕但未跳转⻚⾯之前拦截⼀次；
+- 在跳转⻚⾯之后拦截⼀次。
+
+![image.png](https://gitee.com/itzlg/mypictures/raw/master/img/1589731104903-22a877d8-c38b-414d-b5ca-f8f4ff99267a.png)
+
+**拦截器的执行流程**
+
+在运行程序时，拦截器的执行是有一定顺序的，该顺序与配置文件中所定义的拦截器的顺序相关。单个拦截器在程序中的执行流程如下图所示：
+
+![image-20201029202040278](https://gitee.com/itzlg/mypictures/raw/master/img/image-20201029202040278.png)
+
+1. 程序先执行preHandle()方法,如果该方法的返回值为true,则程序会继续向下执行处理器中的方法,否则将不再向下执行。
+2. 在业务处理器(即控制器Controller类)处理完请求后,会执行postHandle()方法,然后会通过1DispatcherServlet向客户端返回响应。
+3. 在DispatcherServlet处理完请求后,才会执行afterCompletion()方法。
+
+**多个拦截器的执行流程**
+
+多个拦截器（假设有两个拦截器Interceptor1和Interceptor2，并且在配置⽂件中， Interceptor1拦截 器配置在前），在程序中的执⾏流程如下图所示：
+
+<img src="https://gitee.com/itzlg/mypictures/raw/master/img/1589731180841-cba4d2e5-5f40-4024-bbcf-89369d5ffa07.png" alt="image.png" style="zoom: 67%;" />
+
+从图可以看出，当有多个拦截器同时⼯作时，它们的preHandle()⽅法会按照配置⽂件中拦截器的配置顺序执⾏，⽽它们的postHandle()⽅法和afterCompletion()⽅法则会按照配置顺序的反序执⾏。
+
+**自定义SpringMVC拦截器**
+
 1)定义拦截器(实现HandlerInterceptor接口)
-			public class MyHandlerInterceptor implements HandlerInterceptor{
-				@Override
-				public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-					// 从request中获取session
-					HttpSession session = request.getSession();
-					// 从session中获取username
-					Object username = session.getAttribute("username");
-					// 判断username是否为null
-					if (username != null) {
-						// 如果不为空则放行
-						return true;
-					} else {
-						// 如果为空则跳转到登录页面
-						response.sendRedirect(request.getContextPath() + "/user/toLogin.action");
-						return false;
-					}
-				}
-			}
-		2)在springmvc.xml中配置拦截器
-			<!-- 配置拦截器 -->
-			<mvc:interceptors>
-				<mvc:interceptor>
-					<!-- 配置商品被拦截器拦截 -->
-					<mvc:mapping path="/item/**" />
-					<!-- 所有的请求都进入拦截器 -->
-					<!-- <mvc:mapping path="/**" /> -->
-					<!-- 配置具体的拦截器 -->
-					<bean class="com.springmvc.interceptor.MyHandlerInterceptor" />
-				</mvc:interceptor>
-			</mvc:interceptors>
-		
-		总结:
-			preHandle按拦截器定义顺序调用
-			postHandler按拦截器定义逆序调用
-			afterCompletion按拦截器定义逆序调用
 
-			postHandler在拦截器链内所有拦截器返成功调用
-			afterCompletion只有preHandle返回true才调用(当第一个拦截器为不为true时都不会调用)
+```java
+public class MyIntercepter01 implements HandlerInterceptor {
+    
+    /**
+    * 会在handler方法业务逻辑执行之前执行
+    * 往往在这里完成权限校验工作
+    * 返回值Boolean代表是否放行，true代表放行，false代表中止
+    */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    	// 从request中获取session
+        HttpSession session = request.getSession();
+        // 从session中获取username
+        Object username = session.getAttribute("username");
+        // 判断username是否为null
+        if (username != null) {
+            // 如果不为空则放行
+            return true;
+        } else {
+            // 如果为空则跳转到登录页面
+            response.sendRedirect(request.getContextPath() + "/user/toLogin.action");
+            return false;
+        }
+    }
+    
+    /**
+    * 会在handler方法业务逻辑执行之后尚未跳转页面时执行
+    * 参数ModelAndView封装了视图和数据，此时尚未跳转页面，可以针对返回的数据和视图信息进行修改
+    */
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    	System.out.println("MyIntercepter01 postHandle......");
+    }
+    
+    /**
+    * 页面已经跳转渲染完毕之后执行
+    * 参数ex可以在这里捕获异常
+    */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    	System.out.println("MyIntercepter01 afterCompletion......");
+    }  
+}    
 ```
 
+2)在springmvc.xml中配置拦截器
 
+```xml
+<mvc:interceptors>
+    <!--拦截所有handler-->
+    <!--<bean class="com.lagou.edu.interceptor.MyIntercepter01"/>-->
+    
+    <mvc:interceptor>
+		<!--配置当前拦截器的url拦截规则，**代表当前目录下及其子目录下的所有url-->
+		<mvc:mapping path="/**"/>
+		<!--exclude-mapping可以在mapping的基础上排除一些url拦截-->
+		<!--<mvc:exclude-mapping path="/demo/**"/>-->
+		<bean class="com.fishleap.interceptor.MyIntercepter01"/>
+	</mvc:interceptor>
+    
+    <mvc:interceptor>
+    	<mvc:mapping path="/**"/>
+    	<bean class="com.fishleap.interceptor.MyIntercepter02"/>
+    </mvc:interceptor>
+</mvc:interceptors>
+```
+
+总结:
+
+- preHandle按拦截器定义顺序调用；
+- postHandler按拦截器定义逆序调用；在拦截器链内所有拦截器返成功调用。
+- afterCompletion按拦截器定义逆序调用；只有preHandle返回true才调用(当第一个拦截器为不为true时都不会调用)。
 
 #### 2.处理multipart形式的数据
 
+引入依赖：
 
-
-```
-1)配置虚拟目录
-			在tomcat上配置图片虚拟目录，在tomcat下conf/server.xml中添加：
-			<Context docBase="E:\mysource\upload\temp" path="/pic" reloadable="false"/>
-		2)加入jar包
-			commons-fileupload-1.2.2.jar
-			commons-io-2.4.jar
-		3)配置上传解析器(springmvc.xml)
-			<!-- 文件上传,id必须设置为multipartResolver -->
-			<bean id="multipartResolver"
-				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-				<!-- 设置文件上传大小 -->
-				<property name="maxUploadSize" value="5000000" />
-			</bean>
-		4)设置表单可以进行文件上传
-			enctype="multipart/form-data"
-		5)图片上传(形参:MultipartFile pictureFile)
-			// 设置图片名称，不能重复，可以使用uuid
-			String picName = UUID.randomUUID().toString();
-			// 获取文件名
-			String oriName = pictureFile.getOriginalFilename();
-			// 获取图片后缀
-			String extName = oriName.substring(oriName.lastIndexOf("."));
-			// 开始上传
-			pictureFile.transferTo(new File("C:/upload/image/" + picName + extName));
-			// 设置图片名到商品中
-			item.setPic(picName + extName);
-			// 更新商品
-			this.itemService.updateItemById(item);
+```xml
+<!--⽂件上传所需jar坐标--> 
+<dependency> 
+  <groupId>commons-fileupload</groupId> 
+  <artifactId>commons-fileupload</artifactId> 
+  <version>1.3.1</version>
+</dependency>
 ```
 
+配置上传解析器(springmvc.xml)：
 
+```xml
+<!--配置⽂件上传解析器，id是固定的multipartResolver--> 
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+  <!--设置上传⼤⼩，单位字节--> 
+  <property name="maxUploadSize" value="1000000000"/>
+</bean>
+```
+
+设置表单可以进行文件上传：`enctype="multipart/form-data"`。
+
+```html
+<form method="post" enctype="multipart/form-data" action="/demo/upload">
+    <input type="file" name="uploadFile"/>
+    <input type="submit" value="上传"/>
+</form>
+```
+
+图片上传(形参:MultipartFile pictureFile)：
+
+```java
+@RequestMapping(value = "/upload")
+public ModelAndView upload(MultipartFile uploadFile, HttpSession session) throws IOException {
+
+    // 处理上传文件
+    // 重命名，原名123.jpg ，获取后缀
+    String originalFilename = uploadFile.getOriginalFilename();// 原始名称
+    // 扩展名  jpg
+    //String extName = oriName.substring(oriName.lastIndexOf("."));
+    String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1, originalFilename.length());
+    String newName = UUID.randomUUID().toString() + "." + ext;
+
+    // 存储,要存储到指定的文件夹，/uploads/yyyy-MM-dd，考虑文件过多的情况按照日期，生成一个子文件夹
+    String realPath = session.getServletContext().getRealPath("/uploads");
+    String datePath = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    File folder = new File(realPath + "/" + datePath);
+
+    if(!folder.exists()) {
+        folder.mkdirs();
+    }
+
+    // 存储文件到目录
+    uploadFile.transferTo(new File(folder,newName));
+
+    // TODO 文件磁盘路径要更新到数据库字段
+
+    Date date = new Date();
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.addObject("date",date);
+    modelAndView.setViewName("success");
+    return modelAndView;
+}
+```
 
 #### 3.在控制器中处理异常
 
+全局异常处理可以让我们优雅的捕获所有Controller对象handler方法抛出的异常。
 
-
-
-
+```java
+@ControllerAdvice   // 全局异常
+public class HandlerException {
+    
+    @ExceptionHandler(ArithmeticException.class)
+    public ModelAndView exceptionHandler(ArithmeticException e, HttpServletResponse response){
+        // 异常处理逻辑
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("msg", e.getMessage());
+        modelAndView.setViewName("error");
+        return modelAndView;
+    }
+}
 ```
-1)系统中异常包括两类：预期异常和运行时异常RuntimeException。
-2)系统的dao、service、controller出现都通过throws Exception向上抛出，
-最后由springmvc前端控制器交由异常处理器进行异常处理
-3)步骤:
-a.自定义异常类(MyException)
-b.自定义异常处理器(CustomHandlerException)(实现异常处理器HandlerExceptionResolver)
-c.异常处理器配置(将自定义异常处理器注入到spring容器)
-d.编写错误页面(error.jsp)
-```
-
-
 
 #### 4.基于Flash属性跨重定向请求数据传递
 
+重定向时请求参数会丢失,我们往往需要重新携带请求参数,我们可以进行手动参数拼接如下：
 
+```java
+return "redirect:handle01?name=" + name;
+```
 
+但是上述拼接参数的方法属于get请求,携带参数长度有限制,参数安全性也不高。我们可以使用SpringMVC提供的**flash属性机制,向上下文中添加flash属性,框架会在session中记录该属性值,当跳转到页面之后框架会自动删除flash属性**,不需要我们手动删除,通过这种方式进行重定向参数传递,参数长度和安全性都得到了保障,如下：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```java
+/**
+ * SpringMVC 重定向时参数传递的问题
+ * 转发：A 找 B 借钱400，B没有钱但是悄悄的找到C借了400块钱给A
+ *      url不会变,参数也不会丢失,一个请求
+ * 重定向：A 找 B 借钱400，B 说我没有钱，你找别人借去，那么A 又带着400块的借钱需求找到C
+ *      url会变,参数会丢失需要重新携带参数,两个请求
+ */
+@RequestMapping("/handleRedirect")
+public String handleRedirect(String name, RedirectAttributes redirectAttributes) {
+    //return "redirect:handle01?name=" + name;  // 拼接参数安全性、参数长度都有局限
+    // addFlashAttribute方法设置了一个flash类型属性，该属性会被暂存到session中，在跳转到页面之后该属性销毁
+    redirectAttributes.addFlashAttribute("name",name);
+    return "redirect:handler01";
+}
+/**
+ * url: http://localhost:8080/demo/handle01
+ * ModelAttribute接受了Session中的name值并绑定到name属性上
+ * ModelAttribute和RequestBody都可以绑定到字符串类型
+ */
+@RequestMapping(value = "/handler01")
+public ModelAndView handler01(@ModelAttribute("name")String name) {
+    Date date = new Date();
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.addObject("date",date);
+    modelAndView.setViewName("success");
+    return modelAndView;
+}
+```
 
 
 

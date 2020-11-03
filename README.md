@@ -78,6 +78,17 @@
   1. [Java编程规范学习](docs/javaSenior/codingStyle/codingStyle.md)
 
 
+
+#### 操作系统和网络
+**操作系统**
+  1. [写给大忙人看的操作系统](docs/operatingSystem/os.md)
+  2. [Shell编程基础入门](docs/operatingSystem/shell.md)
+
+**计算机网络**
+  1. [计算机网络基础知识总结](docs/operatingSystem/network.md)
+
+
+
 #### 数据存储
 
 **Mysql**
@@ -146,17 +157,6 @@
 **Nginx**
 
 
-#### 分布式
-**分布式架构**
-  - [集群架构场景化解决方案:一致性hash算法,集群时钟同步,分布式ID,分布式调度及Session共享问题]()
-  - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议(2PC,3PC)及一致性算法(Paxos,Raft)](docs/distribution/distributionTheory.md)
-  - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC](docs/distribution/network.md)  
-  
-**Zookeeper**
-
-**Dubbo**
-
-
 #### 微服务
 **SpringCloud**
   1. [微服务概念](docs/microService/springcloud/微服务概念.md)
@@ -176,16 +176,37 @@
 
 #### 高并发
 **Redis**
-  - [Redis](#redis)
+  1. [缓存原理和设计](docs/highConcurrency/redis/缓存原理和设计.md)
+  2. [数据类型与底层数据结构](docs/highConcurrency/redis/数据类型与底层数据结构.md)
+  3. [通讯协议及事件处理机制](docs/highConcurrency/redis/通讯协议及事件处理机制.md)
+  4. [Redis持久化](docs/highConcurrency/redis/Redis持久化.md)
+  5. [发布与订阅、事务、Lua脚本、慢查询日志、监视器](docs/highConcurrency/redis/Redis扩展功能.md)
+  6. [主从复制、哨兵模式、集群与分区](docs/highConcurrency/redis/高可用方案.md)
+  7. [架构设计、缓存问题、缓存与数据库一致性、分布式锁、session分离、阿里Redis使用手册](docs/highConcurrency/redis/企业实战.md)
 
-**消息队列**
-  - [RabbitMQ](#) &nbsp;
-    [RocketMQ](#) &nbsp;
-    [Kafka](#) &nbsp;
-    [ActiveMQ](#activemq)
+**RabbitMQ**
+  1. [消息中间件概述](docs/highConcurrency/rabbitmq/消息中间件概述.md)
+  2. [RabbitMQ概述、常用操作命令、工作流程与工作模式、SpringBoot整合Redis](docs/highConcurrency/rabbitmq/rabbitmq架构与实战.md)
+  3. [消息可靠性及分析、TTL机制、死信队列、延迟队列](docs/highConcurrency/rabbitmq/rabbitmq高级特性.md)
+  4. [RabbitMQ集群与运维](docs/highConcurrency/rabbitmq/rabbitmq集群与运维.md)
 
-**搜索引擎**
-  - [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+**RocketMQ**
+
+**Kafka**
+
+**Elasticsearch**
+  1. [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+
+
+#### 分布式
+**分布式架构**
+  - [集群架构场景化解决方案:一致性hash算法,集群时钟同步,分布式ID,分布式调度及Session共享问题]()
+  - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议(2PC,3PC)及一致性算法(Paxos,Raft)](docs/distribution/distributionTheory.md)
+  - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC](docs/distribution/network.md)  
+  
+**Zookeeper**
+
+**Dubbo**
 
 
 #### 认证授权
@@ -220,13 +241,6 @@
   - [Bootstrap](#bootstrap)
   - [Element](#element)
   - [Echarts](#echarts)
-
-#### 操作系统和网络
-**操作系统**
-  1. [写给大忙人看的操作系统](docs/operatingSystem/os.md)
-
-**计算机网络**
-  1. [计算机网络基础知识总结](docs/operatingSystem/network.md)    
 
 #### 数据结构与算法
   - [数据结构](#数据结构)

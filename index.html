@@ -18,9 +18,9 @@
   <script src="//unpkg.com/docsify-edit-on-github/index.js"></script>
   <script>
     // 离线支持
-    // if (typeof navigator.serviceWorker !== 'undefined') {
-    //   navigator.serviceWorker.register('ol.js')
-    // }
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('ol.js')
+    }
 
     window.$docsify = {
       name: 'java-development',

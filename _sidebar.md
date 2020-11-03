@@ -113,11 +113,19 @@
 
 * 八.高并发
 * 1.Redis
-* 2.消息队列
-    * [RabbitMQ]()
-    * [RocketMQ]()
-    * [Kafka]()
-    * [ActiveMQ](#activemq)
+    * [缓存原理和设计](docs/highConcurrency/redis/缓存原理和设计.md)
+    * [数据类型与底层数据结构](docs/highConcurrency/redis/数据类型与底层数据结构.md)
+    * [通讯协议及事件处理机制](docs/highConcurrency/redis/通讯协议及事件处理机制.md)
+    * [Redis持久化](docs/highConcurrency/redis/Redis持久化.md)
+    * [Redis扩展功能](docs/highConcurrency/redis/Redis扩展功能.md)
+    * [高可用方案](docs/highConcurrency/redis/高可用方案.md)
+    * [企业实战](docs/highConcurrency/redis/企业实战.md)
+* 2.RabbitMQ
+    * [消息中间件概述](docs/highConcurrency/rabbitmq/消息中间件概述.md)
+    * [RabbitMQ架构与实战](docs/highConcurrency/rabbitmq/rabbitmq架构与实战.md)
+    * [RabbitMQ高级特性](docs/highConcurrency/rabbitmq/rabbitmq高级特性.md)
+    * [RabbitMQ集群与运维](docs/highConcurrency/rabbitmq/rabbitmq集群与运维.md)
+
 * 3.分布式搜索引擎
     * [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
 
@@ -154,6 +162,7 @@
 * 十二.操作系统和网络
 * 1.操作系统
     * [写给大忙人看的操作系统](docs/operatingSystem/os)
+    * [Shell编程基础入门](docs/operatingSystem/shell.md)
 * 2.计算机网络
     * [计算机网络基础知识总结](docs/operatingSystem/network) 
 

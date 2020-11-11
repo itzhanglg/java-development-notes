@@ -93,7 +93,12 @@
     * [分布式理论](docs/distribution/distributionTheory)
     * [网络通信](docs/distribution/network)
 * 2.Zookeeper
+    * [Zookeeper基本应用](docs/distribution/zookeeperBasic.md)
+    * [Zookeeper深入进阶](docs/distribution/zookeeperSenior.md)
+    * [Zookeeper源码分析](docs/distribution/zookeeperSource.md)
 * 3.Dubbo
+    * [Dubbo基本应用](docs/distribution/dubboBasic.md)
+    * [Dubbo源码分析](docs/distribution/dubboSenior.md)
 
 * 七.微服务
 * springcloud

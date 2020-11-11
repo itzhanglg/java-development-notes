@@ -205,9 +205,13 @@
   - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC](docs/distribution/network.md)  
   
 **Zookeeper**
+  - [Zookeeper基本应用](docs/distribution/zookeeperBasic.md)
+  - [Zookeeper深入进阶](docs/distribution/zookeeperSenior.md)
+  - [Zookeeper源码分析](docs/distribution/zookeeperSource.md)
 
 **Dubbo**
-
+  - [Dubbo基本应用](docs/distribution/dubboBasic.md)
+  - [Dubbo源码分析](docs/distribution/dubboSenior.md)
 
 #### 认证授权
   - [Cookie/Session/Token基础知识](#)

@@ -203,17 +203,17 @@ Zookeeper服务器的启动，大致可以分为以下五个步骤：
 
 ##### 3.3 Leader选举
 
-**1.初始化Leader选举**。
+**1).初始化Leader选举**。
 
 集群模式特有, zookeeper首先会根据自身的服务器ID (sID) 、最新的ZxID (lastLoggedzxid)和当前的服务器epoch (currentEpoch)来生成一个初始化投票,在初始化过程中,每个服务器都会给自己投票。然后,根据zoo.cfg的配置,创建相应Leader选举算法实现, zookeeper提供了三种默认算法(LeaderElection,AuthFastLeaderElection、FastLeaderElection) ,可通过zoo.cfg中的electionAlg属性来指定,但现只支持FastLeaderElection选举算法。在初始化阶段, zookeeper会创建Leader选举所需的网络I/O层QuorumCnxManager,同时启动对Leader选举端口的监听,等待集群中其他服务器创建连接。
 
-**2.注册JMX服务**。
+**2).注册JMX服务**。
 
-**3.检测当前服务器状态**。
+**3).检测当前服务器状态**。
 
 运行期间, QuorumPeer会不断检测当前服务器状态。在正常情况下, zookeeper服务器的状态在LOOKING、 LEADING、FOLLOWING/OBSERVING之间进行切换。在启动阶段, QuorumPeer的初始状态是LOOKING,因此开始进行Leader选举。
 
-**4.Leader选举**。
+**4).Leader选举**。
 
 Zookeeper的Leader选举过程,简单地讲,就是一个集群中所有的机器相互之间进行一系列投票,选举产生最合适的机器成为Leader,同时其余机器成为Follower或是observer的集群机器角色初始化过程。关于Leader选举算法,简而言之,就是集群中哪个机器处理的数据越新(通常我们根据每个服务器处理过的最大ZxID来比较确定其数据是否更新) ,其越有可能成为Leader。当然,如果集群中的所有机器处理的zxID-致的话,那么sID最大的服务器成为Leader,其余机器称为Follower和observer。
 
@@ -304,6 +304,6 @@ Leader挂后,余下的非Observer服务器都会将自己的服务器状态变�
 
 
 
-<span style="color:red;">
-**注：文章内容来源拉勾教育——Zookeeper课件文档**。
-</span>
+> <span style="color:red;">
+> 注：文章内容来源拉勾教育——Zookeeper课件文档。
+> </span>

@@ -40,11 +40,18 @@
     * [Java编程规范学习](docs/javaSenior/codingStyle/codingStyle.md)
 
 * 三.数据存储
-* 1.mysql
-    * [sqlserver基础](docs/database/mysql/sqlserveBase)
-    * [mysql相关日期处理](docs/database/mysql/mysqlDateHandle)
-    * [mysql行列转换](docs/database/mysql/mysqlUnpivot)
-    * [Mysql索引及高质量Sql建议](docs/database/mysql/sqlAdvise)
+* 1.MySQL
+    * [SQLSERVER基础](docs/database/mysql/sqlserveBase)
+    * [MySQL相关日期处理](docs/database/mysql/mysqlDateHandle)
+    * [MySQL行列转换](docs/database/mysql/mysqlUnpivot)
+    * [MySQL索引原理](docs/database/mysql/MySQL索引原理.md)
+    * [MySQL架构和事务日志](docs/database/mysql/MySQL架构和事务日志.md)
+    * [MySQL集群架构](docs/database/mysql/MySQL集群架构.md)
+    * [ShardingSphere中间件](docs/database/mysql/ShardingSphere中间件.md)
+    * [Mycat中间件](docs/database/mysql/Mycat中间件.md)
+    * [运维和第三方工具](docs/database/mysql/运维和第三方工具.md)
+    * [MySQL优化方案](docs/database/mysql/MySQL优化方案.md)
+    * [MySQL索引及高质量Sql建议](docs/database/mysql/sqlAdvise)
 * 2.MongoDB
 * 3.FastDFS
 * 4.OSS

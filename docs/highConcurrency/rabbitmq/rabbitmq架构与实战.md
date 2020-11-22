@@ -30,7 +30,7 @@ RabbitMQ消息有持久化消息和非持久化消息，这两种消息都会写
 
 RabbitMQ存储层包含**队列索引**和**消息存储**两个部分。
 
-![image-20201118214345604](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20201118214345604.png)
+<img src="https://gitee.com/itzlg/mypictures/raw/master/img/image-20201120202520555.png" alt="image-20201120202520555" style="zoom:50%;" />
 
 下面为队列索引和消息的存储路径：
 

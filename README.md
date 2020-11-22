@@ -68,7 +68,7 @@
      [本地方法与本地方法栈](docs/javaSenior/JVM/JVMLearn05.md) &nbsp;&nbsp;&nbsp;
      [虚拟机堆](docs/javaSenior/JVM/JVMLearn06.md)
   4. [Java内存区域](docs/javaSenior/JVM/memoryArea.md)
-   
+
 **其它**       
   1. [IO流](docs/javaSenior/ioStream.md)
   2. [JDK8](docs/javaSenior/JDK8.md)
@@ -137,7 +137,7 @@
      [Spring IOC容器源码分析](docs/framework/spring/springIOC源码分析.md)
   3. [Spring AOP应用](docs/framework/spring/springAOP应用.md) &nbsp;&nbsp;&nbsp;
      [Spring AOP源码解析](docs/framework/spring/springAOP源码分析.md)
-    
+
 **SpringMVC**
   1. [SpringMVC基本应用](docs/framework/springmvc/springMVC应用.md)
   2. [SpringMVC源码分析](docs/framework/springmvc/springMVC源码分析.md)
@@ -193,7 +193,7 @@
 
 **RabbitMQ**
   1. [消息中间件概述](docs/highConcurrency/rabbitmq/消息中间件概述.md)
-  2. [RabbitMQ概述、常用操作命令、工作流程与工作模式、SpringBoot整合Redis](docs/highConcurrency/rabbitmq/rabbitmq架构与实战.md)
+  2. [RabbitMQ概述、常用操作命令、工作流程与工作模式、SpringBoot整合RabbitMQ](docs/highConcurrency/rabbitmq/rabbitmq架构与实战.md)
   3. [消息可靠性及分析、TTL机制、死信队列、延迟队列](docs/highConcurrency/rabbitmq/rabbitmq高级特性.md)
   4. [RabbitMQ集群与运维](docs/highConcurrency/rabbitmq/rabbitmq集群与运维.md)
 
@@ -210,7 +210,7 @@
   - [集群架构场景化解决方案:一致性hash算法,集群时钟同步,分布式ID,分布式调度及Session共享问题]()
   - [分布式架构理论:一致性,CAP定理,BASE定理,一致性协议(2PC,3PC)及一致性算法(Paxos,Raft)](docs/distribution/distributionTheory.md)
   - [分布式架构网络通信:BIO,NIO,AIO和Netty及自定义RPC](docs/distribution/network.md)  
-  
+
 **Zookeeper**
   - [Zookeeper基本应用](docs/distribution/zookeeperBasic.md)
   - [Zookeeper深入进阶](docs/distribution/zookeeperSenior.md)

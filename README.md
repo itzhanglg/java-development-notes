@@ -197,9 +197,11 @@
   3. [消息可靠性及分析、TTL机制、死信队列、延迟队列](docs/highConcurrency/rabbitmq/rabbitmq高级特性.md)
   4. [RabbitMQ集群与运维](docs/highConcurrency/rabbitmq/rabbitmq集群与运维.md)
 
-**RocketMQ**
-
 **Kafka**
+  1. [Kafka安装与配置、生产与消费、生产者和消费者客户端开发及原理](docs/highConcurrency/kafka/初始Kafka.md)
+  2. [Kafka主题与分区管理、日志存储](docs/highConcurrency/kafka/Kafka高级特性.md)
+
+**RocketMQ**
 
 **Elasticsearch**
   1. [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)

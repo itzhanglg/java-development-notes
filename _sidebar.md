@@ -137,7 +137,7 @@
         * [RabbitMQ高级特性](docs/highConcurrency/rabbitmq/rabbitmq高级特性.md)
         * [RabbitMQ集群与运维](docs/highConcurrency/rabbitmq/rabbitmq集群与运维.md)
     * 3.Kafka
-        * [初识Kafka](docs/highConcurrency/kafka/初始Kafka.md)
+        * [初识Kafka](docs/highConcurrency/kafka/初识Kafka.md)
         * [Kafka高级特性](docs/highConcurrency/kafka/Kafka高级特性.md)
     * 4.分布式搜索引擎
         * [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)

@@ -178,7 +178,7 @@ source /etc/profile
 # 后面的 myKafka 是Kafka在Zookeeper中的根节点路径
 zookeeper.connect=localhost:2181/mykafka
 # 配置Kafka存储持久化数据的目录
-log.dir=/var/fishleap/kafka/kafka-logs
+log.dirs=/var/fishleap/kafka/kafka-logs
 # 创建持久化目录
 mkdir -p /var/fishleap/kafka/kafka-logs
 ```
@@ -872,6 +872,8 @@ kafkaProducer.send(record, (final RecordMetadata metadata, final Exception excep
 
 #### 1.4 序列化
 
+![image-20201205122942405](https://gitee.com/itzlg/mypictures/raw/master/img/image-20201205122942405.png)
+
 **生产者需要用序列化器（Serializer）把对象转换成字节数组才能通过网络发送给Kafka。而消费者需要用反序列化器（Deserializer）把从 Kafka 中收到的字节数组转换成相应的对象**。ByteArray、ByteBuffer、Bytes、Double、Integer、Long、String这几种类都实现了`org.apache.kafka.common.serialization.Serializer` 序列化接口。生产者使用的序列化器和消费者使用的反序列化器是需要一一对应的。
 
 ```java
@@ -886,13 +888,97 @@ public interface Serializer<T> extends Closeable {
 
 如果 Kafka 客户端提供的几种序列化器都无法满足应用需求，则可以选择使用如 Avro、JSON、Thrift、ProtoBuf和Protostuff等通用的序列化工具来实现，或者使用自定义类型的序列化器来实现。
 
+自定义序列化器:
+
+```java
+public class UserSerializer implements Serializer<User> {
+    @Override
+    public void configure(Map<String, ?> configs, boolean isKey) {
+        // do nothing
+        // 用于接收对序列化器的配置参数，并对当前序列化器进行配置和初始化的
+    }
+    
+    @Override
+    public byte[] serialize(String topic, User data) {
+        try {
+            // 如果数据是null，则返回null
+            if (data == null) {
+                return null;
+            }
+            final Integer userId = data.getUserId();
+            final String username = data.getUsername();
+    
+            if (userId != null) {
+                if (username != null) {
+                    final byte[] bytes = username.getBytes("UTF-8");
+                    int length = bytes.length;
+                    // 第一个4个字节用于存储userId的值
+                    // 第二个4个字节用于存储username字节数组的长度int值
+                    // 第三个长度，用于存放username序列化之后的字节数组
+                    ByteBuffer buffer = ByteBuffer.allocate(4 + 4 + length);
+                    // 设置userId
+                    buffer.putInt(userId);
+                    // 设置username字节数组长度
+                    buffer.putInt(length);
+                    // 设置username字节数组
+                    buffer.put(bytes);
+                    // 以字节数组形式返回user对象的值
+                    return buffer.array();
+                }
+            }
+        } catch (Exception e) {
+            throw new SerializationException("数据序列化失败");
+        }
+        return null;
+    }
+    
+    @Override
+    public void close() {
+        // do nothing
+        // 用于关闭资源等操作。需要幂等，即多次调用，效果是一样的。
+    }
+}
+```
+
+生产者中需要配置自定义的序列化器：
+
+```java
+configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+// 设置自定义的序列化器
+configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, UserSerializer.class);
+
+ProducerRecord<String, User> record = new ProducerRecord<String, User>(
+    "tp_user_01",   // topic
+    user.getUsername(),   // key
+    user                  // value
+);
+```
+
+实体类：
+
+```java
+public class User {
+    private Integer userId;
+    private String username;
+    //......
+}    
+```
+
 #### 1.5 分区器
+
+![image-20201205123139662](https://gitee.com/itzlg/mypictures/raw/master/img/image-20201205123139662.png)
 
 **消息在通过send（）方法发往broker的过程中，有可能需要经过拦截器（Interceptor）、序列化器（Serializer）和分区器（Partitioner）的一系列作用之后才能被真正地发往 broker**。消息经过序列化之后就需要确定它发往的分区，如果消息ProducerRecord中指定了partition字段，那么就不需要分区器的作用，因为partition代表的就是所要发往的分区号，否则就需要依赖分区器，根据key这个字段来计算partition的值。**分区器的作用就是为消息分配分区**。
 
 Kafka中提供的默认分区器是`org.apache.kafka.clients.producer.internals.DefaultPartitioner`，它实现了`org.apache.kafka.clients.producer.Partitioner`接口。
 
 ```java
+// 父接口
+public interface Configurable {
+    // 用来获取配置信息及初始化数据
+    void configure(Map<String, ?> configs);
+}
+
 public interface Partitioner extends Configurable, Closeable {
     // 计算分区号，返回值为int类型
     // 参数含义：主题、键、序列化后的键、值、序列化后的值，以及集群的元数据信息
@@ -901,16 +987,91 @@ public interface Partitioner extends Configurable, Closeable {
     void close();
 }
 
-// 父接口
-public interface Configurable {
-    // 用来获取配置信息及初始化数据
-    void configure(Map<String, ?> configs);
+/**
+ * The default partitioning strategy:
+ * <ul>
+ * <li>If a partition is specified in the record, use it
+ * <li>If no partition is specified but a key is present choose a partition based on a hash of the key
+ * <li>If no partition or key is present choose a partition in a round-robin fashion
+ */
+public class DefaultPartitioner implements Partitioner {
+	private final ConcurrentMap<String, AtomicInteger> topicCounterMap = new ConcurrentHashMap<>();
+    
+    public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
+        List<PartitionInfo> partitions = cluster.partitionsForTopic(topic);
+        int numPartitions = partitions.size();
+        //若keyBytes为null，就根据counter递增值进行轮询得到分区编号
+        if (keyBytes == null) {
+            int nextValue = nextValue(topic);
+            List<PartitionInfo> availablePartitions = cluster.availablePartitionsForTopic(topic);
+            // 若存在可用分区，则在可用分区里进行轮询
+            if (availablePartitions.size() > 0) {
+                int part = Utils.toPositive(nextValue) % availablePartitions.size();
+                return availablePartitions.get(part).partition();
+            } else {
+                // 若没有可用分区，就轮询所有分区（不可用分区）
+                return Utils.toPositive(nextValue) % numPartitions;
+            }
+        } else {
+            // 若keyBytes有值，则根据keyBytes的hash值计算分区编号
+            return Utils.toPositive(Utils.murmur2(keyBytes)) % numPartitions;
+        }
+    }
+
+    //获取递增值counter
+    private int nextValue(String topic) {
+        AtomicInteger counter = topicCounterMap.get(topic);
+        //第一次
+        if (null == counter) {
+            counter = new AtomicInteger(ThreadLocalRandom.current().nextInt());
+            AtomicInteger currentCounter = topicCounterMap.putIfAbsent(topic, counter);
+            if (currentCounter != null) {
+                counter = currentCounter;
+            }
+        }
+        //第一次之后递增
+        return counter.getAndIncrement();
+    }
 }
 ```
 
 在默认分区器 DefaultPartitioner 的实现中，close（）是空方法，而在 partition（）方法中定义了主要的分区分配逻辑。如果 key 不为 null，那么默认的分区器会对 key 进行哈希（采用MurmurHash2算法，具备高运算性能及低碰撞率），最终根据得到的哈希值来计算分区号，拥有相同key的消息会被写入同一个分区。如果key为null，那么消息将会以轮询的方式发往主题内的各个可用分区。
 
 注意：如果 key 不为 null，那么计算得到的分区号会是**所有分区**中的任意一个；如果 key为null，那么计算得到的分区号仅为**可用分区**中的任意一个。
+
+生产者发送消息时根据record计算分区编号：
+
+```java
+public class KafkaProducer<K, V> implements Producer<K, V> {
+ 
+    //发送消息
+    @Override
+    public Future<RecordMetadata> send(ProducerRecord<K, V> record, Callback callback) {
+        // intercept the record, which can be potentially modified; this method does not throw exceptions
+        ProducerRecord<K, V> interceptedRecord = this.interceptors.onSend(record);
+        return doSend(interceptedRecord, callback);
+    }
+    
+    // 真真发送消息的方法
+    private Future<RecordMetadata> doSend(ProducerRecord<K, V> record, Callback callback) {
+        int partition = partition(record, serializedKey, serializedValue, cluster);
+        //......
+    }
+    
+    /**
+     * 根据发送的消息计算分区编号，若record指定了partition就返回当前值，
+     * 否则就调用DefaultPartitioner的partition方法来计算分区编号。
+     */
+    private int partition(ProducerRecord<K, V> record, byte[] serializedKey, byte[] serializedValue, Cluster cluster) {
+        Integer partition = record.partition();
+        return partition != null ?
+                partition :
+                partitioner.partition(
+                        record.topic(), record.key(), serializedKey, record.value(), serializedValue, cluster);
+    }
+    
+}    
+```
 
 除了使用 Kafka 提供的默认分区器进行分区分配，还可以使用自定义的分区器，只需同DefaultPartitioner一样实现Partitioner接口即可。
 
@@ -943,13 +1104,15 @@ public class MyPartitioner implements Partitioner {
 }
 ```
 
-自定义分区器后，需要配置参数`partitioner.class`来显示指定自定义的分区器。
+自定义分区器后，生产者中需要配置参数`partitioner.class`来显示指定自定义的分区器。
 
 ```java
 configs.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, MyPartitioner.class.getName());
 ```
 
 #### 1.6 生产者拦截器
+
+![image-20201205134129790](https://gitee.com/itzlg/mypictures/raw/master/img/image-20201205134129790.png)
 
  Kafka一共有两种拦截器：**生产者拦截器和消费者拦截器**。这里主要叙述生产者拦截器。生产者拦截器既可以用来在消息发送前做一些准备工作，比如按照某个规则过滤不符合要求的消息、修改消息的内容等，也可以用来在发送回调逻辑前做一些定制化的需求，比如统计类工作。
 
@@ -980,8 +1143,7 @@ public class ProducerInterceptorPrefix implements ProducerInterceptor<String, St
     @Override
     public ProducerRecord<String, String> onSend(final ProducerRecord<String, String> record) {
         String modifiedValue = "prefix-" + record.value();
-        return new ProducerRecord<>(record.topic(), record.partition(), record.timestamp(),
-                record.key(), modifiedValue, record.headers());
+        return new ProducerRecord<>(record.topic(), record.partition(), record.timestamp(),record.key(), modifiedValue, record.headers());
     }
     
     @Override
@@ -1010,7 +1172,7 @@ public class ProducerInterceptorPrefix implements ProducerInterceptor<String, St
 configs.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, ProducerInterceptorPrefix.class.getName());
 ```
 
-**KafkaProducer中还可以指定多个拦截器以形成拦截链**。拦截链会按照 `interceptor.classes` 参数配置的拦截器的顺序来一一执行（配置的时候，各个拦截器之间使用逗号隔开）。若继续添加一个拦截器类ProducerInterceptorPrefix2，用来为每条消息添加另一个前缀“prefix2-"，则修改配置为：
+**KafkaProducer中还可以指定多个拦截器以形成拦截链**。拦截链会按照 `interceptor.classes` 参数配置的拦截器的顺序来一一执行（配置的时候，各个拦截器之间使用逗号隔开），**应答时也是按照配置顺序来执行**（没有使用栈结构）。若继续添加一个拦截器类ProducerInterceptorPrefix2，用来为每条消息添加另一个前缀“prefix2-"，则修改配置为：
 
 ```java
 configs.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, ProducerInterceptorPrefix.class.getName() + "," + ProducerInterceptorPrefix2.class.getName);
@@ -1060,7 +1222,7 @@ InFlightRequests还可以获得leastLoadedNode（负载最小的Node），负载
 
 ### 3.重要的生产者参数
 
-下面再选择一些重要的参数进行讲解：
+下面再选择一些重要的参数进行讲解：`linger.ms`、 `batch.size`、 `max.in.flight.requests.per.connection` 等参数。
 
 `acks`：**用来指定分区中必须要有多少个副本收到这条消息，生产者才会认为这条消息是成功写入的**。它涉及消息的可靠性和吞吐量之间的权衡。acks参数有3种类型的值（都是**字符串类型**）。
 
@@ -1353,6 +1515,78 @@ public Object deserialize(String topic, byte[] data) {
 }
 ```
 
+上午中根据生产者中自定的序列化器，接下来在消费者中自定义反序列化器如下：
+
+```java
+/**
+ * @author zlg
+ * @create 自定义反序列化器
+ */
+public class UserDeserializer implements Deserializer<User> {
+    
+    @Override
+    public void configure(Map<String, ?> configs, boolean isKey) {}
+    
+    @Override
+    public User deserialize(String topic, byte[] data) {
+        ByteBuffer buffer = ByteBuffer.allocate(data.length);
+        
+        buffer.put(data);
+        buffer.flip();
+        
+        final int userId = buffer.getInt();
+        final int usernameLength = buffer.getInt();
+        
+        String username = new String(data, 8, usernameLength);
+        return new User(userId, username);
+    }
+    
+    @Override
+    public void close() {}
+}
+```
+
+消费者中进行反序列化器配置：
+
+```java
+import java.util.function.Consumer;
+/**
+ * @author zlg
+ * @create 消费者
+ */
+public class UserConsumer {
+    
+    public static void main(String[] args) {
+        Map<String, Object> configs = new HashMap<>();
+        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "atzlg8:9092");
+        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        // 设置自定义的反序列化器
+        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, UserDeserializer.class);
+        
+        configs.put(ConsumerConfig.GROUP_ID_CONFIG, "user_consumer");
+        configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "consumer_id");
+        configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        
+        KafkaConsumer<String, User> consumer = new KafkaConsumer<String, User>(configs);
+        
+        // 订阅主题
+        consumer.subscribe(Collections.singleton("tp_user_01"));
+
+        final ConsumerRecords<String, User> records = consumer.poll(Long.MAX_VALUE);
+        
+        records.forEach(new Consumer<ConsumerRecord<String, User>>() {
+            @Override
+            public void accept(ConsumerRecord<String, User> record) {
+                System.out.println(record.value());
+            }
+        });
+        
+        // 关闭消费者
+        consumer.close();
+    }
+}
+```
+
 #### 2.4 消息消费
 
 消息的消费一般有两种模式：推模式和拉模式。推模式是服务端主动将消息推送给消费者，而拉模式是消费者主动向服务端发起请求来拉取消息。**Kafka中的消费是基于拉模式的**。
@@ -1399,29 +1633,7 @@ public class ConsumerRecord<K, V> {
 
 
 
-## 四.主题与分区
-
-### 1.主题的管理
-
-### 2.初始KafkaAdminClient
-
-### 3.分区的管理
-
-### 4.如何选择合适的分区数
-
-
-
-## 五.日志存储
-
-### 1.文件目录布局
-
-### 2.日志格式的演变
-
-### 3.日志索引
-
-### 4.日志清理
-
-### 5.磁盘存储
+### 
 
 
 

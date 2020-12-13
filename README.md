@@ -202,6 +202,7 @@
   2. [Kafka主题与分区管理、日志存储](docs/highConcurrency/kafka/Kafka高级特性.md)
 
 **RocketMQ**
+  1. [RocketMQ概述、安装与配置、相关高级特性和原理、SpringBoot整合RocketMQ](docs/highConcurrency/rocketmq/初识RocketMQ.md)
 
 **Elasticsearch**
   1. [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)

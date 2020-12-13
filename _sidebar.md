@@ -139,8 +139,10 @@
     * 3.Kafka
         * [初识Kafka](docs/highConcurrency/kafka/初识Kafka.md)
         * [Kafka高级特性](docs/highConcurrency/kafka/Kafka高级特性.md)
-    * 4.分布式搜索引擎
-        * [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+    * 4.RocketMQ
+        * [初识RocketMQ](docs/highConcurrency/rocketmq/初识RocketMQ.md)    
+    * 4.Elasticsearch
+        * [初识Elasticsearch](docs/javaEE/elasticsearch/elasticsearch.md)
 
 
 * 九.认证授权

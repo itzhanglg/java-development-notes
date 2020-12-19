@@ -137,11 +137,12 @@
         * [RabbitMQ高级特性](docs/highConcurrency/rabbitmq/rabbitmq高级特性.md)
         * [RabbitMQ集群与运维](docs/highConcurrency/rabbitmq/rabbitmq集群与运维.md)
     * 3.Kafka
-        * [初识Kafka](docs/highConcurrency/kafka/初识Kafka.md)
+        * [Kafka基础入门](docs/highConcurrency/kafka/初识Kafka.md)
         * [Kafka高级特性](docs/highConcurrency/kafka/Kafka高级特性.md)
     * 4.RocketMQ
-        * [初识RocketMQ](docs/highConcurrency/rocketmq/初识RocketMQ.md)    
-    * 4.Elasticsearch
+        * [RocketMQ基础入门](docs/highConcurrency/rocketmq/初识RocketMQ.md)    
+    * 5.Elasticsearch
+        * [Elasticsearch基础入门](docs/highConcurrency/elasticsearch/elasticsearch基础入门.md)
         * [初识Elasticsearch](docs/javaEE/elasticsearch/elasticsearch.md)
 
 

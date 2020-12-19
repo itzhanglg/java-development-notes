@@ -205,7 +205,8 @@
   1. [RocketMQ概述、安装与配置、相关高级特性和原理、SpringBoot整合RocketMQ](docs/highConcurrency/rocketmq/初识RocketMQ.md)
 
 **Elasticsearch**
-  1. [Elasticsearch入门](docs/javaEE/elasticsearch/elasticsearch.md)
+  1. [Elasticsearch概述、安装与配置、索引/映射/文档操作、Query/Filter DSL、聚合分析、SpringBoot整合Elasticsearch](docs/highConcurrency/elasticsearch/elasticsearch基础入门.md)
+  2. [初识Elasticsearch](docs/javaEE/elasticsearch/elasticsearch.md)
 
 
 #### 分布式

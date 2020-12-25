@@ -242,9 +242,12 @@
   2. [通俗易懂|用好Git和SVN,轻松驾驭版本管理](docs/tools/git/gitAndSvn.md)
 
 **Docker**
-  1. [Docker入门使用](docs/tools/docker/dockerBasic.md) 
-  2. [Docker推荐文章](docs/tools/docker/dockerResources.md)
+  1. [Docker概述、Docker及常用软件安装、DockerFile构建镜像、Swarm集群、Docker Compose](docs/tools/docker/docker基础入门.md)
+  2. [Docker初识](docs/tools/docker/dockerBasic.md) 
+  3. [Docker推荐文章](docs/tools/docker/dockerResources.md)
 
+**Kubernetes**
+  1. [Kubernetes安装与配置、初始化k8s集群、部署MySQL和本地应用到k8s集群](docs/tools/k8s/k8s基础入门.md)
 
 #### 前端
   - [HTML/CSS基础](docs/frontEnd/htmlCssBasic.md)

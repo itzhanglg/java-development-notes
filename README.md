@@ -261,8 +261,9 @@
   - [Echarts](#echarts)
 
 #### 数据结构与算法
-  - [数据结构](#数据结构)
-  - [算法](#算法)
+  1. [数据结构基本概念、线性表、散列表、树、图等基础入门](docs/dataStructure/数据结构基础入门.md)
+  2. [算法基础入门](docs/dataStructure/算法基础入门.md)
+  
 
 #### 推荐资源
   - [Github上重要的几个搜索技巧](docs/GithubSkill.md)

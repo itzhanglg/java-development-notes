@@ -24,6 +24,7 @@
   - [十二.操作系统和网络](#操作系统和网络)
   - [十三.数据结构与算法](#数据结构与算法)
   - [推荐资源](#推荐资源)
+  - [操作文档](#操作文档)
 
 
 
@@ -271,6 +272,24 @@
   - [architect-awesome开源资源](docs/resource2.md)
   - [推荐资源网址详细总结](docs/resourcelist.md)
 
+
+#### 操作文档
+  - [多线程简答题](docs/otherdocs/多线程简答题.md)
+  - [MySQL架构集群搭建](docs/otherdocs/MySQL架构集群搭建.md)
+  - [ShardingJdbc实现分库分表](docs/otherdocs/ShardingJdbc实现分库分表.md)
+  - [MongoDB分片集群搭建](docs/otherdocs/MongoDB分片集群搭建.md)
+  - [FastDFS&&OSS习题思路分析](docs/otherdocs/FastDFS&&OSS习题思路分析.md)
+  - [Redis主从搭建](docs/otherdocs/Redis主从搭建.md)
+  - [RabbitMQ延迟支付](docs/otherdocs/RabbitMQ延迟支付.md)
+  - [Kafka日志收集实操](docs/otherdocs/Kafka日志收集实操.md)
+  - [RocketMQ秒杀习题](docs/otherdocs/RocketMQ秒杀习题.md)
+  - [Elasticsearch习题演示](docs/otherdocs/Elasticsearch习题演示.md)
+  - [Docker构建镜像并搭建集群](docs/otherdocs/Docker构建镜像并搭建集群.md)
+  - [k8s相关使用](docs/otherdocs/k8s相关使用.md)
+  - [SpringCloud功能分析上](docs/otherdocs/SpringCloud功能分析上.md)
+  - [SpringCloud功能分析下](docs/otherdocs/SpringCloud功能分析下.md)
+  - [SpringCLoud项目实战](docs/otherdocs/SpringCLoud项目实战.md)
+  - [SpringCLoud项目部署说明文档](docs/otherdocs/SpringCLoud项目部署说明文档.md)
 
 ### 待办
 - [x] springboot(---正在进行中---)
